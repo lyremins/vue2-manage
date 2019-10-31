@@ -19,7 +19,7 @@
             this.myChart = echarts.init(document.getElementById('line1'));
             this.initData();
         },
-        props: ['sevenDate', 'sevenDay'],
+        props: ['xData', 'yData'],
         methods: {
             initData(){
                 const colors = ['#5793f3', '#675bba', '#d14a61'];
@@ -33,7 +33,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['新注册用户', '新增订单', '新增管理员']
+                        data:['新注册用户', '新增飞机', '新增管理员']
                     },
                     toolbox: {
                         show: true,
@@ -49,14 +49,14 @@
                     xAxis:  {
                         type: 'category',
                         boundaryGap: false,
-                        data: this.sevenDay
+                        data: this.xData
                     },
                     yAxis: [
                         {
                           type: 'value',
                           name: '用户',
                           min: 0,
-                          max: 200,
+                          max: 20,
                           position: 'left',
                           axisLine: {
                               lineStyle: {
@@ -71,7 +71,7 @@
                           type: 'value',
                           name: '订单',
                           min: 0,
-                          max: 200,
+                          max: 20,
                           position: 'right',
                           axisLine: {
                               lineStyle: {
@@ -85,51 +85,53 @@
                     ],
                     series: [
                         {
-                            name:'新注册用户',
+                            name:'飞行计划数',
                             type:'line',
-                            data:this.sevenDate[0],
+                            data:this.yData,
                             yAxisIndex: 1,
                             markPoint: {
                                 data: [
-                                    {type: 'max', name: '最大值'},
-                                    {type: 'min', name: '最小值'}
+                                    10,15,11,18
                                 ]
                             },
                         },
-                        {
-                            name:'新增订单',
-                            type:'line',
-                            data:this.sevenDate[1],
-                            yAxisIndex: 1,
-                            markPoint: {
-                                data: [
-                                    {type: 'max', name: '最大值'},
-                                    {type: 'min', name: '最小值'}
-                                ]
-                            },
-                        },
-                        {
-                            name:'新增管理员',
-                            type:'line',
-                            data:this.sevenDate[2],
-                            yAxisIndex: 1,
-                            markPoint: {
-                                data: [
-                                    {type: 'max', name: '最大值'},
-                                    {type: 'min', name: '最小值'}
-                                ]
-                            },
-                        }
+                        // {
+                        //     name:'新增飞机',
+                        //     type:'line',
+                        //     data:this.sevenDate[1],
+                        //     yAxisIndex: 1,
+                        //     markPoint: {
+                        //         data: [
+                        //             {type: 'max', name: '最大值'},
+                        //             {type: 'min', name: '最小值'}
+                        //         ]
+                        //     },
+                        // },
+                        // {
+                        //     name:'新增管理员',
+                        //     type:'line',
+                        //     data:this.sevenDate[2],
+                        //     yAxisIndex: 1,
+                        //     markPoint: {
+                        //         data: [
+                        //             {type: 'max', name: '最大值'},
+                        //             {type: 'min', name: '最小值'}
+                        //         ]
+                        //     },
+                        // }
                     ]
               };
                 this.myChart.setOption(option);
+                this.myChart.on('click', function (param) {
+            console.log(param);//这里根据param填写你的跳转逻辑
+        })
             }
         },
         watch: {
-            sevenDate: function (){
+            xData: function (){
                 this.initData()
             },
-            sevenDay: function (){
+            yData: function (){
                 this.initData()
             }
         }

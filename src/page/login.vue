@@ -3,7 +3,7 @@
 	  	<transition name="form-fade" mode="in-out">
 	  		<section class="form_contianer" v-show="showLogin">
 		  		<div class="manage_tip">
-		  			<p>elm后台管理系统</p>
+		  			<p>外场保障数据管理系统</p>
 		  		</div>
 		    	<el-form :model="loginForm" :rules="rules" ref="loginForm">
 					<el-form-item prop="username">
@@ -101,16 +101,20 @@
 <style lang="less" scoped>
 	@import '../style/mixin';
 	.login_page{
-		background-color: #324057;
+        background: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571911219943&di=1b086bb6b05dad7e265e83ef43c18d64&imgtype=0&src=http%3A%2F%2Fimg2.cache.netease.com%2Fphoto%2F0001%2F2015-07-18%2FAUQASH7Q5MC30001.jpg');
+        background-size: 100% 100%;
+        // background-color: #324057;
+
 	}
 	.manage_tip{
 		position: absolute;
-		width: 100%;
+        width: 100%;
+        margin: 0 auto;
 		top: -100px;
 		left: 0;
 		p{
-			font-size: 34px;
-			color: #fff;
+			font-size: 42px;
+			color: blue;
 		}
 	}
 	.form_contianer{

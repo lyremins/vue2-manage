@@ -1,30 +1,51 @@
 <template>
     <div>
         <head-top></head-top>
-		<section class="data_section">
-			<header class="section_title">数据统计</header>
-			<el-row :gutter="20" style="margin-bottom: 10px;">
-                <el-col :span="4"><div class="data_list today_head"><span class="data_num head">当日数据：</span></div></el-col>
-				<el-col :span="4"><div class="data_list"><span class="data_num">{{userCount}}</span> 新增用户</div></el-col>
-				<el-col :span="4"><div class="data_list"><span class="data_num">{{orderCount}}</span> 新增订单</div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{adminCount}}</span> 新增管理员</div></el-col>
-			</el-row>
-            <el-row :gutter="20">
-                <el-col :span="4"><div class="data_list all_head"><span class="data_num head">总数据：</span></div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{allUserCount}}</span> 注册用户</div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{allOrderCount}}</span> 订单</div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{allAdminCount}}</span> 管理员</div></el-col>
-            </el-row>
-		</section>
-		<tendency :sevenDate='sevenDate' :sevenDay='sevenDay'></tendency>
+ <div class="block">
+    <span class="demonstration">默认为 Date 对象</span>
+    <div class="demonstration">值：{{ value1 }}</div>
+    <el-date-picker
+      v-model="value1"
+      type="date"
+      placeholder="选择日期"
+      format="yyyy 年 MM 月 dd 日">
+    </el-date-picker>
+  </div>
+  <div class="block">
+    <span class="demonstration">使用 value-format</span>
+    <div class="demonstration">值：{{ value2 }}</div>
+    <el-date-picker
+      v-model="value2"
+      type="date"
+      placeholder="选择日期"
+      format="yyyy 年 MM 月 dd 日"
+      value-format="yyyy-MM-dd">
+    </el-date-picker>
+  </div>
+  <div class="block">
+    <span class="demonstration">时间戳</span>
+    <div class="demonstration">值：{{ value3 }}</div>
+    <el-date-picker
+      type="date"
+      placeholder="选择日期"
+      format="yyyy 年 MM 月 dd 日"
+      value-format="timestamp">
+    </el-date-picker>
+  </div>
     </div>
 </template>
 
 <script>
 	import headTop from '../components/headTop'
-	import tendency from '../components/tendency' 
+	import tendency from '../components/tendency'
 	import dtime from 'time-formater'
-	import {userCount, orderCount, getUserCount, getOrderCount, adminDayCount, adminCount} from '@/api/getData'
+    import {userCount,
+            orderCount,
+            getUserCount,
+            getOrderCount,
+            adminDayCount,
+            adminCount,
+            getPlan} from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -35,7 +56,15 @@
                 allOrderCount: null,
                 allAdminCount: null,
     			sevenDay: [],
-    			sevenDate: [[],[],[]],
+                sevenDate: [[],[],[]],
+                planData:{},
+                xData: [],
+                yData: [],
+                startTime: '',
+                endTime: '',
+        value1: '',
+        value2: '',
+        value3: ''
     		}
     	},
     	components: {
@@ -58,22 +87,24 @@
     			const today = dtime().format('YYYY-MM-DD')
     			Promise.all([userCount(today), orderCount(today), adminDayCount(today), getUserCount(), getOrderCount(), adminCount()])
     			.then(res => {
-    				this.userCount = res[0].count;
-    				this.orderCount = res[1].count;
-                    this.adminCount = res[2].count;
-                    this.allUserCount = res[3].count;
-                    this.allOrderCount = res[4].count;
-                    this.allAdminCount = res[5].count;
+    				this.userCount = 15;
+    				this.orderCount = 8;
+                    this.adminCount = 11;
+                    this.allUserCount = 3;
+                    this.allOrderCount = 25;
+                    this.allAdminCount = 7;
     			}).catch(err => {
     				console.log(err)
-    			})
+                })
+                this.getPlan();
     		},
     		async getSevenData(){
     			const apiArr = [[],[],[]];
     			this.sevenDay.forEach(item => {
-    				apiArr[0].push(userCount(item))
-    				apiArr[1].push(orderCount(item))
-                    apiArr[2].push(adminDayCount(item))
+                    console.log(item);
+    				apiArr[0].push([5,7,9])
+    				apiArr[1].push([5,7,9])
+                    apiArr[2].push([5,7,9])
     			})
     			const promiseArr = [...apiArr[0], ...apiArr[1], ...apiArr[2]]
     			Promise.all(promiseArr).then(res => {
@@ -87,7 +118,34 @@
     			}).catch(err => {
     				console.log(err)
     			})
-    		}
+            },
+            async getPlan() {
+                const mapLists = {};
+                this.planData = await getPlan();
+                this.planData.data.forEach(element => {
+                    mapLists[element.airName] || (mapLists[element.airName] = []);
+                    mapLists[element.airName].push(element);
+                });
+                const name = [];
+                const number = [];
+                 Object.keys(mapLists).forEach((key,value) => {
+                     console.log(mapLists[key].length);
+                    this.xData.push(key);
+                    this.yData.push(mapLists[key].length);
+                });
+                console.log(this.xData);
+                console.log(this.yData);
+            },
+            search() {
+                console.log(this.startTime);
+                console.log(this.endTime);
+                if (!this.startTime || !this.endTime) {
+                    this.$message({
+                        message: '要记得选择日期',
+                        type: 'warning'
+                    });
+                }
+            }
     	}
     }
 </script>
@@ -127,8 +185,16 @@
         .all_head{
             background: #20A0FF;
         }
+        .block {
+            width: 50%;
+        }
 	}
     .wan{
         .sc(16px, #333)
     }
+        .dateSelect {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 31%;
+        }
 </style>

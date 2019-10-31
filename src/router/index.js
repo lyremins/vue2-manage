@@ -20,6 +20,26 @@ const vueEdit = r => require.ensure([], () => r(require('@/page/vueEdit')), 'vue
 const adminSet = r => require.ensure([], () => r(require('@/page/adminSet')), 'adminSet');
 const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
 const explain = r => require.ensure([], () => r(require('@/page/explain')), 'explain');
+const addPersonnel = r => require.ensure([], () => r(require('@/page/addPersonnel')), 'addPersonnel');
+const personnel = r => require.ensure([], () => r(require('@/page/personnel')), 'personnel');
+const addAirplane = r => require.ensure([], () => r(require('@/page/addAirplane')), 'addAirplane');
+const airplane = r => require.ensure([], () => r(require('@/page/airplane')), 'airplane');
+const addEquip = r => require.ensure([], () => r(require('@/page/addEquip')), 'addEquip');
+const equip = r => require.ensure([], () => r(require('@/page/equip')), 'equip');
+const addEnsure = r => require.ensure([], () => r(require('@/page/addEnsure')), 'addEnsure');
+const ensure = r => require.ensure([], () => r(require('@/page/ensure')), 'ensure');
+const addDevice = r => require.ensure([], () => r(require('@/page/addDevice')), 'addDevice');
+const device = r => require.ensure([], () => r(require('@/page/device')), 'device');
+const vehicle = r => require.ensure([], () => r(require('@/page/vehicle')), 'vehicle');
+const addVehicle = r => require.ensure([], () => r(require('@/page/addVehicle')), 'addVehicle');
+const subject = r => require.ensure([], () => r(require('@/page/subject')), 'subject');
+const addSubject = r => require.ensure([], () => r(require('@/page/addSubject')), 'addSubject');
+const situation = r => require.ensure([], () => r(require('@/page/situation')), 'situation');
+const addAmmo = r => require.ensure([], () => r(require('@/page/addAmmo')), 'addAmmo');
+const ammo = r => require.ensure([], () => r(require('@/page/ammo')), 'ammo');
+const addPlan= r => require.ensure([], () => r(require('@/page/addPlan')), 'addPlan');
+const plan = r => require.ensure([], () => r(require('@/page/plan')), 'plan');
+const config = r => require.ensure([], () => r(require('@/page/config')), 'config');
 
 const routes = [
 	{
@@ -90,6 +110,90 @@ const routes = [
 			path: '/explain',
 			component: explain,
 			meta: ['说明', '说明'],
+		},{
+			path: '/addPersonnel',
+			component: addPersonnel,
+			meta: ['添加数据', '添加机务人员'],
+		},{
+			path: '/personnel',
+			component: personnel,
+			meta: ['外场保障', '机务人员管理'],
+		},{
+			path: '/addAirplane',
+			component: addAirplane,
+			meta: ['添加数据', '添加飞机数据'],
+		},{
+			path: '/airplane',
+			component: airplane,
+			meta: ['外场保障', '飞机数据管理'],
+		},{
+			path: '/equip',
+			component: equip,
+			meta: ['外场保障', '装备数据管理'],
+		},{
+			path: '/addEquip',
+			component: addEquip,
+			meta: ['添加数据', '添加装备数据'],
+		},{
+			path: '/ensure',
+			component: ensure,
+			meta: ['外场保障', '保障数据管理'],
+		},{
+			path: '/addEnsure',
+			component: addEnsure,
+			meta: ['添加数据', '添加保障数据'],
+		},{
+			path: '/device',
+			component: device,
+			meta: ['外场保障', '器件数据管理'],
+		},{
+			path: '/addDevice',
+			component: addDevice,
+			meta: ['添加数据', '添加器件数据'],
+		},{
+			path: '/vehicle',
+			component: vehicle,
+			meta: ['外场保障', '车辆数据管理'],
+		},{
+			path: '/addVehicle',
+			component: addVehicle,
+			meta: ['添加数据', '添加车辆数据'],
+		},{
+			path: '/subject',
+			component: subject,
+			meta: ['外场保障', '条目数据管理'],
+		},{
+			path: '/addSubject',
+			component: addSubject,
+			meta: ['添加数据', '添加条目数据'],
+		},{
+			path: '/situation',
+			component: situation,
+			meta: ['数据管理', '态势数据'],
+		},{
+			path: '/analys',
+			component: home,
+			meta: ['统计分析'],
+		},{
+			path: '/ammo',
+			component: ammo,
+			meta: ['外场保障', '弹药数据'],
+		},{
+			path: '/addAmmo',
+			component: addAmmo,
+			meta: ['数据管理', '添加弹药数据'],
+		},{
+			path: '/plan',
+			component: plan,
+			meta: ['外场保障', '飞行计划'],
+		},{
+			path: '/addPlan',
+			component: addPlan,
+			meta: ['数据管理', '添加飞行计划'],
+		},{
+			path: '/config',
+			component: config,
+			meta: ['数据管理', '状态管理'],
 		}]
 	}
 ]

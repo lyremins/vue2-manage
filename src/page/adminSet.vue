@@ -7,9 +7,9 @@
                 <li>
                     <span>姓名：</span><span>{{adminInfo.user_name}}</span>
                 </li>
-                <li>
+                <!-- <li>
                     <span>注册时间：</span><span>{{adminInfo.create_time}}</span>
-                </li>
+                </li> -->
                 <li>
                     <span>管理员权限：</span><span>{{adminInfo.admin}}</span>
                 </li>
@@ -27,7 +27,7 @@
                       <img v-if="adminInfo.avatar" :src="baseImgPath + adminInfo.avatar" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
-                </li>    
+                </li>
             </ul>
         </div>
     </div>
