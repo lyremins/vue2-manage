@@ -1,6 +1,7 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
+        <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
         <div class="table_container">
             <el-table
 		      :data="tableData"
@@ -146,7 +147,7 @@
                   </template>
                 </el-table-column>
 		    </el-table>
-		    <div class="Pagination" style="text-align: left;margin-top: 10px;">
+		    <!-- <div class="Pagination" style="text-align: left;margin-top: 10px;">
                 <el-pagination
                   @size-change="handleSizeChange"
                   @current-change="handleCurrentChange"
@@ -155,8 +156,8 @@
                   layout="total, prev, pager, next"
                   :total="count">
                 </el-pagination>
-            </div>
-            <el-dialog title="修改车辆信息" v-model="dialogFormVisible">
+            </div> -->
+            <el-dialog title="修改车辆信息" :visible.sync="dialogFormVisible">
                 <el-form :model="selectTable">
                     <el-form-item label="车辆名称" label-width="100px">
                         <el-input v-model="selectTable.name" auto-complete="off"></el-input>
@@ -209,7 +210,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getVehicle,getVehicleCount,getVehicleById,updateVehicle,deleteVehicle } from '@/api/getData'
+    import { getVehicle,getVehicleCount,getVehicleById,updateVehicle,deleteVehicle,addVehicle } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
    export default {
         data(){

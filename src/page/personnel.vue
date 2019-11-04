@@ -139,7 +139,7 @@
                 label="执行重大任务"
                 width="180">
               </el-table-column> -->
-            <el-table-column label="操作" width="200">
+            <el-table-column label="操作" width="300">
                   <template slot-scope="scope">
                     <el-button
                       size="mini"
@@ -155,7 +155,7 @@
                   </template>
                 </el-table-column>
 		    </el-table>
-		    <div class="Pagination" style="text-align: left;margin-top: 10px;">
+		    <!-- <div class="Pagination" style="text-align: left;margin-top: 10px;">
                 <el-pagination
                   @size-change="handleSizeChange"
                   @current-change="handleCurrentChange"
@@ -164,8 +164,8 @@
                   layout="total, prev, pager, next"
                   :total="count">
                 </el-pagination>
-            </div>
-            <el-dialog title="修改人员信息" v-model="dialogFormVisible">
+            </div> -->
+            <el-dialog title="修改人员信息" :visible.sync="dialogFormVisible">
                 <el-form :model="selectTable">
                     <el-form-item label="姓名" label-width="100px">
                         <el-input v-model="selectTable.user_name" auto-complete="off"></el-input>
@@ -475,6 +475,9 @@
     }
     .el-form--inline .el-form-item__label {
         float: left;
+    }
+    .el-table--enable-row-transition .el-table__body td {
+        text-align: center;
     }
 </style>
 

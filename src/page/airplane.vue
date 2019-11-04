@@ -2,9 +2,116 @@
     <div class="fillcontain">
         <head-top></head-top>
          <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+         <el-dialog title="修改飞机信息" :visible.sync="dialogFormVisible">
+                <el-form :model="selectTable">
+                <el-form-item label="飞机型号" label-width="100px">
+                        <el-input v-model="selectTable.model"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="出厂号码" label-width="100px">
+                        <el-input v-model="selectTable.code"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="部队编号" label-width="100px">
+                        <el-input v-model="selectTable.army_id"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="生产厂家" label-width="100px">
+                        <el-input v-model="selectTable.factory"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="生产时间" label-width="100px">
+                        <el-input v-model="selectTable.date"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="所属单位" label-width="100px">
+                        <el-input v-model="selectTable.unit"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="飞行时间" label-width="100px">
+                        <el-input v-model="selectTable.airTime"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="总飞行起落" label-width="100px">
+                        <el-input v-model="selectTable.airUpOrDown"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="飞行小时" label-width="100px">
+                        <el-input v-model="selectTable.airHour"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="阶段起落" label-width="100px">
+                        <el-input v-model="selectTable.stageUpOrDown"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="发动机1小时数" label-width="100px">
+                        <el-input v-model="selectTable.engine_1"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="发动机2小时" label-width="100px">
+                        <el-input v-model="selectTable.engine_2"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="飞机图片" label-width="100px">
+                        <el-input v-model="selectTable.image_path"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="飞机态势" label-width="100px">
+                        <el-input v-model="selectTable.state"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="任务态势" label-width="100px">
+                        <el-input v-model="selectTable.task"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="操作时间" label-width="100px">
+                        <el-input v-model="selectTable.create_time"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="机型" label-width="100px">
+                        <el-input v-model="selectTable.type"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="阶段飞行小时" label-width="100px">
+                        <el-input v-model="selectTable.stageUpOrDownTime"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="大修次数" label-width="100px">
+                        <el-input v-model="selectTable.repairNumber"></el-input>
+                    </el-form-item>
+                    <el-form-item label="飞机图片" label-width="100px">
+                        <el-upload
+                          class="avatar-uploader"
+                          :action="baseUrl + '/v1/addimg/shop'"
+                          :show-file-list="false"
+                          :on-success="handleServiceAvatarScucess"
+                          :before-upload="beforeAvatarUpload">
+                          <img v-if="selectTable.image_path" :src="baseImgPath + selectTable.image_path" class="avatar">
+                          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+                    </el-form-item>
+                </el-form>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="updateAirplane">确 定</el-button>
+              </div>
+            </el-dialog>
     <!-- <el-table :data="tableData" border highlight-current-row style="width: 100%;margin-top:20px;">
       <el-table-column v-for="item of tableHeader" :key="item" :prop="item" :label="item" />
     </el-table> -->
+        <!-- <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+        <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleClose">
+        <span>这是一段信息</span>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+        </el-dialog> -->
+
         <div class="table_container">
             <el-table
 		      :data="tableData"
@@ -115,7 +222,7 @@
                 label="飞行小时"
                 width="180">
               </el-table-column>
-            <el-table-column label="操作" width="200">
+            <el-table-column label="操作" width="300">
                   <template slot-scope="scope">
                     <el-button
                       size="mini"
@@ -131,7 +238,7 @@
                   </template>
                 </el-table-column>
 		    </el-table>
-		    <div class="Pagination" style="text-align: left;margin-top: 10px;">
+		    <!-- <div class="Pagination" style="text-align: left;margin-top: 10px;">
                 <el-pagination
                   @size-change="handleSizeChange"
                   @current-change="handleCurrentChange"
@@ -140,101 +247,7 @@
                   layout="total, prev, pager, next"
                   :total="count">
                 </el-pagination>
-            </div>
-            <el-dialog title="修改飞机信息" v-model="dialogFormVisible">
-                <el-form :model="selectTable">
-<el-form-item label="飞机型号" label-width="100px">
-                        <el-input v-model="selectTable.model"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="出厂号码" label-width="100px">
-                        <el-input v-model="selectTable.code"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="部队编号" label-width="100px">
-                        <el-input v-model="selectTable.army_id"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="生产厂家" label-width="100px">
-                        <el-input v-model="selectTable.factory"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="生产时间" label-width="100px">
-                        <el-input v-model="selectTable.date"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="所属单位" label-width="100px">
-                        <el-input v-model="selectTable.unit"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="飞行时间" label-width="100px">
-                        <el-input v-model="selectTable.airTime"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="总飞行起落" label-width="100px">
-                        <el-input v-model="selectTable.airUpOrDown"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="飞行小时" label-width="100px">
-                        <el-input v-model="selectTable.airHour"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="阶段起落" label-width="100px">
-                        <el-input v-model="selectTable.stageUpOrDown"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="发动机1小时数" label-width="100px">
-                        <el-input v-model="selectTable.engine_1"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="发动机2小时" label-width="100px">
-                        <el-input v-model="selectTable.engine_2"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="飞机图片" label-width="100px">
-                        <el-input v-model="selectTable.image_path"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="飞机态势" label-width="100px">
-                        <el-input v-model="selectTable.state"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="任务态势" label-width="100px">
-                        <el-input v-model="selectTable.task"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="操作时间" label-width="100px">
-                        <el-input v-model="selectTable.create_time"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="机型" label-width="100px">
-                        <el-input v-model="selectTable.type"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="阶段飞行小时" label-width="100px">
-                        <el-input v-model="selectTable.stageUpOrDownTime"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="大修次数" label-width="100px">
-                        <el-input v-model="selectTable.repairNumber"></el-input>
-                    </el-form-item>
-                    <el-form-item label="飞机图片" label-width="100px">
-                        <el-upload
-                          class="avatar-uploader"
-                          :action="baseUrl + '/v1/addimg/shop'"
-                          :show-file-list="false"
-                          :on-success="handleServiceAvatarScucess"
-                          :before-upload="beforeAvatarUpload">
-                          <img v-if="selectTable.image_path" :src="baseImgPath + selectTable.image_path" class="avatar">
-                          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                        </el-upload>
-                    </el-form-item>
-                </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="updateAirplane">确 定</el-button>
-              </div>
-            </el-dialog>
+            </div> -->
         </div>
     </div>
 </template>
@@ -298,6 +311,7 @@
                     	this.tableData = [];
                     	res.data.forEach(item => {
                     		const tableItem = {
+                                airplane_id: item.airplane_id,
                                 type: item.type, // 机型
                                 model: item.model,       // 飞机型号
                                 code: item.code,        // 出厂号码

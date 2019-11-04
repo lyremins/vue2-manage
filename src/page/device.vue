@@ -12,20 +12,29 @@
                       <el-form-item label="机器名称">
                         <span>{{ props.row.filed1 }}</span>
                       </el-form-item>
-                                            <el-form-item label="型号">
+                        <el-form-item label="有售器件型号">
                         <span>{{ props.row.filed2 }}</span>
                       </el-form-item>
-                                            <el-form-item label="装机日期">
+                        <el-form-item label="适配机型">
                         <span>{{ props.row.filed3 }}</span>
                       </el-form-item>
-                                            <el-form-item label="修理次数">
+                         <el-form-item label="制造厂">
                         <span>{{ props.row.filed4 }}</span>
                       </el-form-item>
-                                            <el-form-item label="总寿命">
+                          <el-form-item label="总寿命">
                         <span>{{ props.row.filed5 }}</span>
                       </el-form-item>
-                                            <el-form-item label="总起落">
+                        <el-form-item label="阈值">
                         <span>{{ props.row.filed6 }}</span>
+                      </el-form-item>
+                        <el-form-item label="装机日期">
+                        <span>{{ props.row.filed7 }}</span>
+                      </el-form-item>
+                        <el-form-item label="寿命">
+                        <span>{{ props.row.filed8 }}</span>
+                      </el-form-item>
+                        <el-form-item label="寿命类型">
+                        <span>{{ props.row.filed9 }}</span>
                       </el-form-item>
                     </el-form>
                   </template>
@@ -42,12 +51,12 @@
 		      </el-table-column>
               <el-table-column
                 prop="filed3"
-                label="装机日期"
+                label="适配机型"
                 width="120">
               </el-table-column>
             <el-table-column
                 prop="filed4"
-                label="修理次数"
+                label="制造厂"
                 width="120">
               </el-table-column>
               <el-table-column
@@ -57,10 +66,25 @@
               </el-table-column>
             <el-table-column
                 prop="filed6"
-                label="总起落"
+                label="阈值"
                 width="120">
               </el-table-column>
-            <el-table-column label="操作" width="250">
+                          <el-table-column
+                prop="filed7"
+                label="装机日期"
+                width="120">
+              </el-table-column>
+                          <el-table-column
+                prop="filed8"
+                label="寿命"
+                width="120">
+              </el-table-column>
+                          <el-table-column
+                prop="filed9"
+                label="寿命类型"
+                width="120">
+              </el-table-column>
+            <el-table-column label="操作" width="300">
                   <template slot-scope="scope">
                     <el-button
                       size="mini"
@@ -86,7 +110,7 @@
                   :total="count">
                 </el-pagination>
             </div>
-            <el-dialog title="修改保障信息" v-model="dialogFormVisible">
+            <el-dialog title="修改保障信息" :visible.sync="dialogFormVisible">
                 <el-form :model="selectTable">
                     <el-form-item label="机器名称" label-width="100px">
                         <el-input v-model="selectTable.filed1" auto-complete="off"></el-input>
@@ -118,7 +142,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getDevice,getDeviceCount,getDeviceById,updateDevice,deleteDevice } from '@/api/getData'
+    import { getDevice,getDeviceCount,getDeviceById,updateDevice,deleteDevice,addDevice } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
     export default {
         data(){
@@ -175,7 +199,10 @@
 						        filed3: item.filed3,
 						        filed4: item.filed4,
                                 filed5: item.filed5,
-                                filed6: item.filed6
+                                filed6: item.filed6,
+                                filed7: item.filed7,
+                                filed8: item.filed8,
+                                filed9: item.filed9
                     		}
                     		this.tableData.push(tableItem)
                         })
@@ -200,7 +227,10 @@
                     filed3: device.filed3,
                     filed4: device.filed4,
                     filed5: device.filed5,
-                    filed6: device.filed6}};
+                    filed6: device.filed6,
+                    filed7: device.filed7,
+                    filed9: device.filed8,
+                    filed10: device.filed9 }}
 
                 this.tableData.splice(row.index, 1, {...this.selectTable});
             },
@@ -341,6 +371,9 @@
     }
     .el-form--inline .el-form-item__label {
         float: left;
+    }
+        .el-table--enable-row-transition .el-table__body td {
+        text-align: center;
     }
 </style>
 

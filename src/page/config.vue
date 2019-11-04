@@ -4,8 +4,9 @@
         <div class="showConfig">
         <p>飞机状态配置项：</p>
         <div class="textBox">
-            <div v-for="v in state">
+            <div v-for="(value,index) in state">
                 <span>{{v}}</span>
+                <input v-model="a.state[index]">
             </div>
         </div>
         <el-input v-model="inputState" placeholder="添加一项飞机状态"></el-input>
@@ -215,7 +216,10 @@
                 inputPStatus: '',
                 inputCarWork: '',
                 showAlert: false,
-                alertText: ''
+                alertText: '',
+                a: {
+                    state: []
+                }
             }
         },
     	components: {
@@ -245,6 +249,7 @@
                 try{
                     this.configData = await getConfig();
                     this.state = this.configData.data[0].stateModel.split(",");
+                    this.a.state = this.configData.data[0].stateModel.split(",");
                     this.task = this.configData.data[0].taskModel.split(",");
                     this.fault = this.configData.data[0].faultModel.split(",");
                     this.subject = this.configData.data[0].subjectModel.split(",");

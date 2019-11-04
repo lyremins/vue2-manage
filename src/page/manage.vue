@@ -8,7 +8,6 @@
 						<template slot="title"><i class="el-icon-document"></i>数据管理</template>
 						<el-menu-item index="personnel">机务人员管理</el-menu-item>
 						<el-menu-item index="airplane">飞机数据管理</el-menu-item>
-						<el-menu-item index="equip">装备数据管理</el-menu-item>
 						<el-menu-item index="device">器件数据管理</el-menu-item>
 						<el-menu-item index="vehicle">车辆数据管理</el-menu-item>
 						<el-menu-item index="ammo">弹药数据管理</el-menu-item>

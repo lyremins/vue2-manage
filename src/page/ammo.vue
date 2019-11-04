@@ -1,6 +1,7 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
+        <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
         <div class="table_container">
             <el-table
 		      :data="tableData"
@@ -93,7 +94,7 @@
                   :total="count">
                 </el-pagination>
             </div>
-            <el-dialog title="修改保障信息" v-model="dialogFormVisible">
+            <el-dialog title="修改保障信息" :visible.sync="dialogFormVisible">
                 <el-form :model="selectTable">
                     <el-form-item label="型号" label-width="100px">
                         <el-input v-model="selectTable.filed1" auto-complete="off"></el-input>
@@ -129,6 +130,7 @@
 <script>
     import headTop from '../components/headTop'
     import { getAmmo,getAmmoCount,getAmmoById,updateDevice,deleteDevice } from '@/api/getData'
+    import UploadExcelComponent from '../components/index.vue'
     export default {
         data(){
             return {
@@ -143,7 +145,8 @@
             }
         },
     	components: {
-    		headTop,
+            headTop,
+            UploadExcelComponent
     	},
         created(){
             this.initData();
@@ -258,6 +261,38 @@
             },
             addDevice() {
                 this.$router.push('/addAmmo');
+            },
+            beforeUpload(file) {
+                const isLt1M = file.size / 1024 / 1024 < 1
+                if (isLt1M) {
+                    return true
+                }
+                this.$message({
+                    message: 'Please do not upload files larger than 1m in size.',
+                    type: 'warning'
+                })
+                return false
+            },
+            async handleSuccess({ results, header }) {
+                this.tableData = results;
+                console.log(this.tableData);
+                for (const iterator of this.tableData) {
+                    console.log(iterator);
+                    let result = await addDevice(iterator);
+                    if (result.status == 1) {
+						this.$message({
+					        type: 'success',
+					        message: '添加成功'
+					    });
+                        this.$router.push('/device');
+						} else{
+                            this.$message({
+                                type: 'error',
+                                message: result.message
+                        });
+					}
+                }
+                this.tableHeader = header
             }
         },
     }
