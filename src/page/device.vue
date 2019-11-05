@@ -34,7 +34,7 @@
                         <span>{{ props.row.filed8 }}</span>
                       </el-form-item>
                         <el-form-item label="寿命类型">
-                        <span>{{ props.row.filed9 }}</span>
+                        <span>{{ props.row.smType }}</span>
                       </el-form-item>
                     </el-form>
                   </template>
@@ -80,7 +80,7 @@
                 width="120">
               </el-table-column>
                           <el-table-column
-                prop="filed9"
+                prop="smType"
                 label="寿命类型"
                 width="120">
               </el-table-column>

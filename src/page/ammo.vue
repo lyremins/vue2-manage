@@ -129,7 +129,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getAmmo,getAmmoCount,getAmmoById,updateDevice,deleteDevice } from '@/api/getData'
+    import { getAmmo,getAmmoCount,getAmmoById,updateDevice,deleteAmmo } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
     export default {
         data(){
@@ -240,8 +240,8 @@
             },
             async handleDelete(index,row) {
                 try{
-                    console.log(row.device_id);
-                    const res = await deleteDevice(row.device_id);
+                    console.log(row.ammo_id);
+                    const res = await deleteAmmo(row.ammo_id);
                     if (res.status == 1) {
                         this.$message({
                             type: 'success',
