@@ -385,7 +385,7 @@
             async handleDelete(index,row) {
                 try{
                     console.log(row);
-                    const res = await deleteAirplanenel(row.airplane_id);
+                    const res = await deleteAirplane(row.airplane_id);
                     if (res.status == 1) {
                         this.$message({
                             type: 'success',
