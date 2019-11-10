@@ -546,8 +546,26 @@ export const getPlanById = Plan_id => fetch('/wcbz/getPlanbyID/' + Plan_id);
 export const getConfig = () => fetch('/wcbz/getConfig');
 
 /**
+ * 获取配置项
+ */
+
+export const getChat = () => fetch('/wcbz/getChatDetail');
+
+/**
  * 更新配置信息
  */
 
 export const updateConfig = data => fetch('/wcbz/updateConfig', data, 'POST');
+
+/**
+ * 获取日志信息
+ */
+
+export const getLog = () => fetch('/wcbz/getLog');
+
+
+/**
+ * 获取上报流水信息
+ */
+export const getAirplaneState = () => fetch('/wcbz/getAirplaneState');
 

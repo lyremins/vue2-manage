@@ -1,53 +1,85 @@
 <template>
     <div>
         <head-top></head-top>
-        		<section class="data_section">
+        <section class="data_section">
 			<header class="section_title">数据统计</header>
-			<el-row :gutter="20" style="margin-bottom: 10px;">
+			<!-- <el-row :gutter="20" style="margin-bottom: 10px;">
                 <el-col :span="4"><div class="data_list today_head"><span class="data_num head">当日数据：</span></div></el-col>
-				<el-col :span="4"><div class="data_list"><span class="data_num">{{userCount}}</span> 新增用户</div></el-col>
-				<el-col :span="4"><div class="data_list"><span class="data_num">{{orderCount}}</span> 新增订单</div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{adminCount}}</span> 新增管理员</div></el-col>
+				<el-col :span="4"><div class="data_list"><span class="data_num">{{userCount}}</span> 飞行计划：</div></el-col>
+				<el-col :span="4"><div class="data_list"><span class="data_num">{{orderCount}}</span> 进场飞机：</div></el-col>
+                <el-col :span="4"><div class="data_list"><span class="data_num">{{adminCount}}</span> 进场车辆：</div></el-col>
 			</el-row>
             <el-row :gutter="20">
                 <el-col :span="4"><div class="data_list all_head"><span class="data_num head">总数据：</span></div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{allUserCount}}</span> 注册用户</div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{allOrderCount}}</span> 订单</div></el-col>
-                <el-col :span="4"><div class="data_list"><span class="data_num">{{allAdminCount}}</span> 管理员</div></el-col>
-            </el-row>
+                <el-col :span="4"><div class="data_list"><span class="data_num">{{allUserCount}}</span> 总飞行计划：</div></el-col>
+                <el-col :span="4"><div class="data_list"><span class="data_num">{{allOrderCount}}</span> 总进场飞机：</div></el-col>
+                <el-col :span="4"><div class="data_list"><span class="data_num">{{allAdminCount}}</span> 总进场车辆：</div></el-col>
+            </el-row> -->
 		</section>
-		<tendency :sevenDate='sevenDate' :sevenDay='sevenDay'></tendency>
- <!-- <div class="block">
-    <span class="demonstration">默认为 Date 对象</span>
-    <div class="demonstration">值：{{ value1 }}</div>
-    <el-date-picker
-      v-model="value1"
-      type="date"
-      placeholder="选择日期"
-      format="yyyy 年 MM 月 dd 日">
-    </el-date-picker>
-  </div>
+         <el-table
+    :data="tableData"
+    stripe
+    style="width: 100%">
+    <el-table-column
+      prop="x"
+      :label="xName"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="y"
+      :label="yName"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="upDownNumber"
+      label="">
+    </el-table-column>
+  </el-table>
+            <!-- <table class="dataViewTable"><tbody>
+                <tr class="dataViewTr">
+                <table v-for="(value,index) in xData">
+                    <tr class="dataViewTr">
+                       <td class="dataViewTd">{{value}}</td>
+                         <td class="dataViewTd">{{yData[index]}}</td>
+                    </tr>
+                </table>
+                </tr>
+            </tbody></table> -->
+
+
+    <div class="dateSelect">
   <div class="block">
-    <span class="demonstration">使用 value-format</span>
-    <div class="demonstration">值：{{ value2 }}</div>
+    <!-- <div class="demonstration">值：{{ value2 }}</div> -->
+    <span>开始时间：</span>
     <el-date-picker
-      v-model="value2"
+      v-model="startTime"
       type="date"
       placeholder="选择日期"
       format="yyyy 年 MM 月 dd 日"
       value-format="yyyy-MM-dd">
     </el-date-picker>
   </div>
-  <div class="block">
-    <span class="demonstration">时间戳</span>
-    <div class="demonstration">值：{{ value3 }}</div>
+    <div class="block">
+    <!-- <div class="demonstration">值：{{ value2 }}</div> -->
+    <span>结束时间：</span>
     <el-date-picker
+      v-model="endTime"
       type="date"
       placeholder="选择日期"
       format="yyyy 年 MM 月 dd 日"
-      value-format="timestamp">
+      value-format="yyyy-MM-dd">
     </el-date-picker>
-  </div> -->
+    <el-button @click="search">查询</el-button>
+    <el-select v-model="value">
+        <el-option
+        v-for="(item,index) in options"
+        :key="index"
+        :label="item.label"
+        :value="item.value"></el-option>
+    </el-select>
+  </div>
+          </div>
+		<tendency :xData='xData' :yData='yData' @clickCharts="toDay" ></tendency>
     </div>
 </template>
 
@@ -61,7 +93,9 @@
             getOrderCount,
             adminDayCount,
             adminCount,
-            getPlan} from '@/api/getData'
+            getPlan,
+            getEnsure,
+            getAirplaneState} from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -72,21 +106,42 @@
                 allOrderCount: null,
                 allAdminCount: null,
     			sevenDay: [],
-                sevenDate: [[],[],[]],
+                sevenDate: [],
                 planData:{},
                 xData: [],
                 yData: [],
                 startTime: '',
                 endTime: '',
-        value1: '',
-        value2: '',
-        value3: ''
+                getEnsure: {},
+                value: '',
+                options: [{
+                    value: '1',
+                    label: '飞行计划/保障次数'
+                }, {
+                    value: '2',
+                    label: '飞机飞行场次'
+                }, {
+                    value: '3',
+                    label: '飞机状态统计'
+                }],
+                mapLists: {},
+                airPlaneArray: [],
+                airplaneState: {},
+                tableData: [],
+                xName: '',
+                yName: ''
     		}
     	},
     	components: {
     		headTop,
     		tendency,
-    	},
+        },
+        watch: {
+            "value": function (value) {
+                this.value = value;
+                this.search(value)
+            },
+        },
     	mounted(){
     		this.initData();
     		for (let i = 6; i > -1; i--) {
@@ -138,21 +193,16 @@
             async getPlan() {
                 const mapLists = {};
                 this.planData = await getPlan();
-                this.planData.data.forEach(element => {
-                    mapLists[element.airName] || (mapLists[element.airName] = []);
-                    mapLists[element.airName].push(element);
-                });
-                const name = [];
-                const number = [];
-                 Object.keys(mapLists).forEach((key,value) => {
-                     console.log(mapLists[key].length);
-                    this.xData.push(key);
-                    this.yData.push(mapLists[key].length);
-                });
-                console.log(this.xData);
-                console.log(this.yData);
+                this.ensureData = await getEnsure();
+                // const name = ['总飞机数','总保障任务数'];
+                // const number = [this.planData.data.length,this.ensureData.data.length];
+                console.log(name);
+                console.log(number);
+                this.xData = name;
+                this.yData = number;
             },
-            search() {
+            async search(value) {
+                console.log(value);
                 console.log(this.startTime);
                 console.log(this.endTime);
                 if (!this.startTime || !this.endTime) {
@@ -161,7 +211,103 @@
                         type: 'warning'
                     });
                 }
-            }
+                if (this.value === '1') {
+                    this.xData = [];
+                     this.yData = [];
+                    console.log('222');
+                    let search_data_plan  = 0;
+                    let search_data_ensure = 0;
+                    this.planData.data.forEach(element => {
+                        if (this.toTimeStamp(element.dateTime) >= this.toTimeStamp(this.startTime) && this.toTimeStamp(element.dateTime) <= this.toTimeStamp(this.endTime)) {
+                            search_data_plan +=1;
+                        }
+                    });
+                    this.ensureData.data.forEach(element => {
+                        if (this.toTimeStamp(element.filed2) >= this.toTimeStamp(this.startTime) && this.toTimeStamp(element.filed2) <= this.toTimeStamp(this.endTime)) {
+                            search_data_ensure +=1;
+                        }
+                    });
+                    this.yData = [search_data_plan,search_data_ensure];
+                    console.log(this.xData);
+                } else if (this.value === '2') {
+                    this.xData = [];
+                     this.yData = [];
+                    this.planData.data.forEach(element => {
+                        if (this.toTimeStamp(element.dateTime) >= this.toTimeStamp(this.startTime) && this.toTimeStamp(element.dateTime) <= this.toTimeStamp(this.endTime)) {
+                            console.log(element);
+                            element.airData.forEach(e => {
+                                e.time = element.dateTime;
+                                this.airPlaneArray.push(e);
+                            });
+                        }
+                    });
+                    console.log("22222222222", this.airPlaneArray);
+                    // this.airPlaneArray.forEach(element => {
+                    //     this.mapLists[element.airName] || (this.mapLists[element.airName] = []);
+                    //     this.mapLists[element.airName].push(element);
+                    // });
+                    this.airPlaneArray.forEach(element => {
+                        this.mapLists[element.time] || (this.mapLists[element.time] = []);
+                        this.mapLists[element.time].push(element);
+                    });
+                    console.log(this.mapLists);
+                    this.tableData = [];
+                    Object.keys(this.mapLists).forEach((key,value) => {
+                        this.xData.push(key);
+                        this.yData.push(this.mapLists[key].length);
+                        this.xName = '日期';
+                        this.yName = '场次';
+                        this.tableData.push({
+                            x: key,
+                            y: this.mapLists[key].length
+                        })
+
+                    });
+                    console.log(data);
+                } else if (this.value === '3') {
+                     this.xData = [];
+                     this.yData = [];
+                    this.airplaneState = await getAirplaneState();
+                    console.log(this.airplaneState);
+                    this.airplaneState.data.forEach(element => {
+                        console.log(element);
+                        if (this.toTimeStamp(element.create_time) >= this.toTimeStamp(this.startTime) && this.toTimeStamp(element.create_time) <= this.toTimeStamp(this.endTime)) {
+                            this.mapLists[element.airData.state] || (this.mapLists[element.airData.state] = []);
+                            this.mapLists[element.airData.state].push(element);
+                        }
+                    });
+                    console.log(this.mapLists);
+                    Object.keys(this.mapLists).forEach((key,value) => {
+                        this.xData.push(key);
+                        this.yData.push(this.mapLists[key].length);
+                    });
+                }
+            },
+            toDay(values) {
+                this.tableData = [];
+                const dayArray = [];
+                this.mapLists[values].forEach(element => {
+                    dayArray[element.airName] || (dayArray[element.airName]= []);
+                    dayArray[element.airName].push(element);
+                });
+                this.xData = [];
+                this.yData = [];
+                this.xName = '飞机编号';
+                this.yName = '起落次数';
+                Object.keys(dayArray).forEach((key,value) => {
+                    this.xData.push(key);
+                    this.yData.push(dayArray[key][0].upDownNumber);
+                        this.tableData.push({
+                            x: key,
+                            y: dayArray[key][0].upDownNumber
+                        })
+                });
+            },
+            toTimeStamp(time) {
+                time = time.replace(/-/g, '/') // 把所有-转化成/
+                let timestamp = new Date(time).getTime()
+                return timestamp
+            },
     	}
     }
 </script>
@@ -210,7 +356,8 @@
     }
         .dateSelect {
             display: flex;
-            justify-content: space-between;
-            margin: 0 31%;
+            .block {
+                margin: 0 20px;
+            }
         }
 </style>

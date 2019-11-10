@@ -40,6 +40,7 @@ const ammo = r => require.ensure([], () => r(require('@/page/ammo')), 'ammo');
 const addPlan= r => require.ensure([], () => r(require('@/page/addPlan')), 'addPlan');
 const plan = r => require.ensure([], () => r(require('@/page/plan')), 'plan');
 const config = r => require.ensure([], () => r(require('@/page/config')), 'config');
+const chat = r => require.ensure([], () => r(require('@/page/chat')), 'chat');
 
 const routes = [
 	{
@@ -85,7 +86,7 @@ const routes = [
 		},{
 			path: '/visitor',
 			component: visitor,
-			meta: ['图表', '用户分布'],
+			meta: ['数据分析', '历史回放'],
 		},{
 			path: '/newMember',
 			component: newMember,
@@ -194,6 +195,10 @@ const routes = [
 			path: '/config',
 			component: config,
 			meta: ['数据管理', '状态管理'],
+		},{
+			path: '/chat',
+			component: chat,
+			meta: ['数据管理', '聊天管理'],
 		}]
 	}
 ]

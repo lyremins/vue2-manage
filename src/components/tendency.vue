@@ -41,7 +41,9 @@
                             dataZoom: {
                                 yAxisIndex: 'none'
                             },
-                            dataView: {readOnly: false},
+                    dataView : {readOnly: true},
+                restore : {show: true},
+                saveAsImage : {show: true},
                             magicType: {type: ['bar', 'line']},
                             restore: {},
                         }
@@ -54,9 +56,9 @@
                     yAxis: [
                         {
                           type: 'value',
-                          name: '用户',
+                          name: '',
                           min: 0,
-                          max: 20,
+                          max: 100,
                           position: 'left',
                           axisLine: {
                               lineStyle: {
@@ -69,9 +71,9 @@
                         },
                         {
                           type: 'value',
-                          name: '订单',
+                          name: '',
                           min: 0,
-                          max: 20,
+                          max: 50,
                           position: 'right',
                           axisLine: {
                               lineStyle: {
@@ -85,7 +87,7 @@
                     ],
                     series: [
                         {
-                            name:'飞行计划数',
+                            name:'数量',
                             type:'line',
                             data:this.yData,
                             yAxisIndex: 1,
@@ -121,10 +123,12 @@
                         // }
                     ]
               };
-                this.myChart.setOption(option);
-                this.myChart.on('click', function (param) {
-            console.log(param);//这里根据param填写你的跳转逻辑
-        })
+            this.myChart.setOption(option);
+            this.myChart.on('click', (param) => {
+                console.log(param.name);//这里根据param填写你的跳转逻辑
+                this.$emit('clickCharts',param.name);
+
+            })
             }
         },
         watch: {
