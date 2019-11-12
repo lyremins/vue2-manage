@@ -79,6 +79,16 @@
     </el-select>
   </div>
           </div>
+    <div class="dxStyle">
+        <span>弹药型号：</span>
+        <el-select v-model="dyType">
+            <el-option
+            v-for="(item,index) in dyoptions"
+            :key="index"
+            :label="item.label"
+            :value="item.value"></el-option>
+        </el-select>
+    </div>
 		<tendency :xData='xData' :yData='yData' @clickCharts="toDay" ></tendency>
     </div>
 </template>
@@ -114,6 +124,19 @@
                 endTime: '',
                 getEnsure: {},
                 value: '',
+                dyoptions: [{
+                    value: '1',
+                    label: '训练弹A'
+                }, {
+                    value: '2',
+                    label: '训练弹B'
+                }, {
+                    value: '3',
+                    label: '训练弹C'
+                }, {
+                    value: '4',
+                    label: '训练弹D'
+                }],
                 options: [{
                     value: '1',
                     label: '飞行计划/保障次数'
@@ -127,12 +150,16 @@
                     value: '4',
                     label: '弹药数据统计'
                 }],
+                dyType: [{
+                    value: ''
+                }],
                 mapLists: {},
                 airPlaneArray: [],
                 airplaneState: {},
                 tableData: [],
                 xName: '',
-                yName: ''
+                yName: '',
+                dyType:''
     		}
     	},
     	components: {
@@ -143,6 +170,17 @@
             "value": function (value) {
                 this.value = value;
                 this.search(value)
+            },
+            "dyType": function (value) {
+                console.log(value);
+                if (value === '1') {
+                    this.yData = [5,15];
+                } else if (value === '2') {
+                    this.yData = [10,6];
+                } else if (value === '3') {
+                    this.yData = [4,30];
+                }
+
             },
         },
     	mounted(){
@@ -286,7 +324,7 @@
                     });
                 } else if (this.value === '4') {
                      this.xData = ['发射次数','发射数量(发/枚)'];
-                     this.yData = [40,400];
+                     this.yData = [40,80];
                         this.xName = '类型';
                         this.yName = '数量';
                         this.xData.forEach((element,index) => {
@@ -304,6 +342,56 @@
             },
             toDay(values) {
                 this.tableData = [];
+                console.log(values);
+                if (values === '发射数量(发/枚)') {
+                     this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                     this.yData = [4,7,4,13,4,3,7,4,9,6];
+                     return ;
+
+                } else if (values === '发射次数') {
+                     this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                     this.yData = [4,7,4,13,4,3,9,19,8,1];
+                     return ;
+                }
+                this.xName = '类型';
+                this.xData.forEach((element,index) => {
+                this.tableData.push({
+                    x: element,
+                    y: this.yData[index]
+                })
+                });
+
+                if (values.indexOf('1号')) {
+                     this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [4,3,7,1];
+                } else if  (values.indexOf('2号')) {
+                     this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [6,8,3,12];
+                } else if  (values.indexOf('3号')) {
+                    this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [2,8,1,12];
+                } else if  (values.indexOf('4号')) {
+                     this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [6,8,1,12];
+                } else if  (values.indexOf('5号')) {
+this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [7,8,1,12];
+                } else if  (values.indexOf('6号')) {
+this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [3,8,1,4];
+                } else if  (values.indexOf('7号')) {
+this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [6,3,1,12];
+                } else if  (values.indexOf('8号')) {
+this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [3,8,1,12];
+                } else if  (values.indexOf('9号')) {
+this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [6,8,1,7];
+                } else if  (values.indexOf('10号')) {
+this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
+                     this.yData = [16,8,1,12];
+                }
                 const dayArray = [];
                 this.mapLists[values].forEach(element => {
                     dayArray[element.airName] || (dayArray[element.airName]= []);
@@ -378,5 +466,9 @@
             .block {
                 margin: 0 20px;
             }
+        }
+        .dxStyle {
+            text-align: center;
+            margin: 20PX;
         }
 </style>
