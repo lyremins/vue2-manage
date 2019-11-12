@@ -58,7 +58,7 @@
                           type: 'value',
                           name: '',
                           min: 0,
-                          max: 100,
+                          max: 500,
                           position: 'left',
                           axisLine: {
                               lineStyle: {
@@ -73,7 +73,7 @@
                           type: 'value',
                           name: '',
                           min: 0,
-                          max: 50,
+                          max: 500,
                           position: 'right',
                           axisLine: {
                               lineStyle: {

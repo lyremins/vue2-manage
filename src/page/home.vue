@@ -2,7 +2,7 @@
     <div>
         <head-top></head-top>
         <section class="data_section">
-			<header class="section_title">数据统计</header>
+			<header class="section_title">弹药使用情况数据统计</header>
 			<!-- <el-row :gutter="20" style="margin-bottom: 10px;">
                 <el-col :span="4"><div class="data_list today_head"><span class="data_num head">当日数据：</span></div></el-col>
 				<el-col :span="4"><div class="data_list"><span class="data_num">{{userCount}}</span> 飞行计划：</div></el-col>
@@ -123,6 +123,9 @@
                 }, {
                     value: '3',
                     label: '飞机状态统计'
+                }, {
+                    value: '4',
+                    label: '弹药数据统计'
                 }],
                 mapLists: {},
                 airPlaneArray: [],
@@ -281,6 +284,22 @@
                         this.xData.push(key);
                         this.yData.push(this.mapLists[key].length);
                     });
+                } else if (this.value === '4') {
+                     this.xData = ['发射次数','发射数量(发/枚)'];
+                     this.yData = [40,400];
+                        this.xName = '类型';
+                        this.yName = '数量';
+                        this.xData.forEach((element,index) => {
+                        this.tableData.push({
+                            x: element,
+                            y: this.yData[index]
+                        })
+                        });
+                        // this.tableData.push({
+                        //     x: key,
+                        //     y: this.mapLists[key].length
+                        // })
+
                 }
             },
             toDay(values) {
@@ -315,8 +334,8 @@
 <style lang="less">
 	@import '../style/mixin';
 	.data_section{
-		padding: 20px;
-		margin-bottom: 40px;
+		// padding: 20px;
+		// margin-bottom: 40px;
 		.section_title{
 			text-align: center;
 			font-size: 30px;

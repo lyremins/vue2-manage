@@ -18,13 +18,13 @@
             </div>
         </div>
         <div class="box">
-        <div class="air" v-for="(value,index) in vehicleData.data">
+        <div class="car" v-for="(value,index) in vehicleData.data">
             <i class="fa fa-car" aria-hidden="true"></i>
             <span class="state wh">{{value.state}}</span>
             <p class="task">{{value.name}}</p>
         </div>
         </div>
-        <div class="table_container">
+        <!-- <div class="table_container">
              <el-table
 		      :data="planData"
 		      style="width: 100%">
@@ -49,7 +49,7 @@
                 width="180">
               </el-table-column>
               </el-table>
-            </div>
+            </div> -->
         <div class="table_container">
              <el-table
 		      :data="tableData"
@@ -204,6 +204,13 @@
         }
         .air {
             text-align: center;
+            position: relative;
+            margin: 10PX;
+        }
+        .car {
+            text-align: center;
+            position: relative;
+            margin: 40PX;
         }
     }
 

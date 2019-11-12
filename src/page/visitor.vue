@@ -12,7 +12,7 @@
                         <span>{{ props.row.create_time }}</span>
                       </el-form-item>
                       <el-form-item label="">
-                        <span>{{ props.row.user }}</span>
+                        <span>admin</span>
                       </el-form-item>
                       <el-form-item label="">
                         <span>{{ props.row.action }}</span>
@@ -120,6 +120,10 @@
     @import '../style/mixin';
     .content {
         margin: 10px;
+        text-align: center;
+    }
+    .el-table .cell {
+        text-align: center;
     }
 
 </style>

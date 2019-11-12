@@ -7,11 +7,10 @@
 					<el-submenu index="2">
 						<template slot="title"><i class="el-icon-document"></i>数据管理</template>
 						<el-menu-item index="personnel">机务人员管理</el-menu-item>
-						<el-menu-item index="airplane">飞机数据管理</el-menu-item>
-						<el-menu-item index="device">器件数据管理</el-menu-item>
-						<el-menu-item index="vehicle">车辆数据管理</el-menu-item>
-						<el-menu-item index="ammo">弹药数据管理</el-menu-item>
-						<el-menu-item index="subject">条目数据管理</el-menu-item>
+						<el-menu-item index="airplane">飞机管理</el-menu-item>
+						<el-menu-item index="device">有寿器件管理</el-menu-item>
+						<el-menu-item index="vehicle">车辆管理</el-menu-item>
+						<el-menu-item index="ammo">弹药管理</el-menu-item>
 						<el-menu-item index="config">状态管理</el-menu-item>
 					</el-submenu>
 					<el-submenu index="3">
@@ -19,7 +18,7 @@
 						<el-menu-item index="situation">飞机态势查看</el-menu-item>
 					</el-submenu>
                     <el-submenu index="4">
-						<template slot="title"><i class="el-icon-plus"></i>保障计划</template>
+						<template slot="title"><i class="el-icon-plus"></i>计划任务</template>
 						<el-menu-item index="ensure">保障任务</el-menu-item>
 						<el-menu-item index="plan">飞行计划</el-menu-item>
 					</el-submenu>
