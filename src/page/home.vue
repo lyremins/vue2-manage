@@ -16,25 +16,60 @@
                 <el-col :span="4"><div class="data_list"><span class="data_num">{{allAdminCount}}</span> 总进场车辆：</div></el-col>
             </el-row> -->
 		</section>
-         <el-table
-    :data="tableData"
-    stripe
-    style="width: 100%">
-    <el-table-column
-      prop="x"
-      :label="xName"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="y"
-      :label="yName"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="upDownNumber"
-      label="">
-    </el-table-column>
-  </el-table>
+        <div v-show="ff !== 'f3'">
+        <el-table
+            :data="tableData"
+            stripe
+            style="width: 100%">
+            <el-table-column
+            prop="x"
+            :label="xName"
+            width="180">
+            </el-table-column>
+            <el-table-column
+            prop="y"
+            :label="yName"
+            width="180">
+            </el-table-column>
+            <el-table-column
+            prop="upDownNumber"
+            label="">
+            </el-table-column>
+            </el-table>
+        </div>
+    <div v-show="ff === 'f3'">
+        <el-table
+        :data="tableData"
+        stripe
+        style="width: 100%">
+        <el-table-column
+        prop="x1"
+        label="飞行计划名称"
+        width="180">
+
+        </el-table-column>
+        <el-table-column
+        prop="x2"
+        label="飞机编号"
+        width="180">
+        </el-table-column>
+        <el-table-column
+        prop="x3"
+        label="弹药型号"
+        width="180">
+        </el-table-column>
+        <el-table-column
+        prop="x4"
+        label="发射次数"
+        width="180">
+        </el-table-column>
+        <el-table-column
+        prop="x5"
+        label="发射数量"
+        width="180">
+        </el-table-column>
+          </el-table>
+    </div>
             <!-- <table class="dataViewTable"><tbody>
                 <tr class="dataViewTr">
                 <table v-for="(value,index) in xData">
@@ -159,7 +194,8 @@
                 tableData: [],
                 xName: '',
                 yName: '',
-                dyType:''
+                dyType:'',
+                ff: 'f1'
     		}
     	},
     	components: {
@@ -324,7 +360,7 @@
                     });
                 } else if (this.value === '4') {
                      this.xData = ['发射次数','发射数量(发/枚)'];
-                     this.yData = [40,80];
+                     this.yData = [20,40];
                         this.xName = '类型';
                         this.yName = '数量';
                         this.xData.forEach((element,index) => {
@@ -346,13 +382,6 @@
                 if (values === '发射数量(发/枚)') {
                      this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
                      this.yData = [4,7,4,13,4,3,7,4,9,6];
-                     return ;
-
-                } else if (values === '发射次数') {
-                     this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
-                     this.yData = [4,7,4,13,4,3,9,19,8,1];
-                     return ;
-                }
                 this.xName = '类型';
                 this.xData.forEach((element,index) => {
                 this.tableData.push({
@@ -360,38 +389,87 @@
                     y: this.yData[index]
                 })
                 });
+                     return ;
+
+                } else if (values === '发射次数') {
+                     this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                     this.yData = [4,7,4,13,4,3,9,19,8,1];
+                                     this.xName = '类型';
+                this.xData.forEach((element,index) => {
+                this.tableData.push({
+                    x: element,
+                    y: this.yData[index]
+                })
+                });
+                     return ;
+                }
 
                 if (values.indexOf('1号')) {
                      this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [4,3,7,1];
+                     this.ff = 'f3';
                 } else if  (values.indexOf('2号')) {
                      this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [6,8,3,12];
+                     this.ff = 'f3';
                 } else if  (values.indexOf('3号')) {
                     this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [2,8,1,12];
+                     this.ff = 'f3';
                 } else if  (values.indexOf('4号')) {
                      this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [6,8,1,12];
+                     this.ff = 'f3';
                 } else if  (values.indexOf('5号')) {
 this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [7,8,1,12];
+                     this.ff = 'f3';
                 } else if  (values.indexOf('6号')) {
 this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
-                     this.yData = [3,8,1,4];
+                     this.ff = 'f3';
+                     this.ff === 'f3';
                 } else if  (values.indexOf('7号')) {
 this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [6,3,1,12];
+                     this.ff = 'f3';
                 } else if  (values.indexOf('8号')) {
 this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [3,8,1,12];
+                     this.ff = 'f3';
                 } else if  (values.indexOf('9号')) {
 this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [6,8,1,7];
+                     this.ff === 'f3';
                 } else if  (values.indexOf('10号')) {
 this.xData = ['训练弹A','训练弹B','训练弹C','训练弹D'];
                      this.yData = [16,8,1,12];
+                     this.ff = 'f3';
                 }
+                this.tableData.push({
+                    x1: '飞行计划20191101',
+                    x2: 'A001',
+                    x3: '训练弹A',
+                    x4: '5',
+                    x5: '30'
+                },{
+                    x1: '飞行计划20191103',
+                    x2: 'A002',
+                    x3: '训练弹B',
+                    x4: '3',
+                    x5: '12'
+                },{
+                    x1: '飞行计划20191102',
+                    x2: 'A001',
+                    x3: '训练弹C',
+                    x4: '3',
+                    x5: '8'
+                },{
+                    x1: '飞行计划20191104',
+                    x2: 'A001',
+                    x3: '训练弹D',
+                    x4: '8',
+                    x5: '15'
+                })
                 const dayArray = [];
                 this.mapLists[values].forEach(element => {
                     dayArray[element.airName] || (dayArray[element.airName]= []);
