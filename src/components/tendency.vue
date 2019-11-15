@@ -1,6 +1,6 @@
 <template>
     <div class="line1">
-        <div id="line1" class="" style="width: 90%;height:450px;"></div>
+        <div id="line1" class="" style="width: 100%;height:450px;"></div>
     </div>
 </template>
 
@@ -51,15 +51,16 @@
                     xAxis:  {
                         type: 'category',
                         boundaryGap: false,
-                        data: this.xData
+                        data: this.xData,
+                        width: 300
                     },
                     yAxis: [
                         {
                           type: 'value',
                           name: '',
                           min: 0,
-                          max: 50,
-                          position: 'left',
+                          max: 100,
+                          position: 'center',
                           axisLine: {
                               lineStyle: {
                                   color: '#999'
@@ -73,8 +74,8 @@
                           type: 'value',
                           name: '',
                           min: 0,
-                          max: 50,
-                          position: 'right',
+                          max: 100,
+                          position: 'center',
                           axisLine: {
                               lineStyle: {
                                   color: '#999'
@@ -91,11 +92,11 @@
                             type:'line',
                             data:this.yData,
                             yAxisIndex: 1,
-                            markPoint: {
-                                data: [
-                                    10,15,11,18
-                                ]
-                            },
+                            // markPoint: {
+                            //     data: [
+                            //         10,15,11,18
+                            //     ]
+                            // },
                         },
                         // {
                         //     name:'新增飞机',
