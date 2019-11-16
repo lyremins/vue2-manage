@@ -2,154 +2,228 @@
     <div class="fillcontain">
         <head-top></head-top>
         <div class="showConfig">
-        <p>飞机状态配置项：</p>
         <div class="textBox">
-            <div v-for="(value,index) in state">
-                <span>{{v}}</span>
-                <input v-model="a.state[index]">
+            <el-divider content-position="center">飞机状态管理</el-divider>
+            <div class="list" v-for="(value,index) in state">
+                <el-input style="width: 300px" v-model="state[index]" auto-complete="off"></el-input>
+                <el-button @click="stateDel(index)" type="danger">删除</el-button>
             </div>
-        </div>
-        <el-input v-model="inputState" placeholder="添加一项飞机状态"></el-input>
-        <el-button type="primary" @click="saveState()">立即创建</el-button>
 
-        <p>飞机任务配置项：</p>
-        <div class="textBox">
-            <div v-for="v in task">
-                <span>{{v}}</span>
-            </div>
-        </div>
-                <el-input v-model="inputTask" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveTask()">立即创建</el-button>
-
-        <p>飞机故障配置项：</p>
-        <div class="textBox">
-            <div v-for="v in fault">
-                <span>{{v}}</span>
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputState" placeholder="添加一项飞机状态"></el-input>
+                <el-button type="primary" @click="saveState()">立即创建</el-button>
             </div>
         </div>
 
-                        <el-input v-model="inputFault" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveFault()">立即创建</el-button>
-
-        <p>飞机科目配置项：</p>
         <div class="textBox">
-            <div v-for="v in subject">
-                <span>{{v}}</span>
+            <el-divider content-position="center">飞机任务管理：</el-divider>
+            <div class="list" v-for="(value,index) in task">
+                <el-input style="width: 300px" v-model="task[index]" auto-complete="off"></el-input>
+                <el-button @click="taskDel(index)" type="danger">删除</el-button>
             </div>
-        </div>
-                                <el-input v-model="inputSubject" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveSubject()">立即创建</el-button>
 
-        <p>气象科目配置项：</p>
-        <div class="textBox">
-            <div v-for="v in scene">
-                <span>{{v}}</span>
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputTask" placeholder="添加一项飞机任务"></el-input>
+                <el-button type="primary" @click="saveTask()">立即创建</el-button>
             </div>
         </div>
 
-            <el-input v-model="inputScene" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveScene()">立即创建</el-button>
-
-        <p>车辆状态配置项：</p>
         <div class="textBox">
-            <div v-for="v in carState">
-                <span>{{v}}</span>
+            <el-divider content-position="center">飞机故障管理：</el-divider>
+            <div class="list" v-for="(value,index) in fault">
+                <el-input style="width: 300px" v-model="fault[index]" auto-complete="off"></el-input>
+                <el-button @click="faultDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputFault" placeholder="添加一项飞机故障"></el-input>
+                <el-button type="primary" @click="saveFault()">立即创建</el-button>
             </div>
         </div>
 
-                    <el-input v-model="inputCarState" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveCarState()">立即创建</el-button>
-
-        <p>车辆任务状态配置项：</p>
         <div class="textBox">
-            <div v-for="v in carTask">
-                <span>{{v}}</span>
+            <el-divider content-position="center">飞机科目管理：</el-divider>
+            <div class="list" v-for="(value,index) in subject">
+                <el-input style="width: 300px" v-model="subject[index]" auto-complete="off"></el-input>
+                <el-button @click="subjectDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputSubject" placeholder="添加一项飞机科目"></el-input>
+                <el-button type="primary" @click="saveSubject()">立即创建</el-button>
             </div>
         </div>
 
-                            <el-input v-model="inputCarTask" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveCarTask()">立即创建</el-button>
-
-        <p>车辆类型配置项：</p>
         <div class="textBox">
-            <div v-for="v in carType">
-                <span>{{v}}</span>
+            <el-divider content-position="center">气象科目管理：</el-divider>
+            <div class="list" v-for="(value,index) in scene">
+                <el-input style="width: 300px" v-model="scene[index]" auto-complete="off"></el-input>
+                <el-button @click="sceneDel(index)" type="danger">删除</el-button>
             </div>
-        </div>
-                                    <el-input v-model="inputCarType" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveCarType()">立即创建</el-button>
 
-        <p>车辆故障配置项：</p>
-        <div class="textBox">
-            <div v-for="v in carFault">
-                <span>{{v}}</span>
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputScene" placeholder="添加一项气象科目"></el-input>
+                <el-button type="primary" @click="saveScene()">立即创建</el-button>
             </div>
         </div>
 
-                                            <el-input v-model="inputCarFault" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveCarFault()">立即创建</el-button>
-
-        <p>人员类别配置项：</p>
         <div class="textBox">
-            <div v-for="v in pType">
-                <span>{{v}}</span>
+            <el-divider content-position="center">车辆状态管理：</el-divider>
+            <div class="list" v-for="(value,index) in carState">
+                <el-input style="width: 300px" v-model="carState[index]" auto-complete="off"></el-input>
+                <el-button @click="carStateDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputCarState" placeholder="添加一项车辆状态"></el-input>
+                <el-button type="primary" @click="saveCarState()">立即创建</el-button>
             </div>
         </div>
 
-        <el-input v-model="inputPType" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="savePType()">立即创建</el-button>
-
-        <p>人员专业配置项：</p>
         <div class="textBox">
-            <div v-for="v in pMajor">
-                <span>{{v}}</span>
+            <el-divider content-position="center">车辆任务状态管理：</el-divider>
+            <div class="list" v-for="(value,index) in carTask">
+                <el-input style="width: 300px" v-model="carTask[index]" auto-complete="off"></el-input>
+                <el-button @click="carTaskDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputCarTask" placeholder="添加一项车辆任务状态"></el-input>
+                <el-button type="primary" @click="saveCarTask()">立即创建</el-button>
             </div>
         </div>
 
-                <el-input v-model="inputPMajor" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="savePMajor()">立即创建</el-button>
-
-        <p>人员职务配置项：</p>
         <div class="textBox">
-            <div v-for="v in pPost">
-                <span>{{v}}</span>
+            <el-divider content-position="center">车辆类型管理：</el-divider>
+            <div class="list" v-for="(value,index) in carType">
+                <el-input style="width: 300px" v-model="carType[index]" auto-complete="off"></el-input>
+                <el-button @click="carTypeDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputCarType" placeholder="添加一项车辆类型"></el-input>
+                <el-button type="primary" @click="saveCarType()">立即创建</el-button>
             </div>
         </div>
 
-                        <el-input v-model="inputPPost" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="savePPost()">立即创建</el-button>
-
-        <p>保障任务配置项：</p>
         <div class="textBox">
-            <div v-for="v in ensure">
-                <span>{{v}}</span>
+            <el-divider content-position="center">车辆故障管理：</el-divider>
+            <div class="list" v-for="(value,index) in carFault">
+                <el-input style="width: 300px" v-model="carFault[index]" auto-complete="off"></el-input>
+                <el-button @click="carFaultDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputCarFault" placeholder="添加一项车辆故障"></el-input>
+                <el-button type="primary" @click="saveCarFault()">立即创建</el-button>
             </div>
         </div>
 
-                                <el-input v-model="inputEnsure" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveEnsure()">立即创建</el-button>
-
-        <p>人员工作状态配置项：</p>
         <div class="textBox">
-            <div v-for="v in pStatus">
-                <span>{{v}}</span>
+            <el-divider content-position="center">人员类别管理：</el-divider>
+            <div class="list" v-for="(value,index) in pType">
+                <el-input style="width: 300px" v-model="pType[index]" auto-complete="off"></el-input>
+                <el-button @click="pTypeDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputPType" placeholder="添加一项人员类别"></el-input>
+                <el-button type="primary" @click="savePType()">立即创建</el-button>
             </div>
         </div>
 
-                                        <el-input v-model="inputPStatus" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="savePStatus()">立即创建</el-button>
-
-        <p>车辆工作状态配置项：</p>
         <div class="textBox">
-            <div v-for="v in carWork">
-                <span>{{v}}</span>
+            <el-divider content-position="center">人员专业管理：</el-divider>
+            <div class="list" v-for="(value,index) in pMajor">
+                <el-input style="width: 300px" v-model="pMajor[index]" auto-complete="off"></el-input>
+                <el-button @click="pMajorDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputPMajor" placeholder="添加一项人员专业"></el-input>
+                <el-button type="primary" @click="savePMajor()">立即创建</el-button>
             </div>
         </div>
 
-                                                <el-input v-model="inputCarWork" placeholder="添加一项任务状态"></el-input>
-        <el-button type="primary" @click="saveCarWork()">立即创建</el-button>
+        <div class="textBox">
+            <el-divider content-position="center">人员职务管理：</el-divider>
+            <div class="list" v-for="(value,index) in pPost">
+                <el-input style="width: 300px" v-model="pPost[index]" auto-complete="off"></el-input>
+                <el-button @click="pPostDel(index)" type="danger">删除</el-button>
+            </div>
 
-        <el-button style="width:100%;" type="primary" @click="submit()">确认提交</el-button>
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputPPost" placeholder="添加一项人员职务"></el-input>
+                <el-button type="primary" @click="savePMajor()">立即创建</el-button>
+            </div>
+        </div>
+
+        <div class="textBox">
+            <el-divider content-position="center">保障任务管理：</el-divider>
+            <div class="list" v-for="(value,index) in ensure">
+                <el-input style="width: 300px" v-model="ensure[index]" auto-complete="off"></el-input>
+                <el-button @click="pMajorDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputEnsure" placeholder="添加一项保障任务"></el-input>
+                <el-button type="primary" @click="saveEnsure()">立即创建</el-button>
+            </div>
+        </div>
+
+            <div class="textBox">
+            <el-divider content-position="center">人员工作状态管理：</el-divider>
+            <div class="list" v-for="(value,index) in pStatus">
+                <el-input style="width: 300px" v-model="pStatus[index]" auto-complete="off"></el-input>
+                <el-button @click="pStatusDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputPStatus" placeholder="添加一项人员工作状态"></el-input>
+                <el-button type="primary" @click="savePStatus()">立即创建</el-button>
+            </div>
+        </div>
+
+        <div class="textBox">
+            <el-divider content-position="center">车辆工作状态管理：</el-divider>
+            <div class="list" v-for="(value,index) in carWork">
+                <el-input style="width: 300px" v-model="carWork[index]" auto-complete="off"></el-input>
+                <el-button @click="carWorkDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputCarWork" placeholder="添加一项车辆工作状态"></el-input>
+                <el-button type="primary" @click="saveCarWork()">立即创建</el-button>
+            </div>
+        </div>
+
+        <div class="textBox">
+            <el-divider content-position="center">飞机类型管理：</el-divider>
+            <div class="list" v-for="(value,index) in airType">
+                <el-input style="width: 300px" v-model="airType[index]" auto-complete="off"></el-input>
+                <el-button @click="airTypeDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputairType" placeholder="添加一项飞机类型"></el-input>
+                <el-button type="primary" @click="saveairType()">立即创建</el-button>
+            </div>
+        </div>
+
+        <div class="textBox">
+            <el-divider content-position="center">故障排除方法管理：</el-divider>
+            <div class="list" v-for="(value,index) in faultMethod">
+                <el-input style="width: 300px" v-model="faultMethod[index]" auto-complete="off"></el-input>
+                <el-button @click="faultMethodDel(index)" type="danger">删除</el-button>
+            </div>
+
+            <div class="create">
+                <el-input  style="width: 300px" v-model="inputfaultMethod" placeholder="添加一项故障排除方法"></el-input>
+                <el-button type="primary" @click="savefaultMethod()">立即创建</el-button>
+            </div>
+        </div>
+        <el-divider></el-divider>
+        <el-button type="success" @click="submit()" round>确认提交</el-button>
         </div>
     </div>
 </template>
@@ -200,6 +274,10 @@
                 pStatus_s: '',
                 carWork: [],
                 carWork_s: '',
+                airType: [],
+                airType_s: '',
+                faultMethod: [],
+                faultMethod_s: '',
                 inputState: '',
                 inputTask: '',
                 inputFault: '',
@@ -215,6 +293,8 @@
                 inputEnsure: '',
                 inputPStatus: '',
                 inputCarWork: '',
+                inputairType: '',
+                inputfaultMethod: '',
                 showAlert: false,
                 alertText: '',
                 a: {
@@ -264,13 +344,67 @@
                     this.ensure = this.configData.data[0].ensureModel.split(",");
                     this.pStatus = this.configData.data[0].pStatusModel.split(",");
                     this.carWork = this.configData.data[0].carWorkModel.split(",");
+                    this.airType = this.configData.data[0].airTypeModel.split(",");
+                    this.faultMethod = this.configData.data[0].faultMethodModel.split(",");
                 }catch(err){
                     console.log('获取数据失败', err);
                 }
             },
             saveState() {
+                console.log(this.state);
                 this.state_s = this.state + "," + this.inputState;
                 this.state = this.state_s.split(",");
+            },
+            stateDel(index) {
+                this.state.splice(index, 1);
+            },
+            taskDel(index) {
+                this.task.splice(index, 1);
+            },
+            faultDel(index) {
+                this.fault.splice(index, 1);
+            },
+            subjectDel(index) {
+                this.subject.splice(index, 1);
+            },
+            sceneDel(index) {
+                this.scene.splice(index, 1);
+            },
+            carStateDel(index) {
+                this.carState.splice(index, 1);
+            },
+            carTaskDel(index) {
+                this.carTask.splice(index, 1);
+            },
+            carTypeDel(index) {
+                this.carType.splice(index, 1);
+            },
+            carFaultDel(index) {
+                this.carFault.splice(index, 1);
+            },
+            pTypeDel(index) {
+                this.pType.splice(index, 1);
+            },
+            pMajorDel(index) {
+                this.pMajor.splice(index, 1);
+            },
+            pPostDel(index) {
+                this.pPost.splice(index, 1);
+            },
+            pMajorDel(index) {
+                this.pPost.splice(index, 1);
+            },
+            pStatusDel(index) {
+                this.pStatus.splice(index, 1);
+            },
+            carWorkDel(index) {
+                this.carWork.splice(index, 1);
+            },
+            airTypeDel(index) {
+                this.airType.splice(index, 1);
+            },
+            faultMethodDel(index) {
+                this.faultMethod.splice(index, 1);
             },
             saveTask() {
                 this.task_s = this.task + "," + this.inputTask;
@@ -327,6 +461,14 @@
             saveCarWork() {
                 this.carWork_s = this.carWork + "," + this.inputCarWork;
                 this.carWork = this.carWork_s.split(",");
+            },
+            savefaultMethod() {
+                this.faultMethod_s = this.faultMethod + "," + this.inputfaultMethod;
+                this.faultMethod = this.faultMethod_s.split(",");
+            },
+            saveairType() {
+                this.airType_s = this.airType + "," + this.airType;
+                this.airType = this.airType_s.split(",");
             },
             handleEdit(index,row) {
             	this.getSelectItemData(row, 'edit')
@@ -408,6 +550,8 @@
                     ensureModel: this.ensure,
                     pStatusModel: this.pStatus,
                     carWorkModel: this.carWork,
+                    airTypeModel: this.airType,
+                    faultMethodModel: this.faultMethod,
                 }
                 const res = await updateConfig(data);
             },
@@ -475,11 +619,23 @@
     .showConfig {
         margin: 20px;
         line-height: 3;
+        text-align: center;
+    }
+    .showTitle {
+        // text-align: left;
     }
     .textBox {
-            display: flex;
-            justify-content: space-between;
-            width: 700px;
+        input {
+            text-align: center;
+            font-size: 14PX;
+        }
+            // display: flex;
+            // justify-content: space-between;
+            // width: 700px;
+    }
+    .create {
+        // display: flex;
+        // text-align: center;
     }
 </style>
 
