@@ -154,7 +154,7 @@
 
             <div class="create">
                 <el-input  style="width: 300px" v-model="inputPPost" placeholder="添加一项人员职务"></el-input>
-                <el-button type="primary" @click="savePMajor()">立即创建</el-button>
+                <el-button type="primary" @click="savePPost()">立即创建</el-button>
             </div>
         </div>
 
@@ -162,7 +162,7 @@
             <el-divider content-position="center">保障任务管理：</el-divider>
             <div class="list" v-for="(value,index) in ensure">
                 <el-input style="width: 300px" v-model="ensure[index]" auto-complete="off"></el-input>
-                <el-button @click="pMajorDel(index)" type="danger">删除</el-button>
+                <el-button @click="ensureDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
@@ -391,8 +391,8 @@
             pPostDel(index) {
                 this.pPost.splice(index, 1);
             },
-            pMajorDel(index) {
-                this.pPost.splice(index, 1);
+            ensureDel(index) {
+                this.ensure.splice(index, 1);
             },
             pStatusDel(index) {
                 this.pStatus.splice(index, 1);
@@ -467,7 +467,7 @@
                 this.faultMethod = this.faultMethod_s.split(",");
             },
             saveairType() {
-                this.airType_s = this.airType + "," + this.airType;
+                this.airType_s = this.airType + "," + this.inputairType;
                 this.airType = this.airType_s.split(",");
             },
             handleEdit(index,row) {
