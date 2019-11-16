@@ -25,7 +25,7 @@
                      <el-form-item label="分队">
                         <span>{{ props.row.detachment }}</span>
                       </el-form-item>
-                      <el-form-item label="工种">
+                      <el-form-item label=" 类型">
                         <span>{{ props.row.type }}</span>
                       </el-form-item>
                       <el-form-item label="组织架构">
@@ -63,25 +63,25 @@
 		        label="姓名"
 		        width="180">
 		      </el-table-column>
-		      <el-table-column
-		        prop="sex"
-		        label="性别"
-		        width="80">
-		      </el-table-column>
-              <el-table-column
-                prop="phone"
-                label="联系方式"
-                width="140">
-              </el-table-column>
-            <el-table-column
+                <el-table-column
                 prop="detachment"
                 label="分队"
                 width="180">
               </el-table-column>
                <el-table-column
                 prop="type"
-                label="工种"
+                label=" 类型"
                 width="180">
+              </el-table-column>
+		      <el-table-column
+		        prop="post"
+		        label="职务"
+		        width="80">
+		      </el-table-column>
+              <el-table-column
+                prop="major"
+                label="专业"
+                width="140">
               </el-table-column>
               <!--<el-table-column
                 prop="remark"
@@ -179,7 +179,7 @@
                     <el-form-item label="分队" label-width="100px">
                         <el-input v-model="selectTable.detachment"></el-input>
                     </el-form-item>
-                    <el-form-item label="工种" label-width="100px">
+                    <el-form-item label="类型" label-width="100px">
                         <el-select v-model="selectTable.type">
                                 <el-option
                                 v-for="(item,index) in gz"
