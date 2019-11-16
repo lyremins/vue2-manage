@@ -176,11 +176,17 @@
                     <el-form-item label="联系方式" label-width="100px">
                         <el-input v-model="selectTable.phone"></el-input>
                     </el-form-item>
-                    <el-form-item label="分队" label-width="100px">
+                    <el-form-item label="分队" label-width="100px">
                         <el-input v-model="selectTable.detachment"></el-input>
                     </el-form-item>
                     <el-form-item label="工种" label-width="100px">
-						<el-input v-model="selectTable.type"></el-input>
+                        <el-select v-model="selectTable.type">
+                                <el-option
+                                v-for="(item,index) in gz"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
 					</el-form-item>
                     <el-form-item label="备注" label-width="100px">
 						<el-input v-model="selectTable.remark"></el-input>
@@ -198,19 +204,41 @@
 						<el-input v-model="selectTable.row"></el-input>
 					</el-form-item>
 					<el-form-item label="职务" label-width="100px">
-						<el-input v-model="selectTable.post"></el-input>
+                        <el-select v-model="selectTable.post">
+                                <el-option
+                                v-for="(item,index) in zw"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="专业" label-width="100px">
-						<el-input v-model="selectTable.major"></el-input>
+                        <el-select v-model="selectTable.major">
+                                <el-option
+                                v-for="(item,index) in zy"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="等级" label-width="100px">
 						<el-input v-model="selectTable.grade"></el-input>
 					</el-form-item>
 					<el-form-item label="绑定飞机" label-width="100px">
-						<el-input v-model="selectTable.bindAir"></el-input>
+                            <el-select v-model="selectTable.bindAir">
+                                <el-option
+                                v-for="(item,index) in air"
+                                :key="index"
+                                :label="item.code"
+                                :value="item.code"></el-option>
+                            </el-select>
 					</el-form-item>
 					<el-form-item label="入伍时间" label-width="100px">
-						<el-input v-model="selectTable.enlist"></el-input>
+                        <el-date-picker
+                            v-model="selectTable.enlist"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
 					</el-form-item>
 					<el-form-item label="毕业院校" label-width="100px">
 						<el-input v-model="selectTable.school"></el-input>
@@ -230,7 +258,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getPersonnel,getPersonnelCount,getPersonnelById,updatePersonnel,deletePersonnel,addPersonnel } from '@/api/getData'
+    import { getPersonnel,getPersonnelCount,getPersonnelById,updatePersonnel,deletePersonnel,addPersonnel,getAirplane,getConfig } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
     export default {
         data(){
@@ -242,7 +270,11 @@
                 count: 0,
                 currentPage: 1,
                 selectTable: {},
-                dialogFormVisible: false
+                dialogFormVisible: false,
+                air: {},
+                gz: {},
+                zw: {},
+                zy: {}
             }
         },
     	components: {
@@ -262,6 +294,12 @@
                         throw new Error('获取数据失败');
                     }
                     this.getPersonnel();
+                    const airplane = await getAirplane();
+                    this.air = airplane.data;
+                    const config = await getConfig();
+                    this.gz = config.data[0].pTypeModel.split(",");
+                    this.zw = config.data[0].pPostModel.split(",");
+                    this.zy = config.data[0].pMajorModel.split(",");
                 }catch(err){
                     console.log('获取数据失败', err);
                 }

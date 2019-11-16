@@ -17,7 +17,13 @@
 						<el-input v-model="formData.detachment"></el-input>
 					</el-form-item>
 					<el-form-item label="工种" prop="type">
-						<el-input v-model="formData.type"></el-input>
+                            <el-select v-model="formData.type">
+                                <el-option
+                                v-for="(item,index) in gz"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
 					</el-form-item>
                     <el-form-item label="备注" prop="remark">
 						<el-input v-model="formData.remark"></el-input>
@@ -35,19 +41,41 @@
 						<el-input v-model="formData.row"></el-input>
 					</el-form-item>
 					<el-form-item label="职务" prop="post">
-						<el-input v-model="formData.post"></el-input>
+                            <el-select v-model="formData.post">
+                                <el-option
+                                v-for="(item,index) in zw"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="专业" prop="major">
-						<el-input v-model="formData.major"></el-input>
+                            <el-select v-model="formData.major">
+                                <el-option
+                                v-for="(item,index) in zy"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="等级" prop="grade">
 						<el-input v-model="formData.grade"></el-input>
 					</el-form-item>
 					<el-form-item label="绑定飞机" prop="bindAir">
-						<el-input v-model="formData.bindAir"></el-input>
+                        <el-select v-model="formData.bindAir">
+                                <el-option
+                                v-for="(item,index) in air"
+                                :key="index"
+                                :label="item.code"
+                                :value="item.code"></el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="入伍时间" prop="enlist">
-						<el-input v-model="formData.enlist"></el-input>
+                        <el-date-picker
+                            v-model="formData.enlist"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
 					</el-form-item>
 					<el-form-item label="毕业院校" prop="school">
 						<el-input v-model="formData.school"></el-input>
@@ -66,7 +94,7 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addPersonnel } from '@/api/getData'
+    import { addPersonnel,getAirplane,getConfig } from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -107,13 +135,18 @@
 						{ required: true, message: '请输入联系电话' },
 						{ type: 'number', message: '电话号码必须是数字' }
 					],
-				}
+                },
+                air: {},
+                gz: {},
+                zw: {},
+                zy: {}
     		}
     	},
     	components: {
     		headTop,
     	},
     	mounted(){
+            this.init();
     	},
     	methods: {
 		    submitForm(formName) {
@@ -165,7 +198,15 @@
 						return false;
 					}
 				});
-			},
+            },
+            async init() {
+                const config = await getConfig();
+                this.gz = config.data[0].pTypeModel.split(",");
+                this.zw = config.data[0].pPostModel.split(",");
+                this.zy = config.data[0].pMajorModel.split(",");
+                const airplane = await getAirplane();
+                this.air = airplane.data
+            }
 		}
     }
 </script>
