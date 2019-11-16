@@ -163,7 +163,13 @@
                         <el-input v-model="selectTable.name" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="型号" label-width="100px">
-                        <el-input v-model="selectTable.model"></el-input>
+                            <el-select v-model="selectTable.model">
+                                <el-option
+                                v-for="(item,index) in airType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
                     </el-form-item>
                     <el-form-item label="出厂号码" label-width="100px">
 						<el-input v-model="selectTable.code"></el-input>
@@ -175,7 +181,13 @@
 						<el-input v-model="selectTable.organiz"></el-input>
 					</el-form-item>
 					<el-form-item label="服务机型" label-width="100px">
-						<el-input v-model="selectTable.service"></el-input>
+                            <el-select v-model="selectTable.service">
+                                <el-option
+                                v-for="(item,index) in airType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
 					</el-form-item>
 					<el-form-item label="部队编号" label-width="100px">
 						<el-input v-model="selectTable.armyId"></el-input>
@@ -196,7 +208,13 @@
 						<el-input v-model="selectTable.repairNumber"></el-input>
 					</el-form-item>
 					<el-form-item label="车辆任务状态" label-width="100px">
-						<el-input v-model="selectTable.taskState"></el-input>
+                         <el-select v-model="selectTable.taskState">
+                                <el-option
+                                v-for="(item,index) in airType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
 					</el-form-item>
                 </el-form>
               <div slot="footer" class="dialog-footer">
@@ -210,7 +228,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getVehicle,getVehicleCount,getVehicleById,updateVehicle,deleteVehicle,addVehicle } from '@/api/getData'
+    import { getVehicle,getVehicleCount,getVehicleById,updateVehicle,deleteVehicle,addVehicle,getConfig } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
    export default {
         data(){
@@ -222,7 +240,10 @@
                 count: 0,
                 currentPage: 1,
                 selectTable: {},
-                dialogFormVisible: false
+                dialogFormVisible: false,
+                airType: {},
+                carType: {},
+                carTaskType: {}
             }
         },
     	components: {
@@ -242,6 +263,10 @@
                         throw new Error('获取数据失败');
                     }
                     this.getVehicle();
+                    const config = await getConfig();
+                    this.carType = config.data[0].carTypeModel.split(",");
+                    this.airType = config.data[0].airTypeModel.split(",");
+                    this.carTaskType = config.data[0].carTaskModel.split(",");
                 }catch(err){
                     console.log('获取数据失败', err);
                 }

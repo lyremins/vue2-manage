@@ -8,7 +8,13 @@
 						<el-input v-model="formData.name"></el-input>
 					</el-form-item>
 					<el-form-item label="型号" prop="model">
-						<el-input v-model.number="formData.model" maxLength="11"></el-input>
+                            <el-select v-model="formData.model">
+                                <el-option
+                                v-for="(item,index) in carType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
 					</el-form-item>
 					<el-form-item label="出厂号码" prop="code">
 						<el-input v-model="formData.code"></el-input>
@@ -20,7 +26,13 @@
 						<el-input v-model="formData.organiz"></el-input>
 					</el-form-item>
 					<el-form-item label="服务机型" prop="service">
-						<el-input v-model="formData.service"></el-input>
+                            <el-select v-model="formData.service">
+                                <el-option
+                                v-for="(item,index) in airType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
 					</el-form-item>
 					<el-form-item label="部队编号" prop="armyId">
 						<el-input v-model="formData.armyId"></el-input>
@@ -41,7 +53,13 @@
 						<el-input v-model="formData.repairNumber"></el-input>
 					</el-form-item>
 					<el-form-item label="车辆任务状态" prop="taskState">
-						<el-input v-model="formData.taskState"></el-input>
+                            <el-select v-model="formData.taskState">
+                                <el-option
+                                v-for="(item,index) in carTaskType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
 					</el-form-item>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>
@@ -54,7 +72,7 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addVehicle } from '@/api/getData'
+    import { addVehicle,getConfig } from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -76,13 +94,17 @@
 		        },
 		        rules: {
 
-				}
+                },
+                airType: {},
+                carType: {},
+                carTaskType: {}
     		}
     	},
     	components: {
     		headTop,
     	},
     	mounted(){
+            this.init();
     	},
     	methods: {
 		    submitForm(formName) {
@@ -130,7 +152,13 @@
 						return false;
 					}
 				});
-			},
+            },
+            async init() {
+                const config = await getConfig();
+                this.carType = config.data[0].carTypeModel.split(",");
+                this.airType = config.data[0].airTypeModel.split(",");
+                this.carTaskType = config.data[0].carTaskModel.split(",");
+            }
 		}
     }
 </script>
