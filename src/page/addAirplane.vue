@@ -23,7 +23,6 @@
                                 :label="item"
                                 :value="item"></el-option>
                             </el-select>
-						<!-- <el-input v-model="formData.unit"></el-input> -->
 					</el-form-item>
 					<el-form-item label="出厂号码" prop="code">
 						<el-input v-model.number="formData.code" maxLength="11"></el-input>
@@ -34,8 +33,12 @@
 					<el-form-item label="生产厂家" prop="factory">
 						<el-input v-model="formData.factory"></el-input>
 					</el-form-item>
-					<el-form-item label="生产时间" prop="date">
-						<el-input v-model="formData.date"></el-input>
+					<el-form-item label="生产日期" prop="date">
+                            <el-date-picker
+                            v-model="formData.date"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
 					</el-form-item>
                     <el-form-item label="所属单位" prop="unit">
                             <el-select v-model="formData.unit">
@@ -48,22 +51,22 @@
 						<!-- <el-input v-model="formData.unit"></el-input> -->
 					</el-form-item>
                     <el-form-item label="飞行时间" prop="airTime">
-						<el-input v-model="formData.airTime"></el-input>
+						<el-input type="number" v-model="formData.airTime"></el-input>
 					</el-form-item>
                     <el-form-item label="总飞行起落" prop="airUpOrDown">
-						<el-input v-model="formData.airUpOrDown"></el-input>
+						<el-input type="number" v-model="formData.airUpOrDown"></el-input>
 					</el-form-item>
                     <el-form-item label="飞行小时" prop="airHour">
-						<el-input v-model="formData.airHour"></el-input>
+						<el-input type="number" v-model="formData.airHour"></el-input>
 					</el-form-item>
                     <el-form-item label="阶段起落" prop="stageUpOrDown">
-						<el-input v-model="formData.stageUpOrDown"></el-input>
+						<el-input type="number" v-model="formData.stageUpOrDown"></el-input>
 					</el-form-item>
                     <el-form-item label="发动机1小时数" prop="engine_1">
-						<el-input v-model="formData.engine_1"></el-input>
+						<el-input type="number" v-model="formData.engine_1"></el-input>
 					</el-form-item>
                     <el-form-item label="发动机2小时数" prop="engine_2">
-						<el-input v-model="formData.engine_2"></el-input>
+						<el-input type="number" v-model="formData.engine_2"></el-input>
 					</el-form-item>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>

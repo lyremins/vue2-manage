@@ -32,7 +32,11 @@
                     </el-form-item>
 
                     <el-form-item label="生产时间" label-width="100px">
-                        <el-input v-model="selectTable.date"></el-input>
+                                <el-date-picker
+                            v-model="selectTable.date"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
                     </el-form-item>
 
                     <el-form-item label="所属单位" label-width="100px">
@@ -41,27 +45,27 @@
 
 
                     <el-form-item label="飞行时间" label-width="100px">
-                        <el-input v-model="selectTable.airTime"></el-input>
+                        <el-input type="number" v-model="selectTable.airTime"></el-input>
                     </el-form-item>
 
                     <el-form-item label="总飞行起落" label-width="100px">
-                        <el-input v-model="selectTable.airUpOrDown"></el-input>
+                        <el-input type="number" v-model="selectTable.airUpOrDown"></el-input>
                     </el-form-item>
 
                     <el-form-item label="飞行小时" label-width="100px">
-                        <el-input v-model="selectTable.airHour"></el-input>
+                        <el-input type="number" v-model="selectTable.airHour"></el-input>
                     </el-form-item>
 
                     <el-form-item label="阶段起落" label-width="100px">
-                        <el-input v-model="selectTable.stageUpOrDown"></el-input>
+                        <el-input type="number" v-model="selectTable.stageUpOrDown"></el-input>
                     </el-form-item>
 
                     <el-form-item label="发动机1小时数" label-width="100px">
-                        <el-input v-model="selectTable.engine_1"></el-input>
+                        <el-input type="number" v-model="selectTable.engine_1"></el-input>
                     </el-form-item>
 
                     <el-form-item label="发动机2小时" label-width="100px">
-                        <el-input v-model="selectTable.engine_2"></el-input>
+                        <el-input type="number" v-model="selectTable.engine_2"></el-input>
                     </el-form-item>
 
                     <el-form-item label="飞机状态" label-width="100px">
@@ -73,11 +77,11 @@
                     </el-form-item>
 
                     <el-form-item label="操作时间" label-width="100px">
-                        <el-input v-model="selectTable.create_time"></el-input>
+                        <el-input  v-model="selectTable.create_time"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="阶段飞行小时" label-width="100px">
-                        <el-input v-model="selectTable.stageUpOrDownTime"></el-input>
+                    <el-form-item  label="阶段飞行小时" label-width="100px">
+                        <el-input type="number" v-model="selectTable.stageUpOrDownTime"></el-input>
                     </el-form-item>
 
                     <el-form-item label="大修次数" label-width="100px">
