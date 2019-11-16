@@ -109,7 +109,11 @@
                         <el-input v-model="selectTable.filed4"></el-input>
                     </el-form-item>
                     <el-form-item label="出厂日期" label-width="100px">
-                        <el-input v-model="selectTable.filed5"></el-input>
+                             <el-date-picker
+                            v-model="selectTable.filed5"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
                     </el-form-item>
                     <el-form-item label="总挂飞小时" label-width="100px">
                         <el-input v-model="selectTable.filed6"></el-input>

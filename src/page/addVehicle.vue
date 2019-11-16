@@ -41,7 +41,11 @@
 						<el-input v-model="formData.product"></el-input>
 					</el-form-item>
 					<el-form-item label="生产时间" prop="productTime">
-						<el-input v-model="formData.productTime"></el-input>
+                        <el-date-picker
+                            v-model="formData.productTime"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
 					</el-form-item>
 					<el-form-item label="总寿命" prop="life">
 						<el-input v-model="formData.life"></el-input>

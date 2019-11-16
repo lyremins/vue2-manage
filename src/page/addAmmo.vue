@@ -17,7 +17,11 @@
 						<el-input v-model="formData.filed4"></el-input>
 					</el-form-item>
 					<el-form-item label="出厂日期" prop="filed5">
-						<el-input v-model="formData.filed5"></el-input>
+                        <el-date-picker
+                            v-model="formData.filed5"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
 					</el-form-item>
                     <el-form-item label="总挂飞小时" prop="filed6">
 						<el-input v-model="formData.filed5"></el-input>
