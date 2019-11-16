@@ -2,11 +2,22 @@
     <div class="fillcontain">
         <head-top></head-top>
          <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+        <el-button
+            size="medium"
+            type="primary"
+            @click="addAirplane()">添加飞机</el-button>
          <el-dialog title="修改飞机信息" :visible.sync="dialogFormVisible">
                 <el-form :model="selectTable">
-                <el-form-item label="飞机型号" label-width="100px">
-                        <el-input v-model="selectTable.model"></el-input>
-                    </el-form-item>
+
+                    <el-form-item label="飞机型号" label-width="100px" prop="model">
+                            <el-select v-model="selectTable.model">
+                                <el-option
+                                v-for="(item,index) in airType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
+					</el-form-item>
 
                     <el-form-item label="出厂号码" label-width="100px">
                         <el-input v-model="selectTable.code"></el-input>
@@ -27,6 +38,7 @@
                     <el-form-item label="所属单位" label-width="100px">
                         <el-input v-model="selectTable.unit"></el-input>
                     </el-form-item>
+
 
                     <el-form-item label="飞行时间" label-width="100px">
                         <el-input v-model="selectTable.airTime"></el-input>
@@ -52,24 +64,16 @@
                         <el-input v-model="selectTable.engine_2"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="飞机图片" label-width="100px">
-                        <el-input v-model="selectTable.image_path"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="飞机态势" label-width="100px">
+                    <el-form-item label="飞机状态" label-width="100px">
                         <el-input v-model="selectTable.state"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="任务态势" label-width="100px">
+                    <el-form-item label="飞机任务状态" label-width="100px">
                         <el-input v-model="selectTable.task"></el-input>
                     </el-form-item>
 
                     <el-form-item label="操作时间" label-width="100px">
                         <el-input v-model="selectTable.create_time"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="机型" label-width="100px">
-                        <el-input v-model="selectTable.type"></el-input>
                     </el-form-item>
 
                     <el-form-item label="阶段飞行小时" label-width="100px">
@@ -171,20 +175,16 @@
                         <span>{{ props.row.image_path }}</span>
                       </el-form-item>
 
-                      <el-form-item label="飞机态势">
+                      <el-form-item label="飞机状态">
                         <span>{{ props.row.state }}</span>
                       </el-form-item>
 
-                      <el-form-item label="任务态势">
+                      <el-form-item label="飞机任务状态">
                         <span>{{ props.row.task }}</span>
                       </el-form-item>
 
                       <el-form-item label="操作时间">
                         <span>{{ props.row.create_time }}</span>
-                      </el-form-item>
-
-                      <el-form-item label="机型">
-                        <span>{{ props.row.type }}</span>
                       </el-form-item>
 
                       <el-form-item label="阶段飞行小时">
@@ -222,15 +222,11 @@
                 label="飞行小时"
                 width="180">
               </el-table-column>
-            <el-table-column label="操作" width="300">
+            <el-table-column label="操作" width="200">
                   <template slot-scope="scope">
                     <el-button
                       size="mini"
                       @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button
-                      size="mini"
-                      type="Success"
-                      @click="addAirplane()">添加飞机</el-button>
                     <el-button
                       size="mini"
                       type="danger"
@@ -254,7 +250,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getAirplane,getAirplaneCount,getAirplaneById,updateAirplane,deleteAirplane,addAirplane } from '@/api/getData'
+    import { getAirplane,getAirplaneCount,getAirplaneById,updateAirplane,deleteAirplane,addAirplane,getConfig } from '@/api/getData'
     import {baseUrl, baseImgPath} from '@/config/env'
     import UploadExcelComponent from '../components/index.vue'
     export default {
@@ -271,7 +267,8 @@
                 selectTable: {},
                 dialogFormVisible: false,
                 tableData: [],
-                tableHeader: []
+                tableHeader: [],
+                airType: {}
             }
         },
     	components: {
@@ -292,6 +289,8 @@
                         throw new Error('获取数据失败');
                     }
                     this.getAirplane();
+                    const config = await getConfig();
+                    this.airType = config.data[0].airTypeModel.split(",");
                 }catch(err){
                     console.log('获取数据失败', err);
                 }
@@ -331,8 +330,8 @@
                                 stageUpOrDownTime: item.stageUpOrDownTime, // 阶段飞行小时
                                 repairNumber: item.repairNumber, // 大修次数
                                 repairFactory: item.repairFactory, // 大修次数
-                                state: item.state, // 飞机态势
-                                task: item.task, // 飞机任务态势
+                                state: item.state, // 飞机状态
+                                task: item.task, // 飞机飞机任务状态
                     		}
                     		this.tableData.push(tableItem)
                         })
@@ -485,6 +484,10 @@
     .table_container{
         padding: 20px;
     }
+    .el-button--medium {
+        margin: 30PX;
+        margin-bottom: 0PX;
+    }
      .el-table th.is-leaf {
         text-align: center;
     }
@@ -536,6 +539,9 @@
     }
     .el-form--inline .el-form-item__label {
         float: left;
+    }
+    .el-table .cell {
+        text-align: center;
     }
 </style>
 

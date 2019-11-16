@@ -16,7 +16,14 @@
 						</el-upload>
 					</el-form-item>
                     <el-form-item label="飞机型号" prop="model">
-						<el-input v-model="formData.model"></el-input>
+                            <el-select v-model="formData.model">
+                                <el-option
+                                v-for="(item,index) in airType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
+						<!-- <el-input v-model="formData.unit"></el-input> -->
 					</el-form-item>
 					<el-form-item label="出厂号码" prop="code">
 						<el-input v-model.number="formData.code" maxLength="11"></el-input>
@@ -31,7 +38,14 @@
 						<el-input v-model="formData.date"></el-input>
 					</el-form-item>
                     <el-form-item label="所属单位" prop="unit">
-						<el-input v-model="formData.unit"></el-input>
+                            <el-select v-model="formData.unit">
+                                <el-option
+                                v-for="(item,index) in organiz.data"
+                                :key="index"
+                                :label="item.label"
+                                :value="item.value"></el-option>
+                            </el-select>
+						<!-- <el-input v-model="formData.unit"></el-input> -->
 					</el-form-item>
                     <el-form-item label="飞行时间" prop="airTime">
 						<el-input v-model="formData.airTime"></el-input>
@@ -62,7 +76,7 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addAirplane } from '@/api/getData'
+    import { addAirplane,getOrganiz,getConfig } from '@/api/getData'
     import {baseUrl, baseImgPath} from '@/config/env'
     export default {
     	data(){
@@ -103,13 +117,16 @@
 						{ required: true, message: '请输入联系电话' },
 						{ type: 'number', message: '电话号码必须是数字' }
 					],
-				}
+                },
+                organiz: {},
+                airType: {}
     		}
     	},
     	components: {
     		headTop,
     	},
     	mounted(){
+            this.init();
     	},
     	methods: {
 		    submitForm(formName) {
@@ -161,6 +178,11 @@
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}
 				return isRightType && isLt2M;
+            },
+            async init() {
+                this.organiz = await getOrganiz();
+                const config = await getConfig();
+                this.airType = config.data[0].airTypeModel.split(",");
             }
 		}
     }

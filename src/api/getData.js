@@ -569,3 +569,9 @@ export const getLog = () => fetch('/wcbz/getLog');
  */
 export const getAirplaneState = () => fetch('/wcbz/getAirplaneState');
 
+/**
+ * 获取组织架构
+ */
+
+export const getOrganiz = () => fetch('/wcbz/getOrganiz');
+
