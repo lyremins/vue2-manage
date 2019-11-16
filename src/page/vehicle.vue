@@ -175,7 +175,13 @@
 						<el-input v-model="selectTable.code"></el-input>
 					</el-form-item>
 					<el-form-item label="状态" label-width="100px">
-						<el-input v-model="selectTable.state"></el-input>
+                        <el-select v-model="selectTable.state">
+                                <el-option
+                                v-for="(item,index) in carStateType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
 					</el-form-item>
 					<el-form-item label="单位" label-width="100px">
 						<el-input v-model="selectTable.organiz"></el-input>
@@ -247,7 +253,8 @@
                 dialogFormVisible: false,
                 airType: {},
                 carType: {},
-                carTaskType: {}
+                carTaskType: {},
+                carStateType: {}
             }
         },
     	components: {
@@ -269,6 +276,7 @@
                     this.getVehicle();
                     const config = await getConfig();
                     this.carType = config.data[0].carTypeModel.split(",");
+                    this.carStateType = config.data[0].carStateModel.split(",");
                     this.airType = config.data[0].airTypeModel.split(",");
                     this.carTaskType = config.data[0].carTaskModel.split(",");
                 }catch(err){

@@ -20,7 +20,13 @@
 						<el-input v-model="formData.code"></el-input>
 					</el-form-item>
 					<el-form-item label="状态" prop="state">
-						<el-input v-model="formData.state"></el-input>
+                        <el-select v-model="formData.state">
+                                <el-option
+                                v-for="(item,index) in carStateType"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                            </el-select>
 					</el-form-item>
 					<el-form-item label="单位" prop="organiz">
 						<el-input v-model="formData.organiz"></el-input>
@@ -101,7 +107,8 @@
                 },
                 airType: {},
                 carType: {},
-                carTaskType: {}
+                carTaskType: {},
+                carStateType: {}
     		}
     	},
     	components: {
@@ -162,6 +169,7 @@
                 this.carType = config.data[0].carTypeModel.split(",");
                 this.airType = config.data[0].airTypeModel.split(",");
                 this.carTaskType = config.data[0].carTaskModel.split(",");
+                this.carStateType = config.data[0].carStateModel.split(",");
             }
 		}
     }
