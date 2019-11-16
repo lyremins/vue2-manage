@@ -13,7 +13,7 @@
                               <el-table-column type="expand">
                   <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                      <el-form-item label="机器名称">
+                      <el-form-item label="有寿器件名称">
                         <span>{{ props.row.filed1 }}</span>
                       </el-form-item>
                         <el-form-item label="有售器件型号">
@@ -37,15 +37,12 @@
                         <el-form-item label="寿命">
                         <span>{{ props.row.filed8 }}</span>
                       </el-form-item>
-                        <el-form-item label="寿命类型">
-                        <span>{{ props.row.smType }}</span>
-                      </el-form-item>
                     </el-form>
                   </template>
                 </el-table-column>
 		      <el-table-column
 		        prop="filed1"
-		        label="机器名称"
+		        label="有寿器件名称"
 		        width="180">
 		      </el-table-column>
 		      <el-table-column
@@ -83,11 +80,6 @@
                 label="寿命"
                 width="120">
               </el-table-column>
-                          <el-table-column
-                prop="smType"
-                label="寿命类型"
-                width="120">
-              </el-table-column>
             <el-table-column label="操作" width="200">
                   <template slot-scope="scope">
                     <el-button
@@ -112,14 +104,18 @@
             </div>
             <el-dialog title="修改保障信息" :visible.sync="dialogFormVisible">
                 <el-form :model="selectTable">
-                    <el-form-item label="机器名称" label-width="100px">
+                    <el-form-item label="有寿器件名称" label-width="100px">
                         <el-input v-model="selectTable.filed1" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="型号" label-width="100px">
                         <el-input v-model="selectTable.filed2"></el-input>
                     </el-form-item>
                     <el-form-item label="装机日期" label-width="100px">
-                        <el-input v-model="selectTable.filed3"></el-input>
+                        <el-date-picker
+                            v-model="selectTable.filed3"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
                     </el-form-item>
                     <el-form-item label="修理次数" label-width="100px">
                         <el-input v-model="selectTable.filed4"></el-input>

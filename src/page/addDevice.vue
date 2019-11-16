@@ -4,23 +4,39 @@
         <el-row style="margin-top: 20px;">
   			<el-col :span="12" :offset="4">
 		        <el-form :model="formData" :rules="rules" ref="formData" label-width="110px" class="demo-formData">
-					<el-form-item label="机器名称" prop="filed1">
+					<el-form-item label="器件名称" prop="filed1">
 						<el-input v-model="formData.filed1"></el-input>
 					</el-form-item>
-					<el-form-item label="型号" prop="filed2">
+					<el-form-item label="器件型号" prop="filed2">
 						<el-input v-model.number="formData.filed2" maxLength="11"></el-input>
 					</el-form-item>
-					<el-form-item label="装机日期" prop="filed3">
-						<el-input v-model="formData.filed3"></el-input>
+                    <el-form-item label="适配机型" prop="filed3">
+                        <el-select v-model="formData.filed3">
+                                <el-option
+                                v-for="(item,index) in air"
+                                :key="index"
+                                :label="item.code"
+                                :value="item.code"></el-option>
+                        </el-select>
 					</el-form-item>
-					<el-form-item label="修理次数" prop="filed4">
-						<el-input v-model="formData.filed4"></el-input>
+                    <el-form-item label="制造厂" prop="filed4">
+						<el-input v-model.number="formData.filed4" maxLength="11"></el-input>
 					</el-form-item>
-					<el-form-item label="总寿命" prop="filed5">
+                    <el-form-item label="总寿命" prop="filed5">
 						<el-input v-model="formData.filed5"></el-input>
 					</el-form-item>
-                    <el-form-item label="总起落" prop="filed6">
+                    <el-form-item label="阈值" prop="filed6">
 						<el-input v-model="formData.filed6"></el-input>
+					</el-form-item>
+					<el-form-item label="装机日期" prop="filed7">
+                        <el-date-picker
+                            v-model="formData.filed7"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
+					</el-form-item>
+                    <el-form-item label="寿命" prop="filed8">
+						<el-input v-model="formData.filed8"></el-input>
 					</el-form-item>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>
@@ -33,7 +49,7 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addDevice } from '@/api/getData'
+    import { addDevice,getAirplane } from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -45,6 +61,8 @@
                     filed4: '', // 工种
                     filed5: '', // 联系方式
                     filed6: '', // 备注
+                    filed7: '', // 备注
+                    filed8: '', // 备注
 
 		        },
 		        rules: {
@@ -64,13 +82,15 @@
 						{ required: true, message: '请输入联系电话' },
 						{ type: 'number', message: '电话号码必须是数字' }
 					],
-				}
+                },
+                air: {}
     		}
     	},
     	components: {
     		headTop,
     	},
     	mounted(){
+            this.init();
     	},
     	methods: {
 		    submitForm(formName) {
@@ -111,7 +131,11 @@
 						return false;
 					}
 				});
-			},
+            },
+            async init() {
+                const airplane = await getAirplane();
+                this.air = airplane.data
+            }
 		}
     }
 </script>

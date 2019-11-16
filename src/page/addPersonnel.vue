@@ -83,6 +83,15 @@
 					<el-form-item label="执行重大任务" prop="greatTask">
 						<el-input v-model="formData.greatTask"></el-input>
 					</el-form-item>
+                    <el-form-item label="是否在岗" prop="duty">
+                        <el-select v-model="formData.duty">
+                                <el-option
+                                v-for="(item,index) in zg"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
+					</el-form-item>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>
 					</el-form-item>
@@ -116,7 +125,8 @@
 					bindAir: '', // 绑定飞机
 					enlist: '', // 入伍时间
 					school: '', // 毕业院校
-					greatTask: '', //执行重大任务
+                    greatTask: '', //执行重大任务
+                    duty: '', //是否在岗
 		        },
 		        rules: {
 					name: [
@@ -139,7 +149,8 @@
                 air: {},
                 gz: {},
                 zw: {},
-                zy: {}
+                zy: {},
+                zg: ['是','否']
     		}
     	},
     	components: {
