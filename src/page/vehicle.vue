@@ -2,6 +2,10 @@
     <div class="fillcontain">
         <head-top></head-top>
         <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+                            <el-button
+            size="medium"
+            type="primary"
+            @click="addDevice()">添加车辆</el-button>
         <div class="table_container">
             <el-table
 		      :data="tableData"
@@ -136,10 +140,6 @@
                     <el-button
                       size="mini"
                       @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button
-                      size="mini"
-                      type="Success"
-                      @click="addDevice()">添加车辆</el-button>
                     <el-button
                       size="mini"
                       type="danger"
@@ -384,7 +384,10 @@
 					}
                 }
                 this.tableHeader = header
-            }
+            },
+            addDevice() {
+                this.$router.push('/addVehicle');
+            },
         },
     }
 </script>
@@ -396,6 +399,10 @@
     }
      .el-table th.is-leaf {
         text-align: center;
+    }
+    .el-button--medium {
+        margin: 30PX;
+        margin-bottom: 0PX;
     }
     .el-table__body-wrapper {
         text-align: center;

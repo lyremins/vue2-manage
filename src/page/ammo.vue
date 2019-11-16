@@ -2,6 +2,10 @@
     <div class="fillcontain">
         <head-top></head-top>
         <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+                            <el-button
+            size="medium"
+            type="primary"
+            @click="addDevice()">添加弹药</el-button>
         <div class="table_container">
             <el-table
 		      :data="tableData"
@@ -68,15 +72,11 @@
                 label="已挂飞小时"
                 width="120">
               </el-table-column>
-            <el-table-column label="操作" width="250">
+            <el-table-column label="操作" width="200">
                   <template slot-scope="scope">
                     <el-button
                       size="mini"
                       @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button
-                      size="mini"
-                      type="Success"
-                      @click="addDevice()">添加弹药</el-button>
                     <el-button
                       size="mini"
                       type="danger"
@@ -305,6 +305,13 @@
     }
      .el-table th.is-leaf {
         text-align: center;
+    }
+    .el-table .cell {
+        text-align: center;
+    }
+    .el-button--medium {
+        margin: 30PX;
+        margin-bottom: 0PX;
     }
     .el-table__body-wrapper {
         text-align: center;

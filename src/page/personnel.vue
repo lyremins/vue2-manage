@@ -2,6 +2,10 @@
     <div class="fillcontain">
         <head-top></head-top>
         <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+                    <el-button
+            size="medium"
+            type="primary"
+            @click="addPersonnel()">添加人员</el-button>
         <div class="table_container">
             <el-table
 		      :data="tableData"
@@ -139,15 +143,11 @@
                 label="执行重大任务"
                 width="180">
               </el-table-column> -->
-            <el-table-column label="操作" width="300">
+            <el-table-column label="操作" width="200">
                   <template slot-scope="scope">
                     <el-button
                       size="mini"
                       @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button
-                      size="mini"
-                      type="Success"
-                      @click="addPersonnel()">添加人员</el-button>
                     <el-button
                       size="mini"
                       type="danger"
@@ -423,6 +423,10 @@
 	@import '../style/mixin';
     .table_container{
         padding: 20px;
+    }
+    .el-button--medium {
+        margin: 30PX;
+        margin-bottom: 0PX;
     }
     .el-table th.is-leaf {
         text-align: center;
