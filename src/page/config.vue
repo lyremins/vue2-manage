@@ -5,12 +5,14 @@
         <div class="textBox">
             <el-divider content-position="center">飞机状态管理</el-divider>
             <div class="list" v-for="(value,index) in state">
-                <el-input style="width: 300px" v-model="state[index]" auto-complete="off"></el-input>
+                <!-- <input type="text" v-model="state[index]" name="" id=""> -->
+                <el-input style="width: 150px" v-model="state[index]" auto-complete="off"></el-input>
                 <el-button @click="stateDel(index)" type="danger">删除</el-button>
             </div>
 
+
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputState" placeholder="添加一项飞机状态"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;" v-model="inputState" placeholder="添加一项飞机状态"></el-input>
                 <el-button type="primary" @click="saveState()">立即创建</el-button>
             </div>
         </div>
@@ -18,12 +20,12 @@
         <div class="textBox">
             <el-divider content-position="center">飞机任务管理：</el-divider>
             <div class="list" v-for="(value,index) in task">
-                <el-input style="width: 300px" v-model="task[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="task[index]" auto-complete="off"></el-input>
                 <el-button @click="taskDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputTask" placeholder="添加一项飞机任务"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputTask" placeholder="添加一项飞机任务"></el-input>
                 <el-button type="primary" @click="saveTask()">立即创建</el-button>
             </div>
         </div>
@@ -31,12 +33,12 @@
         <div class="textBox">
             <el-divider content-position="center">飞机故障管理：</el-divider>
             <div class="list" v-for="(value,index) in fault">
-                <el-input style="width: 300px" v-model="fault[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="fault[index]" auto-complete="off"></el-input>
                 <el-button @click="faultDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputFault" placeholder="添加一项飞机故障"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputFault" placeholder="添加一项飞机故障"></el-input>
                 <el-button type="primary" @click="saveFault()">立即创建</el-button>
             </div>
         </div>
@@ -44,12 +46,12 @@
         <div class="textBox">
             <el-divider content-position="center">飞机科目管理：</el-divider>
             <div class="list" v-for="(value,index) in subject">
-                <el-input style="width: 300px" v-model="subject[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="subject[index]" auto-complete="off"></el-input>
                 <el-button @click="subjectDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputSubject" placeholder="添加一项飞机科目"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputSubject" placeholder="添加一项飞机科目"></el-input>
                 <el-button type="primary" @click="saveSubject()">立即创建</el-button>
             </div>
         </div>
@@ -57,12 +59,12 @@
         <div class="textBox">
             <el-divider content-position="center">气象科目管理：</el-divider>
             <div class="list" v-for="(value,index) in scene">
-                <el-input style="width: 300px" v-model="scene[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="scene[index]" auto-complete="off"></el-input>
                 <el-button @click="sceneDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputScene" placeholder="添加一项气象科目"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputScene" placeholder="添加一项气象科目"></el-input>
                 <el-button type="primary" @click="saveScene()">立即创建</el-button>
             </div>
         </div>
@@ -70,12 +72,12 @@
         <div class="textBox">
             <el-divider content-position="center">车辆状态管理：</el-divider>
             <div class="list" v-for="(value,index) in carState">
-                <el-input style="width: 300px" v-model="carState[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="carState[index]" auto-complete="off"></el-input>
                 <el-button @click="carStateDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputCarState" placeholder="添加一项车辆状态"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputCarState" placeholder="添加一项车辆状态"></el-input>
                 <el-button type="primary" @click="saveCarState()">立即创建</el-button>
             </div>
         </div>
@@ -83,12 +85,12 @@
         <div class="textBox">
             <el-divider content-position="center">车辆任务状态管理：</el-divider>
             <div class="list" v-for="(value,index) in carTask">
-                <el-input style="width: 300px" v-model="carTask[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="carTask[index]" auto-complete="off"></el-input>
                 <el-button @click="carTaskDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputCarTask" placeholder="添加一项车辆任务状态"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputCarTask" placeholder="添加一项车辆任务状态"></el-input>
                 <el-button type="primary" @click="saveCarTask()">立即创建</el-button>
             </div>
         </div>
@@ -96,12 +98,12 @@
         <div class="textBox">
             <el-divider content-position="center">车辆类型管理：</el-divider>
             <div class="list" v-for="(value,index) in carType">
-                <el-input style="width: 300px" v-model="carType[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="carType[index]" auto-complete="off"></el-input>
                 <el-button @click="carTypeDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputCarType" placeholder="添加一项车辆类型"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputCarType" placeholder="添加一项车辆类型"></el-input>
                 <el-button type="primary" @click="saveCarType()">立即创建</el-button>
             </div>
         </div>
@@ -109,12 +111,12 @@
         <div class="textBox">
             <el-divider content-position="center">车辆故障管理：</el-divider>
             <div class="list" v-for="(value,index) in carFault">
-                <el-input style="width: 300px" v-model="carFault[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="carFault[index]" auto-complete="off"></el-input>
                 <el-button @click="carFaultDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputCarFault" placeholder="添加一项车辆故障"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputCarFault" placeholder="添加一项车辆故障"></el-input>
                 <el-button type="primary" @click="saveCarFault()">立即创建</el-button>
             </div>
         </div>
@@ -122,12 +124,12 @@
         <div class="textBox">
             <el-divider content-position="center">人员类别管理：</el-divider>
             <div class="list" v-for="(value,index) in pType">
-                <el-input style="width: 300px" v-model="pType[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="pType[index]" auto-complete="off"></el-input>
                 <el-button @click="pTypeDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputPType" placeholder="添加一项人员类别"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputPType" placeholder="添加一项人员类别"></el-input>
                 <el-button type="primary" @click="savePType()">立即创建</el-button>
             </div>
         </div>
@@ -135,12 +137,12 @@
         <div class="textBox">
             <el-divider content-position="center">人员专业管理：</el-divider>
             <div class="list" v-for="(value,index) in pMajor">
-                <el-input style="width: 300px" v-model="pMajor[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="pMajor[index]" auto-complete="off"></el-input>
                 <el-button @click="pMajorDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputPMajor" placeholder="添加一项人员专业"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;" v-model="inputPMajor" placeholder="添加一项人员专业"></el-input>
                 <el-button type="primary" @click="savePMajor()">立即创建</el-button>
             </div>
         </div>
@@ -148,12 +150,12 @@
         <div class="textBox">
             <el-divider content-position="center">人员职务管理：</el-divider>
             <div class="list" v-for="(value,index) in pPost">
-                <el-input style="width: 300px" v-model="pPost[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="pPost[index]" auto-complete="off"></el-input>
                 <el-button @click="pPostDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputPPost" placeholder="添加一项人员职务"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputPPost" placeholder="添加一项人员职务"></el-input>
                 <el-button type="primary" @click="savePPost()">立即创建</el-button>
             </div>
         </div>
@@ -161,12 +163,12 @@
         <div class="textBox">
             <el-divider content-position="center">保障任务管理：</el-divider>
             <div class="list" v-for="(value,index) in ensure">
-                <el-input style="width: 300px" v-model="ensure[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="ensure[index]" auto-complete="off"></el-input>
                 <el-button @click="ensureDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputEnsure" placeholder="添加一项保障任务"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputEnsure" placeholder="添加一项保障任务"></el-input>
                 <el-button type="primary" @click="saveEnsure()">立即创建</el-button>
             </div>
         </div>
@@ -174,12 +176,12 @@
             <div class="textBox">
             <el-divider content-position="center">人员工作状态管理：</el-divider>
             <div class="list" v-for="(value,index) in pStatus">
-                <el-input style="width: 300px" v-model="pStatus[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="pStatus[index]" auto-complete="off"></el-input>
                 <el-button @click="pStatusDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputPStatus" placeholder="添加一项人员工作状态"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputPStatus" placeholder="添加一项人员工作状态"></el-input>
                 <el-button type="primary" @click="savePStatus()">立即创建</el-button>
             </div>
         </div>
@@ -187,12 +189,12 @@
         <div class="textBox">
             <el-divider content-position="center">车辆工作状态管理：</el-divider>
             <div class="list" v-for="(value,index) in carWork">
-                <el-input style="width: 300px" v-model="carWork[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="carWork[index]" auto-complete="off"></el-input>
                 <el-button @click="carWorkDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputCarWork" placeholder="添加一项车辆工作状态"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputCarWork" placeholder="添加一项车辆工作状态"></el-input>
                 <el-button type="primary" @click="saveCarWork()">立即创建</el-button>
             </div>
         </div>
@@ -200,12 +202,12 @@
         <div class="textBox">
             <el-divider content-position="center">飞机类型管理：</el-divider>
             <div class="list" v-for="(value,index) in airType">
-                <el-input style="width: 300px" v-model="airType[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="airType[index]" auto-complete="off"></el-input>
                 <el-button @click="airTypeDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputairType" placeholder="添加一项飞机类型"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputairType" placeholder="添加一项飞机类型"></el-input>
                 <el-button type="primary" @click="saveairType()">立即创建</el-button>
             </div>
         </div>
@@ -213,17 +215,19 @@
         <div class="textBox">
             <el-divider content-position="center">故障排除方法管理：</el-divider>
             <div class="list" v-for="(value,index) in faultMethod">
-                <el-input style="width: 300px" v-model="faultMethod[index]" auto-complete="off"></el-input>
+                <el-input style="width: 150px" v-model="faultMethod[index]" auto-complete="off"></el-input>
                 <el-button @click="faultMethodDel(index)" type="danger">删除</el-button>
             </div>
 
             <div class="create">
-                <el-input  style="width: 300px" v-model="inputfaultMethod" placeholder="添加一项故障排除方法"></el-input>
+                <el-input  style="width: 200px;margin-left: 10px;"  v-model="inputfaultMethod" placeholder="添加一项故障排除方法"></el-input>
                 <el-button type="primary" @click="savefaultMethod()">立即创建</el-button>
             </div>
         </div>
         <el-divider></el-divider>
-        <el-button type="success" @click="submit()" round>确认提交</el-button>
+        <div class="button">
+            <el-button type="success" @click="submit()" round>确认提交</el-button>
+        </div>
         </div>
     </div>
 </template>
@@ -564,6 +568,10 @@
     .table_container{
         padding: 20px;
     }
+    .list {
+        display: inline-block;
+        margin: 10px;
+    }
      .el-table th.is-leaf {
         text-align: center;
     }
@@ -619,7 +627,6 @@
     .showConfig {
         margin: 20px;
         line-height: 3;
-        text-align: center;
     }
     .showTitle {
         // text-align: left;
@@ -634,8 +641,12 @@
             // width: 700px;
     }
     .create {
+        text-align: center;
         // display: flex;
         // text-align: center;
+    }
+    .button {
+        text-align: center;
     }
 </style>
 
