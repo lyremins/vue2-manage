@@ -7,7 +7,7 @@
             <div class="list" v-for="(value,index) in state">
                 <!-- <input type="text" v-model="state[index]" name="" id=""> -->
                 <el-input style="width: 150px" v-model="state[index]" auto-complete="off"></el-input>
-                <el-button @click="stateDel(index)" type="danger">删除</el-button>
+                <el-button @click="stateDel(index)" >删除</el-button>
             </div>
 
 
@@ -21,7 +21,7 @@
             <el-divider content-position="center">飞机任务管理：</el-divider>
             <div class="list" v-for="(value,index) in task">
                 <el-input style="width: 150px" v-model="task[index]" auto-complete="off"></el-input>
-                <el-button @click="taskDel(index)" type="danger">删除</el-button>
+                <el-button @click="taskDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -34,7 +34,7 @@
             <el-divider content-position="center">飞机故障管理：</el-divider>
             <div class="list" v-for="(value,index) in fault">
                 <el-input style="width: 150px" v-model="fault[index]" auto-complete="off"></el-input>
-                <el-button @click="faultDel(index)" type="danger">删除</el-button>
+                <el-button @click="faultDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -47,7 +47,7 @@
             <el-divider content-position="center">飞机科目管理：</el-divider>
             <div class="list" v-for="(value,index) in subject">
                 <el-input style="width: 150px" v-model="subject[index]" auto-complete="off"></el-input>
-                <el-button @click="subjectDel(index)" type="danger">删除</el-button>
+                <el-button @click="subjectDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -60,7 +60,7 @@
             <el-divider content-position="center">气象科目管理：</el-divider>
             <div class="list" v-for="(value,index) in scene">
                 <el-input style="width: 150px" v-model="scene[index]" auto-complete="off"></el-input>
-                <el-button @click="sceneDel(index)" type="danger">删除</el-button>
+                <el-button @click="sceneDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -73,7 +73,7 @@
             <el-divider content-position="center">车辆状态管理：</el-divider>
             <div class="list" v-for="(value,index) in carState">
                 <el-input style="width: 150px" v-model="carState[index]" auto-complete="off"></el-input>
-                <el-button @click="carStateDel(index)" type="danger">删除</el-button>
+                <el-button @click="carStateDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -86,7 +86,7 @@
             <el-divider content-position="center">车辆任务状态管理：</el-divider>
             <div class="list" v-for="(value,index) in carTask">
                 <el-input style="width: 150px" v-model="carTask[index]" auto-complete="off"></el-input>
-                <el-button @click="carTaskDel(index)" type="danger">删除</el-button>
+                <el-button @click="carTaskDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -99,7 +99,7 @@
             <el-divider content-position="center">车辆类型管理：</el-divider>
             <div class="list" v-for="(value,index) in carType">
                 <el-input style="width: 150px" v-model="carType[index]" auto-complete="off"></el-input>
-                <el-button @click="carTypeDel(index)" type="danger">删除</el-button>
+                <el-button @click="carTypeDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -112,7 +112,7 @@
             <el-divider content-position="center">车辆故障管理：</el-divider>
             <div class="list" v-for="(value,index) in carFault">
                 <el-input style="width: 150px" v-model="carFault[index]" auto-complete="off"></el-input>
-                <el-button @click="carFaultDel(index)" type="danger">删除</el-button>
+                <el-button @click="carFaultDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -125,7 +125,7 @@
             <el-divider content-position="center">人员类别管理：</el-divider>
             <div class="list" v-for="(value,index) in pType">
                 <el-input style="width: 150px" v-model="pType[index]" auto-complete="off"></el-input>
-                <el-button @click="pTypeDel(index)" type="danger">删除</el-button>
+                <el-button @click="pTypeDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -138,7 +138,7 @@
             <el-divider content-position="center">人员专业管理：</el-divider>
             <div class="list" v-for="(value,index) in pMajor">
                 <el-input style="width: 150px" v-model="pMajor[index]" auto-complete="off"></el-input>
-                <el-button @click="pMajorDel(index)" type="danger">删除</el-button>
+                <el-button @click="pMajorDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -151,7 +151,7 @@
             <el-divider content-position="center">人员职务管理：</el-divider>
             <div class="list" v-for="(value,index) in pPost">
                 <el-input style="width: 150px" v-model="pPost[index]" auto-complete="off"></el-input>
-                <el-button @click="pPostDel(index)" type="danger">删除</el-button>
+                <el-button @click="pPostDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -164,7 +164,7 @@
             <el-divider content-position="center">保障任务管理：</el-divider>
             <div class="list" v-for="(value,index) in ensure">
                 <el-input style="width: 150px" v-model="ensure[index]" auto-complete="off"></el-input>
-                <el-button @click="ensureDel(index)" type="danger">删除</el-button>
+                <el-button @click="ensureDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -177,7 +177,7 @@
             <el-divider content-position="center">人员工作状态管理：</el-divider>
             <div class="list" v-for="(value,index) in pStatus">
                 <el-input style="width: 150px" v-model="pStatus[index]" auto-complete="off"></el-input>
-                <el-button @click="pStatusDel(index)" type="danger">删除</el-button>
+                <el-button @click="pStatusDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -190,7 +190,7 @@
             <el-divider content-position="center">车辆工作状态管理：</el-divider>
             <div class="list" v-for="(value,index) in carWork">
                 <el-input style="width: 150px" v-model="carWork[index]" auto-complete="off"></el-input>
-                <el-button @click="carWorkDel(index)" type="danger">删除</el-button>
+                <el-button @click="carWorkDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -203,7 +203,7 @@
             <el-divider content-position="center">飞机类型管理：</el-divider>
             <div class="list" v-for="(value,index) in airType">
                 <el-input style="width: 150px" v-model="airType[index]" auto-complete="off"></el-input>
-                <el-button @click="airTypeDel(index)" type="danger">删除</el-button>
+                <el-button @click="airTypeDel(index)" >删除</el-button>
             </div>
 
             <div class="create">
@@ -216,7 +216,7 @@
             <el-divider content-position="center">故障排除方法管理：</el-divider>
             <div class="list" v-for="(value,index) in faultMethod">
                 <el-input style="width: 150px" v-model="faultMethod[index]" auto-complete="off"></el-input>
-                <el-button @click="faultMethodDel(index)" type="danger">删除</el-button>
+                <el-button @click="faultMethodDel(index)" >删除</el-button>
             </div>
 
             <div class="create">

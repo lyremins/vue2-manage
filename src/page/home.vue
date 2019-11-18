@@ -16,7 +16,7 @@
                 <el-col :span="4"><div class="data_list"><span class="data_num">{{allAdminCount}}</span> 总进场车辆：</div></el-col>
             </el-row> -->
 		</section>
-        <div v-show="ff !== 'f3' && ff !== 'f4'">
+    <div v-show="ff !== 'f3' && ff !== 'f4'&& ff !== 'f5'">
         <el-table
             :data="tableData"
             stripe
@@ -36,7 +36,7 @@
             label="">
             </el-table-column>
             </el-table>
-        </div>
+    </div>
     <div v-show="ff === 'f3'">
         <el-table
         :data="tableData"
@@ -70,7 +70,7 @@
         </el-table-column>
           </el-table>
     </div>
-        <div v-show="ff === 'f4'">
+    <div v-show="ff === 'f4'">
         <el-table
         :data="tableData"
         stripe
@@ -78,6 +78,29 @@
         <el-table-column
         prop="x1"
         label="飞行计划名称"
+        width="180">
+
+        </el-table-column>
+        <el-table-column
+        prop="x2"
+        label="飞机编号"
+        width="180">
+        </el-table-column>
+        <el-table-column
+        prop="x4"
+        label="次数"
+        width="180">
+        </el-table-column>
+          </el-table>
+    </div>
+    <div v-show="ff === 'f5'">
+        <el-table
+        :data="tableData"
+        stripe
+        style="width: 100%">
+        <el-table-column
+        prop="x1"
+        label="保障任务名称"
         width="180">
 
         </el-table-column>
@@ -197,13 +220,19 @@
                 }],
                 options: [{
                     value: '1',
-                    label: '飞行计划/保障次数'
+                    label: '飞行计划'
+                },{
+                    value: '6',
+                    label: '保障任务'
                 }, {
                     value: '2',
                     label: '飞机飞行场次'
                 }, {
                     value: '3',
                     label: '飞机状态统计'
+                }, {
+                    value: '7',
+                    label: '车辆状态统计'
                 }, {
                     value: '4',
                     label: '弹药数据统计'
@@ -324,8 +353,22 @@
                 }
                 if (this.value === '1') {
                     this.show_title = '飞行计划/保障次数统计';
-                     this.xData = ['完成场次(飞行计划)','完成场次(保障任务)','起落次数(飞行计划)','起落次数(保障任务)'];
-                     this.yData = [20,40,15,22];
+                    //  this.xData = ['完成场次(飞行计划)','完成场次(保障任务)','起落次数(飞行计划)','起落次数(保障任务)'];
+                     this.xData = ['完成场次','起落次数','总飞机数'];
+                     this.yData = [20,40,13];
+                        this.xName = '类型';
+                        this.yName = '数量';
+                        this.xData.forEach((element,index) => {
+                        this.tableData.push({
+                            x: element,
+                            y: this.yData[index]
+                        })
+                        });
+                } else if (this.value === '6') {
+                    this.show_title = '保障任务统计';
+                    //  this.xData = ['完成场次(飞行计划)','完成场次(保障任务)','起落次数(飞行计划)','起落次数(保障任务)'];
+                     this.xData = ['飞行计划保障','特定检查','排故保障','其他保障'];
+                     this.yData = [15,11,13,6];
                         this.xName = '类型';
                         this.yName = '数量';
                         this.xData.forEach((element,index) => {
@@ -350,6 +393,18 @@
                     this.show_title = '飞行状态统计';
                      this.xData = ['完好','大修','定检','排故'];
                      this.yData = [18,16,5,7];
+                        this.xName = '类型';
+                        this.yName = '数量';
+                        this.xData.forEach((element,index) => {
+                        this.tableData.push({
+                            x: element,
+                            y: this.yData[index]
+                        })
+                        });
+                } else if (this.value === '7') {
+                    this.show_title = '车辆状态统计';
+                     this.xData = ['完好','大修','定检','排故','待退役'];
+                     this.yData = [13,9,5,7,3];
                         this.xName = '类型';
                         this.yName = '数量';
                         this.xData.forEach((element,index) => {
@@ -484,7 +539,7 @@
                  // ------------------
                 else if (this.value === '1') {
                     // '起落次数(飞行计划)','起落次数(保障任务)'
-                    if (values === '完成场次(飞行计划)') {
+                    if (values === '完成场次') {
                         this.subValue = values;
                         this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
                         this.yData = [4,12,4,5,4,6,8,41,6];
@@ -510,7 +565,20 @@
                             })
                         });
                         return ;
-                    } else if (values === '起落次数(飞行计划)') {
+                    } else if (values === '起落次数') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [1,3,4,5,4,5,7,4,9,6];
+                        this.xName = '类型';
+                        this.yName = '单日飞行计划(场次)'
+                        this.xData.forEach((element,index) => {
+                            this.tableData.push({
+                                x: element,
+                                y: this.yData[index]
+                            })
+                        });
+                        return ;
+                    } else if (values === '总飞机数') {
                         this.subValue = values;
                         this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
                         this.yData = [1,3,4,5,4,5,7,4,9,6];
@@ -537,7 +605,7 @@
                         });
                         return ;
                     }
-                    if (this.subValue === '完成场次(飞行计划)') {
+                    if (this.subValue === '完成场次') {
                         this.ff = 'f4';
                         if (values.indexOf('1号')) {
                             this.xData = ['A001','A002','A003','A004'];
@@ -667,7 +735,72 @@
                             x4: '8',
                             x5: '15'
                         })
-                    } else if (this.subValue === '起落次数(飞行计划)') {
+                    } else if (this.subValue === '起落次数') {
+                        this.ff = 'f4';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '飞行计划20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '飞行计划20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '飞行计划20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '飞行计划20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '总飞机数') {
                         this.ff = 'f4';
                         if (values.indexOf('1号')) {
                             this.xData = ['A001','A002','A003','A004'];
@@ -792,6 +925,322 @@
                             x5: '8'
                         },{
                             x1: '飞行计划20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    }
+                } else if (this.value === '6') {
+                    // '起落次数(飞行计划)','起落次数(保障任务)'
+                    if (values === '飞行计划保障') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [4,12,4,5,4,6,8,41,6];
+                        this.xName = '类型';
+                        this.yName = '单日飞行计划(场次)'
+                        this.xData.forEach((element,index) => {
+                            this.tableData.push({
+                                x: element,
+                                y: this.yData[index]
+                            })
+                        });
+                        return ;
+                    } else if (values === '特定检查') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [1,7,2,3,4,0,7,2,10,6];
+                        this.xName = '类型';
+                        this.yName = '单日飞行计划(场次)'
+                        this.xData.forEach((element,index) => {
+                            this.tableData.push({
+                                x: element,
+                                y: this.yData[index]
+                            })
+                        });
+                        return ;
+                    } else if (values === '排故保障') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [1,3,4,5,4,5,7,4,9,6];
+                        this.xName = '类型';
+                        this.yName = '单日飞行计划(场次)'
+                        this.xData.forEach((element,index) => {
+                            this.tableData.push({
+                                x: element,
+                                y: this.yData[index]
+                            })
+                        });
+                        return ;
+                    } else if (values === '其他故障') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [1,3,4,5,4,5,7,4,9,6];
+                        this.xName = '类型';
+                        this.yName = '单日飞行计划(场次)'
+                        this.xData.forEach((element,index) => {
+                            this.tableData.push({
+                                x: element,
+                                y: this.yData[index]
+                            })
+                        });
+                        return ;
+                    }
+                    if (this.subValue === '保障任务保障') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '特定检查') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '排故保障') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '其他保障') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
                             x2: 'A001',
                             x3: '训练弹D',
                             x4: '8',
@@ -1146,6 +1595,392 @@
                             x5: '8'
                         },{
                             x1: '飞行计划20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    }
+                } else if (this.value === '7') {
+                    this.yName = '日期';
+                    this.xName = '数量';
+                    if (values === '完好') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [4,7,4,13,4,3,7,4,9,6];
+                        this.xData.forEach((element,index) => {
+                            this.tableData.push({
+                                x: element,
+                                y: this.yData[index]
+                            })
+                        });
+
+                        return ;
+                    } else if (values === '大修') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [4,7,4,13,4,3,9,19,8,1];
+                        this.xData.forEach((element,index) => {
+                        this.tableData.push({
+                            x: element,
+                            y: this.yData[index]
+                        })
+                        });
+                        return ;
+                    } else if (values === '定检') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [4,7,4,13,4,3,9,19,8,1];
+                        this.xData.forEach((element,index) => {
+                        this.tableData.push({
+                            x: element,
+                            y: this.yData[index]
+                        })
+                        });
+                        return ;
+                    } else if (values === '排故') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [4,7,4,13,4,3,9,19,8,1];
+                        this.xData.forEach((element,index) => {
+                        this.tableData.push({
+                            x: element,
+                            y: this.yData[index]
+                        })
+                        });
+                        return ;
+                    } else if (values === '待退役') {
+                        this.subValue = values;
+                        this.xData = ['11月1号','11月2号','11月3号','11月4号','11月5号','11月6号','11月7号','11月8号','11月9号','11月10号'];
+                        this.yData = [4,7,4,13,4,3,9,19,8,1];
+                        this.xData.forEach((element,index) => {
+                        this.tableData.push({
+                            x: element,
+                            y: this.yData[index]
+                        })
+                        });
+                        return ;
+                    }
+                    if (this.subValue === '完好') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '定检') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '排故') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '大修') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
+                            x2: 'A001',
+                            x3: '训练弹D',
+                            x4: '8',
+                            x5: '15'
+                        })
+                    } else if (this.subValue === '待退役') {
+                        this.ff = 'f5';
+                        if (values.indexOf('1号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [4,3,7,1];
+
+                        } else if  (values.indexOf('2号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,3,12];
+
+                        } else if  (values.indexOf('3号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [2,8,1,12];
+
+                        } else if  (values.indexOf('4号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,12];
+
+                        } else if  (values.indexOf('5号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [7,8,1,12];
+
+                        } else if  (values.indexOf('6号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+
+                        } else if  (values.indexOf('7号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,3,1,12];
+
+                        } else if  (values.indexOf('8号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [3,8,1,12];
+
+                        } else if  (values.indexOf('9号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [6,8,1,7];
+
+                        } else if  (values.indexOf('10号')) {
+                            this.xData = ['A001','A002','A003','A004'];
+                            this.yData = [16,8,1,12];
+
+                        }
+                        this.tableData.push({
+                            x1: '保障任务20191101',
+                            x2: 'A001',
+                            x4: '5',
+                        },{
+                            x1: '保障任务20191103',
+                            x2: 'A002',
+                            x3: '训练弹B',
+                            x4: '3',
+                            x5: '12'
+                        },{
+                            x1: '保障任务20191102',
+                            x2: 'A001',
+                            x3: '训练弹C',
+                            x4: '3',
+                            x5: '8'
+                        },{
+                            x1: '保障任务20191104',
                             x2: 'A001',
                             x3: '训练弹D',
                             x4: '8',

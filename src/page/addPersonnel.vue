@@ -35,7 +35,15 @@
 						<el-input v-model="formData.native"></el-input>
 					</el-form-item>
 					<el-form-item label="单位" prop="company">
-						<el-input v-model="formData.company"></el-input>
+						<!-- <el-input v-model="formData.company"></el-input> -->
+                        <el-select v-model="formData.company" placeholder="请选择单位"  style="width: 360px" ref="selectReport">
+                        <el-option :value="formData.company" :label="formData.company" style="width: 560px;height:200px;overflow: auto;background-color:#fff">
+                            <el-tree
+                                :data="organiz"
+                                @node-click="handleNodeClick"
+                            ></el-tree>
+                        </el-option>
+                    </el-select>
 					</el-form-item>
 					<el-form-item label="排" prop="row">
 						<el-input v-model="formData.row"></el-input>
@@ -103,7 +111,7 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addPersonnel,getAirplane,getConfig } from '@/api/getData'
+    import { addPersonnel,getAirplane,getConfig,getOrganiz } from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -150,7 +158,8 @@
                 gz: {},
                 zw: {},
                 zy: {},
-                zg: ['是','否']
+                zg: ['是','否'],
+                organiz: []
     		}
     	},
     	components: {
@@ -217,6 +226,20 @@
                 this.zy = config.data[0].pMajorModel.split(",");
                 const airplane = await getAirplane();
                 this.air = airplane.data
+                this.organiz = await getOrganiz();
+                this.organiz = this.organiz.data[0].organizArray;
+                // this.organiz = this.organiz[0].organizArray
+            },
+            handleNodeClick(node){
+                console.log(node,'node')
+                if(node.children.length){
+                    console.log('11111');
+                }else{
+                    console.log('22233');
+                    this.formData.company = node.label
+                    console.log(this.formData.company);
+                    this.$refs.selectReport.blur()
+                }
             }
 		}
     }
