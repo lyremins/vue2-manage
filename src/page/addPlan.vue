@@ -11,15 +11,20 @@
                             <el-date-picker
                             v-model="formData.dateTime"
                             type="date"
+                            value-format="yyyy-MM-dd"
                             placeholder="选择日期">
                             </el-date-picker>
 					</el-form-item>
                     <el-form-item label="进场时间" prop="filed1">
-                            <el-date-picker
-                            v-model="formData.approachTime"
-                            type="time"
-                            placeholder="进场时间">
-                            </el-date-picker>
+                        <el-time-select
+                        v-model="formData.approachTime"
+                        :picker-options="{
+                            start: '00:30',
+                            step: '00:15',
+                            end: '23:30'
+                        }"
+                        placeholder="选择进场时间">
+                        </el-time-select>
 					</el-form-item>
                     <!-- <el-checkbox v-model="checked">备选项</el-checkbox> -->
                     <div class="radioBox" v-for="(value,index) in airPlaneData.data" >
@@ -61,7 +66,8 @@
                                 <div v-for="v in value.xd" >
                                     <input class="radio" :value="v" v-model="v.isCheck"  type="checkbox" :id="index" />
                                     <label :for="index">携弹名称：{{v.air_code}}_{{v.ammo_code}}</label>
-                                    <el-input v-model="v.number"></el-input>
+                                    <input class="xdInput" v-model="v.number">
+                                    <!-- <el-input v-model="v.number"></el-input> -->
                                     <!-- <el-input v-model="v.number" type="text"></el-input> -->
                                 </div>
                                 <!-- <select class="select" v-model="xdType[index]">
@@ -72,7 +78,7 @@
                         </el-form-item>
                     </div>
 					<el-form-item class="button_submit">
-						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>
+						<el-button type="primary" @click="submit()">立即创建</el-button>
 					</el-form-item>
 				</el-form>
   			</el-col>
@@ -407,8 +413,18 @@
                 }
                 if (this.plan_id) {
                     updatePlan(data);
+                    this.$message({
+                        type: 'success',
+                        message: '更新成功'
+                    });
+                    this.$router.push('plan');
                 } else {
                     addPlan(data);
+                    this.$message({
+                        type: 'success',
+                        message: '添加成功'
+                    });
+                    this.$router.push('plan');
                 }
             },
 		}
@@ -449,5 +465,10 @@
 
 	.el-table .positive-row {
 	    background: #e2f0e4;
-	}
+    }
+    .xdInput {
+        border: 1px solid #e8e8e8;
+        margin-left: 20px;
+        text-align: center;
+    }
 </style>

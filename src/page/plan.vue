@@ -9,27 +9,6 @@
             <el-table
 		      :data="tableData"
 		      style="width: 100%">
-                <el-table-column type="expand">
-                  <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                      <el-form-item label="计划名称">
-                        <span>{{ props.row.filed1 }}</span>
-                      </el-form-item>
-                                            <el-form-item label="飞机号">
-                        <span>{{ props.row.filed2 }}</span>
-                      </el-form-item>
-                                            <el-form-item label="飞行科目">
-                        <span>{{ props.row.filed3 }}</span>
-                      </el-form-item>
-                                            <el-form-item label="科目日期">
-                        <span>{{ props.row.filed4 }}</span>
-                      </el-form-item>
-                                            <el-form-item label="备份飞机号">
-                        <span>{{ props.row.filed5 }}</span>
-                      </el-form-item>
-                    </el-form>
-                  </template>
-                </el-table-column>
 		      <el-table-column
 		        prop="name"
 		        label="计划名称"
