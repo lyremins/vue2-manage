@@ -575,3 +575,11 @@ export const getAirplaneState = () => fetch('/wcbz/getAirplaneState');
 
 export const getOrganiz = () => fetch('/wcbz/getOrganiz');
 
+export const getAirplaneAmmo = () => fetch('/wcbz/getAirplaneAmmo');
+
+/**
+ * 删除飞行计划
+ */
+
+export const deletePlan = plan_id => fetch('/wcbz/deletePlan/' + plan_id, {}, 'DELETE');
+

@@ -1,14 +1,18 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
+        <el-button
+            size="medium"
+            type="primary"
+            @click="addPlan()">添加飞行计划</el-button>
         <div class="table_container">
             <el-table
 		      :data="tableData"
 		      style="width: 100%">
-                              <el-table-column type="expand">
+                <el-table-column type="expand">
                   <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                      <el-form-item label="飞机名称">
+                      <el-form-item label="计划名称">
                         <span>{{ props.row.filed1 }}</span>
                       </el-form-item>
                                             <el-form-item label="飞机号">
@@ -28,38 +32,24 @@
                 </el-table-column>
 		      <el-table-column
 		        prop="name"
-		        label="飞机名称"
+		        label="计划名称"
 		        width="180">
 		      </el-table-column>
 		      <el-table-column
 		        prop="dateTime"
-		        label="日期"
+		        label="计划日期"
 		        width="80">
 		      </el-table-column>
               <el-table-column
-                prop="airName"
-                label="飞机类型"
-                width="180">
-              </el-table-column>
-            <el-table-column
-                prop="airSubject"
-                label="车辆名称"
-                width="120">
-              </el-table-column>
-              <el-table-column
-                prop="sceneSubject"
-                label="科目名称"
+                prop="approachTime"
+                label="进场时间"
                 width="180">
               </el-table-column>
             <el-table-column label="操作" width="300">
                   <template slot-scope="scope">
-                    <el-button
+                     <el-button
                       size="mini"
                       @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button
-                      size="mini"
-                      type="Success"
-                      @click="addPlan()">添加飞行计划</el-button>
                     <el-button
                       size="mini"
                       type="danger"
@@ -115,7 +105,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getPlan,getPlanById,updatePlan } from '@/api/getData'
+    import { getPlan,getPlanById,updatePlan,deletePlan } from '@/api/getData'
     export default {
         data(){
             return {
@@ -163,6 +153,7 @@
                                 name: item.name,
                     			dateTime: item.dateTime,
 						        airName: item.airName,
+						        approachTime: item.approachTime,
 						        airSubject: item.airSubject,
                                 sceneSubject: item.sceneSubject,
                                 upDownNumber: item.upDownNumber,
@@ -178,8 +169,9 @@
                 }
             },
             handleEdit(index,row) {
-            	this.getSelectItemData(row, 'edit')
-                this.dialogFormVisible = true;
+                this.$router.push('/addPlan?plan_id='+row.Plan_id);
+            	// this.getSelectItemData(row, 'edit')
+                // this.dialogFormVisible = true;
             },
             async getSelectItemData(row, type){
                 console.log(row);
@@ -189,6 +181,7 @@
                     name: Plan.name,
                     dateTime: Plan.dateTime,
                     airName: Plan.airName,
+                    approachTime: Plan.approachTime,
                     airSubject: Plan.airSubject,
                     sceneSubject: Plan.sceneSubject,
                     upDownNumber: Plan.upDownNumber,
@@ -251,8 +244,21 @@
     .table_container{
         padding: 20px;
     }
+    .el-button--medium {
+        margin: 30PX;
+        margin-bottom: 0PX;
+    }
      .el-table th.is-leaf {
         text-align: center;
+    }
+    .el-table__body-wrapper {
+        text-align: center;
+    }
+     .el-table th.is-leaf {
+        text-align: center;
+    }
+    .el-table .cell {
+        text-align-last: center;
     }
     .el-table__body-wrapper {
         text-align: center;

@@ -220,13 +220,13 @@
                 }],
                 options: [{
                     value: '1',
-                    label: '飞行计划'
+                    label: '飞行计划统计'
                 },{
                     value: '6',
-                    label: '保障任务'
+                    label: '保障任务统计'
                 }, {
                     value: '2',
-                    label: '飞机飞行场次'
+                    label: '飞机飞行场次统计'
                 }, {
                     value: '3',
                     label: '飞机状态统计'

@@ -4,21 +4,73 @@
         <el-row style="margin-top: 20px;">
   			<el-col :span="12" :offset="4">
 		        <el-form :model="formData" :rules="rules" ref="formData" label-width="110px" class="demo-formData">
-					<el-form-item label="飞行名称" prop="filed1">
-						<el-input v-model="formData.filed1"></el-input>
+					<el-form-item label="计划名称" prop="filed1">
+						<el-input v-model="formData.name"></el-input>
 					</el-form-item>
-					<el-form-item label="飞机号" prop="filed2">
-						<el-input v-model.number="formData.filed2" maxLength="11"></el-input>
+                    <el-form-item label="计划日期" prop="filed1">
+                            <el-date-picker
+                            v-model="formData.dateTime"
+                            type="date"
+                            placeholder="选择日期">
+                            </el-date-picker>
 					</el-form-item>
-					<el-form-item label="飞行科目" prop="filed3">
-						<el-input v-model="formData.filed3"></el-input>
+                    <el-form-item label="进场时间" prop="filed1">
+                            <el-date-picker
+                            v-model="formData.approachTime"
+                            type="time"
+                            placeholder="进场时间">
+                            </el-date-picker>
 					</el-form-item>
-					<el-form-item label="科目日期" prop="filed4">
-						<el-input v-model="formData.filed4"></el-input>
-					</el-form-item>
-					<el-form-item label="备份飞机号" prop="filed5">
-						<el-input v-model="formData.filed5"></el-input>
-					</el-form-item>
+                    <!-- <el-checkbox v-model="checked">备选项</el-checkbox> -->
+                    <div class="radioBox" v-for="(value,index) in airPlaneData.data" >
+                        <el-form-item>
+                        <el-checkbox @change="changeSelect(index,value.code)"  v-model="air[index]" >出厂号码：{{value.code}} </el-checkbox>
+                        <!-- <input class="radio" :value="value" @change="changeSelect(index,value.code)"  v-model="air[index]" type="checkbox" :id="index" />
+                        <label :for="index">出厂号码：{{value.code}}</label> -->
+                        <div v-show="value.isCheck">
+                            <p>选择飞行科目：</p>
+                            <div class="deviceBox">
+                            <el-select v-model="formData.airSubject[index]">
+                            <el-option
+                                v-for="v in fxSubject"
+                                :value="v"
+                                :key="v"
+                                :label="v"></el-option>
+                            </el-select>
+                                <!-- <select class="select"  v-model="formData.airSubject[index]">
+                                    <option v-for="v in fxSubject" :value="v">{{v}}</option>
+                                </select> -->
+                            </div>
+                            <p>选择气象科目：</p>
+                            <div class="deviceBox">
+                                <el-select v-model="formData.sceneSubject[index]">
+                                <el-option
+                                    v-for="v in qxSubject"
+                                    :value="v"
+                                    :key="v"
+                                    :label="v"></el-option>
+                                </el-select>
+                            </div>
+                            <p>设置起落次数：</p>
+                            <el-input v-model="formData.upDownNumber[index]" placeholder="起落次数" class="select" type="number"></el-input>
+                            <p>输入飞行任务时间：</p>
+                            <el-input v-model="formData.flightTime[index]" placeholder="飞行任务时间" class="selectTime" type="number"></el-input>
+                            <!-- <mt-field placeholder="飞行任务时间" type="time" v-model="formData.flightTime[index]"></mt-field> -->
+                            <p>携弹类型：</p>
+                            <div class="xd">
+                                <div v-for="v in value.xd" >
+                                    <input class="radio" :value="v" v-model="v.isCheck"  type="checkbox" :id="index" />
+                                    <label :for="index">携弹名称：{{v.air_code}}_{{v.ammo_code}}</label>
+                                    <el-input v-model="v.number"></el-input>
+                                    <!-- <el-input v-model="v.number" type="text"></el-input> -->
+                                </div>
+                                <!-- <select class="select" v-model="xdType[index]">
+                                    <option v-if="value.code === v.air_code" v-for="v in airplaneAmmoData.data" :value="v">{{v.air_code}}_{{v.ammo_code}}</option>
+                                </select> -->
+                            </div>
+                        </div>
+                        </el-form-item>
+                    </div>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>
 					</el-form-item>
@@ -30,15 +82,33 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addEnsure } from '@/api/getData'
+    import { addEnsure,
+    getAirplane,
+        getDevice,
+        getAirtate,
+        updateAirtate,
+        getTaskstate,
+        updateTaskstate,
+        getDevicestate,
+        updateDevicestate,
+        getVehicle,
+        getSubject,
+        addPlan,
+        getConfig,
+        getAirplaneAmmo,
+        getPersonnel,
+        getPlan,
+        getPlanById,
+        updatePlan,
+        deletePlan } from '@/api/getData'
     export default {
     	data(){
     		return {
     			city: {},
     			formData: {
-					filed1: '', //店铺名称
-                    filed2: '', //性别
-                    filed3: '', // 分队
+					name: '', //计划名称
+                    dateTime: '', // 计划日期
+                    approachTime: '', // 进场时间
                     filed4: '', // 工种
                     filed5: '', // 联系方式
                     filed6: '', // 备注
@@ -61,14 +131,91 @@
 						{ required: true, message: '请输入联系电话' },
 						{ type: 'number', message: '电话号码必须是数字' }
 					],
-				}
+                },
+                airPlaneData: {},
+                vehicleData: {},
+                subjectData: {},
+                taskData: {},
+                deviceStateData: {},
+                stateModel: {
+                    'wh': '完好',
+                    'dx': '大修',
+                    'dj': '定检',
+                    'pg': '排故',
+                    'sf': '试飞',
+                    'dty': '待退役'
+                },
+                taskModel: {
+                    'fxq': '飞行前',
+                    'zccd': '再次出动准备',
+                    'fxh': '飞行后',
+                    'pg': '排故',
+                    'sc': '试车'
+                },
+                deviceModel: {
+                    'jc': '进场',
+                    'dm': '待命',
+                    'zy': '作业'
+                },
+                airname: '',
+                aircount: '',
+                taskname: '',
+                taskcount: '',
+                devicename: '',
+                devicecount: '',
+                showAlert: false,
+                alertText: '',
+                taskName: '',
+                dateTime: '',
+                fxSubject: [],
+                qxSubject: [],
+                formData: {
+                    name:'',
+                    dateTime: this.$util.getUrlKey('dateTime') || '',
+                    airName: '',
+                    airSubject: [],
+                    sceneSubject: [],
+                    upDownNumber: [],
+                    flightTime: [],
+                    approachTime: ''
+                },
+                air: [
+                ],
+                showContent: false,
+                checked: false,
+                subitem: {
+                    isCheck: false
+                },
+                optionList: [],
+                popupVisible: false,
+                newData: [],
+                showView: [],
+                device: this.$util.getUrlKey('device'),
+                type: this.$util.getUrlKey('type'),
+                plan_id: this.$util.getUrlKey('plan_id'),
+                lastIndex: '',
+                nowIndex: '',
+                airplaneAmmoData: {},
+                xdType: [],
+                personnelData: {},
+                mapLists: {},
+                reckon: 0,
+                planData: {},
+                airLength: 0
     		}
     	},
     	components: {
     		headTop,
     	},
     	mounted(){
-    	},
+            this.initData();
+        },
+        watch: {
+            "plan_id": function (value) {
+                console.log(value);
+                this.initData();
+            },
+        },
     	methods: {
 		    submitForm(formName) {
 				this.$refs[formName].validate(async (valid) => {
@@ -108,7 +255,162 @@
 						return false;
 					}
 				});
-			},
+            },
+            async edit() {
+                if (this.plan_id) {
+                    this.planData = await getPlanById(this.plan_id);
+                    console.log("plan", this.planData);
+                    this.formData.approachTime = this.planData.approachTime;
+                    this.formData.dateTime = this.planData.dateTime;
+                    this.formData.name = this.planData.name;
+                    this.formData.totalNumber = this.planData.totalNumber;
+                    // this.air = [true,null,true];
+                    console.log("!!!!",this.formData.airSubject);
+                    this.planData.airData.forEach(element => {
+                        this.airPlaneData.data.forEach((value,index) => {
+                            if (element.airName === value.code) {
+                                console.log(value.code);
+                                this.airPlaneData.data[index].isCheck = !this.airPlaneData.data[index].isCheck;
+                                this.airPlaneData.data = Object.assign([],this.airPlaneData.data)
+                                this.air[index] = true;
+                                this.formData.airSubject[index] = element.airSubject;
+                                this.formData.sceneSubject[index] = element.sceneSubject;
+                                this.formData.upDownNumber[index] = element.upDownNumber;
+                                this.formData.flightTime[index] = element.flightTime;
+                                console.log('*****************',this.airPlaneData.data[index].xd);
+                                console.log('********',element.xd);
+                                // this.airPlaneData.data[index].xd.forEach(ss => {
+                                //     if (ss.airplaneAmmo_id === element.)
+                                // });
+                                return ;
+                            }
+                        });
+                            // this.air.push(false);
+                    });
+                    console.log("2222222", this.airPlaneData);
+                }
+            },
+            async initData(){
+                console.log(this.formData);
+                this.personnelData = await getPersonnel();
+                this.personnelData.data.forEach(element => {
+                    if (element.bindAir && element.duty && element.duty === '是') {
+                        this.mapLists[element.bindAir] || (this.mapLists[element.bindAir] = []);
+                        this.mapLists[element.bindAir].push(element);
+                    }
+                });
+                this.airPlaneData = await getAirplane();
+                this.airplaneAmmoData = await getAirplaneAmmo();
+                this.airPlaneData.data.forEach(e => {
+                    e.isCheck = false;
+
+                    let xd = [];
+                    this.airplaneAmmoData.data.forEach(element => {
+                        if (element.air_code === e.code) {
+                            let data = {
+                                isCheck: false,
+                                airplaneAmmo_id: element.airplaneAmmo_id,
+                                air_code: element.air_code,
+                                ammo_code: element.ammo_code,
+                                zsm: element.zsm,
+                                number: ''
+                            };
+                            xd.push(data);
+                        }
+                    });
+                    e.xd = xd
+
+                });
+                console.log("airplaneairplane", this.airPlaneData);
+                this.vehicleData = await getVehicle();
+                this.subjectData = await getSubject();
+                const config = await getConfig()
+                this.fxSubject = config.data[0].subjectModel.split(",");
+                this.qxSubject = config.data[0].sceneModel.split(",");
+
+                this.edit();
+            },
+            changeSelect(index,code) {
+                // console.log(code);
+                let number = 0;
+                let arrayNumber = [];
+                arrayNumber = this.air;
+                arrayNumber = Object.assign([],this.air);
+                    // if (element === true) {
+                    //     this.airLength ++;
+                    //     console.log("222222", this.airLength);
+                    // } else if (element === false) {
+                    //     this.airLength --;
+                    // }
+                this.airLength = 0;
+                arrayNumber.forEach((element,index) => {
+                    console.log(arrayNumber);
+                    console.log('循环',index);
+                    if (arrayNumber[index] === true) {
+                        console.log('增加' );
+                        this.airLength ++;
+                    }
+                    if (element && this.mapLists.hasOwnProperty(this.airPlaneData.data[index].code)) {
+                        number +=this.mapLists[this.airPlaneData.data[index].code].length;
+                    }
+                    // console.log(this.mapLists.hasOwnProperty(this.airPlaneData.data[index].code));
+                    // console.log("!!!!", this.mapLists[this.airPlaneData.data[index].code].length);
+                    // if (this.mapLists[this.airPlaneData.data[index]] !== undefined) {
+                    //     if (element) {
+                    //         number +=this.mapLists[this.airPlaneData.data[index].code].length;
+                    //     }
+                    // }
+                });
+                console.log(number);
+                this.reckon = number;
+
+                // if (!this.lastIndex) {
+                //     this.lastIndex = index;
+                // } else {
+                //     this.formData.airSubject[index] = this.formData.airSubject[this.lastIndex];
+                //     this.formData.airSubject = Object.assign([],this.formData.airSubject);
+                // }
+                // console.log("上一条索引",this.lastIndex);
+                this.airPlaneData.data[index].isCheck = !this.airPlaneData.data[index].isCheck;
+                this.airPlaneData.data = Object.assign([],this.airPlaneData.data)
+                console.log(this.airPlaneData.data);
+            },
+            showList(index) {
+                this.newData[index].isShow = !this.newData[index].isShow;
+                this.newData = Object.assign([],this.newData)
+            },
+            submit() {
+                this.newData = [];
+                this.air.forEach((element,index) => {
+                    console.log(element);
+                    console.log(index);
+                    if (element) {
+                        const data = {
+                            airName: this.airPlaneData.data[index].code,
+                            airSubject: this.formData.airSubject[index],
+                            sceneSubject: this.formData.sceneSubject[index],
+                            upDownNumber: this.formData.upDownNumber[index],
+                            flightTime: this.formData.flightTime[index],
+                            xd: this.airPlaneData.data[index].xd.filter ( item => {return item.isCheck})
+                            // isShow: false
+                        }
+                        this.newData.push(data);
+                    }
+                });
+                const data = {
+                    plan_id: this.plan_id,
+                    name: this.formData.name,
+                    dateTime: this.formData.dateTime,
+                    totalNumber: this.formData.totalNumber,
+                    approachTime: this.formData.approachTime,
+                    airData: this.newData
+                }
+                if (this.plan_id) {
+                    updatePlan(data);
+                } else {
+                    addPlan(data);
+                }
+            },
 		}
     }
 </script>
