@@ -577,6 +577,8 @@ export const getOrganiz = () => fetch('/wcbz/getOrganiz');
 
 export const getAirplaneAmmo = () => fetch('/wcbz/getAirplaneAmmo');
 
+export const getAirplaneToPlan = () => fetch('/wcbz/getAirplaneToPlan');
+
 /**
  * 删除飞行计划
  */

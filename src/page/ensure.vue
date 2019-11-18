@@ -1,27 +1,43 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
+        <el-button
+            size="medium"
+            type="primary"
+            @click="addEnsure()">添加保障任务</el-button>
         <div class="table_container">
             <el-table
 		      :data="tableData"
 		      style="width: 100%">
-                              <el-table-column type="expand">
+                <el-table-column type="expand">
                   <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                      <el-form-item label="飞机名称">
+                      <el-form-item label="保障名称">
                         <span>{{ props.row.filed1 }}</span>
                       </el-form-item>
-                                            <el-form-item label="飞机号">
+                        <el-form-item label="保障日期">
                         <span>{{ props.row.filed2 }}</span>
                       </el-form-item>
-                                            <el-form-item label="飞行科目">
-                        <span>{{ props.row.filed3 }}</span>
-                      </el-form-item>
-                                            <el-form-item label="科目日期">
-                        <span>{{ props.row.filed4 }}</span>
-                      </el-form-item>
-                                            <el-form-item label="备份飞机号">
-                        <span>{{ props.row.filed5 }}</span>
+                    <el-form-item label="保障详情">
+                        <div class="ensureList" v-for="(v,index) in props.row.filed3">
+                                <span>保障类型：{{v.content}}</span>
+                                <h4 v-show="v.plan">飞行计划：</h4>
+                                <span v-show="v.plan" v-for="vv in v.plan">
+                                    {{vv.name}}
+                                </span>
+                                <h4 v-show="v.car">保障车辆：</h4>
+                                <span v-show="v.car" v-for="vv in v.car">
+                                    {{vv.name}}
+                                </span>
+                                <h4 v-show="v.airplane">保障飞机：</h4>
+                                <span v-show="v.airplane" v-for="vv in v.airplane">
+                                    {{vv.code}}
+                                </span>
+                                <h4 v-show="v.person">保障人员：</h4>
+                                <span v-show="v.person" v-for="vv in v.person">
+                                    {{vv.user_name}}
+                                </span>
+                        </div>
                       </el-form-item>
                     </el-form>
                   </template>
@@ -29,37 +45,15 @@
 		      <el-table-column
 		        prop="filed1"
 		        label="飞机名称"
-		        width="180">
+		        width="380">
 		      </el-table-column>
 		      <el-table-column
 		        prop="filed2"
-		        label="飞机号"
-		        width="80">
+		        label="保障日期"
+		        width="380">
 		      </el-table-column>
-              <el-table-column
-                prop="filed3"
-                label="飞行科目"
-                width="180">
-              </el-table-column>
-            <el-table-column
-                prop="filed4"
-                label="科目日期"
-                width="120">
-              </el-table-column>
-              <el-table-column
-                prop="filed5"
-                label="备份飞机号"
-                width="180">
-              </el-table-column>
             <el-table-column label="操作" width="300">
                   <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button
-                      size="mini"
-                      type="Success"
-                      @click="addEnsure()">添加保障任务</el-button>
                     <el-button
                       size="mini"
                       type="danger"
@@ -246,11 +240,18 @@
     .table_container{
         padding: 20px;
     }
+    .el-button--medium {
+        margin: 30PX;
+        margin-bottom: 0PX;
+    }
      .el-table th.is-leaf {
         text-align: center;
     }
     .el-table__body-wrapper {
         text-align: center;
+    }
+    .el-table .cell {
+        text-align-last: center;
     }
      .demo-table-expand {
         font-size: 0;
@@ -297,6 +298,9 @@
     }
     .el-form--inline .el-form-item__label {
         float: left;
+    }
+    .ensureList {
+        margin-bottom: 20PX;
     }
 </style>
 
