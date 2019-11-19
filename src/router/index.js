@@ -126,7 +126,7 @@ const routes = [
 		},{
 			path: '/airplane',
 			component: airplane,
-			meta: ['基础数据管理', '飞机数据管理'],
+			meta: ['基础数据管理', '飞机管理'],
 		},{
 			path: '/equip',
 			component: equip,
@@ -146,7 +146,7 @@ const routes = [
 		},{
 			path: '/device',
 			component: device,
-			meta: ['基础数据管理', '器件数据管理'],
+			meta: ['基础数据管理', '有寿器件管理'],
 		},{
 			path: '/addDevice',
 			component: addDevice,
@@ -154,7 +154,7 @@ const routes = [
 		},{
 			path: '/vehicle',
 			component: vehicle,
-			meta: ['基础数据管理', '车辆数据管理'],
+			meta: ['基础数据管理', '车辆管理'],
 		},{
 			path: '/addVehicle',
 			component: addVehicle,
