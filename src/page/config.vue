@@ -18,7 +18,7 @@
         </div>
 
         <div class="textBox">
-            <el-divider content-position="center">飞机任务管理：</el-divider>
+            <el-divider content-position="center">飞机任务状态管理：</el-divider>
             <div class="list" v-for="(value,index) in task">
                 <el-input style="width: 150px" v-model="task[index]" auto-complete="off"></el-input>
                 <el-button @click="taskDel(index)" >删除</el-button>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="textBox">
-            <el-divider content-position="center">飞机故障管理：</el-divider>
+            <el-divider content-position="center">飞行科目管理：</el-divider>
             <div class="list" v-for="(value,index) in fault">
                 <el-input style="width: 150px" v-model="fault[index]" auto-complete="off"></el-input>
                 <el-button @click="faultDel(index)" >删除</el-button>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="textBox">
-            <el-divider content-position="center">飞机科目管理：</el-divider>
+            <el-divider content-position="center">飞行科目管理：</el-divider>
             <div class="list" v-for="(value,index) in subject">
                 <el-input style="width: 150px" v-model="subject[index]" auto-complete="off"></el-input>
                 <el-button @click="subjectDel(index)" >删除</el-button>
@@ -109,7 +109,7 @@
         </div>
 
         <div class="textBox">
-            <el-divider content-position="center">车辆故障管理：</el-divider>
+            <el-divider content-position="center">车辆故障类型管理：</el-divider>
             <div class="list" v-for="(value,index) in carFault">
                 <el-input style="width: 150px" v-model="carFault[index]" auto-complete="off"></el-input>
                 <el-button @click="carFaultDel(index)" >删除</el-button>
@@ -161,7 +161,7 @@
         </div>
 
         <div class="textBox">
-            <el-divider content-position="center">保障任务管理：</el-divider>
+            <el-divider content-position="center">保障任务类型管理：</el-divider>
             <div class="list" v-for="(value,index) in ensure">
                 <el-input style="width: 150px" v-model="ensure[index]" auto-complete="off"></el-input>
                 <el-button @click="ensureDel(index)" >删除</el-button>
