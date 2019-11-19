@@ -41,13 +41,14 @@
                             </el-date-picker>
 					</el-form-item>
                     <el-form-item label="所属单位" prop="unit">
-                            <el-select v-model="formData.unit">
-                                <el-option
-                                v-for="(item,index) in organiz.data"
-                                :key="index"
-                                :label="item.label"
-                                :value="item.value"></el-option>
-                            </el-select>
+                        <el-select v-model="formData.company" placeholder="请选择单位"  style="width: 360px" ref="selectReport">
+                        <el-option :value="formData.company" :label="formData.company" style="width: 560px;height:200px;overflow: auto;background-color:#fff">
+                            <el-tree
+                                :data="organiz"
+                                @node-click="handleNodeClick"
+                            ></el-tree>
+                        </el-option>
+                    </el-select>
 						<!-- <el-input v-model="formData.unit"></el-input> -->
 					</el-form-item>
                     <el-form-item label="飞行时间" prop="airTime">
@@ -184,8 +185,20 @@
             },
             async init() {
                 this.organiz = await getOrganiz();
+                this.organiz = this.organiz.data[0].organizArray;
                 const config = await getConfig();
                 this.airType = config.data[0].airTypeModel.split(",");
+            },
+            handleNodeClick(node){
+                console.log(node,'node')
+                if(node.children.length){
+                    console.log('11111');
+                }else{
+                    console.log('22233');
+                    this.formData.company = node.label
+                    console.log(this.formData.company);
+                    this.$refs.selectReport.blur()
+                }
             }
 		}
     }

@@ -22,14 +22,8 @@
                       <el-form-item label="联系方式">
                         <span>{{ props.row.phone }}</span>
                       </el-form-item>
-                     <el-form-item label="分队">
-                        <span>{{ props.row.detachment }}</span>
-                      </el-form-item>
                       <el-form-item label=" 类型">
                         <span>{{ props.row.type }}</span>
-                      </el-form-item>
-                      <el-form-item label="组织架构">
-                        <span>{{ props.row.organiz }}</span>
                       </el-form-item>
                         <el-form-item label="籍贯">
                         <span>{{ props.row.native }}</span>
@@ -61,17 +55,17 @@
 		      <el-table-column
 		        prop="user_name"
 		        label="姓名"
-		        width="180">
+		        width="100">
 		      </el-table-column>
                 <el-table-column
-                prop="detachment"
-                label="分队"
-                width="180">
+                prop="company"
+                label="单位"
+                width="380">
               </el-table-column>
                <el-table-column
                 prop="type"
                 label=" 类型"
-                width="180">
+                width="100">
               </el-table-column>
 		      <el-table-column
 		        prop="post"
@@ -81,7 +75,7 @@
               <el-table-column
                 prop="major"
                 label="专业"
-                width="140">
+                width="100">
               </el-table-column>
               <!--<el-table-column
                 prop="remark"
