@@ -118,7 +118,7 @@ const routes = [
 		},{
 			path: '/personnel',
 			component: personnel,
-			meta: ['外场保障', '机务人员管理'],
+			meta: ['基础数据管理', '机务人员管理'],
 		},{
 			path: '/addAirplane',
 			component: addAirplane,
@@ -126,11 +126,11 @@ const routes = [
 		},{
 			path: '/airplane',
 			component: airplane,
-			meta: ['外场保障', '飞机数据管理'],
+			meta: ['基础数据管理', '飞机数据管理'],
 		},{
 			path: '/equip',
 			component: equip,
-			meta: ['外场保障', '装备数据管理'],
+			meta: ['基础数据管理', '装备数据管理'],
 		},{
 			path: '/addEquip',
 			component: addEquip,
@@ -138,7 +138,7 @@ const routes = [
 		},{
 			path: '/ensure',
 			component: ensure,
-			meta: ['外场保障', '保障数据管理'],
+			meta: ['基础数据管理', '保障数据管理'],
 		},{
 			path: '/addEnsure',
 			component: addEnsure,
@@ -146,7 +146,7 @@ const routes = [
 		},{
 			path: '/device',
 			component: device,
-			meta: ['外场保障', '器件数据管理'],
+			meta: ['基础数据管理', '器件数据管理'],
 		},{
 			path: '/addDevice',
 			component: addDevice,
@@ -154,7 +154,7 @@ const routes = [
 		},{
 			path: '/vehicle',
 			component: vehicle,
-			meta: ['外场保障', '车辆数据管理'],
+			meta: ['基础数据管理', '车辆数据管理'],
 		},{
 			path: '/addVehicle',
 			component: addVehicle,
@@ -162,7 +162,7 @@ const routes = [
 		},{
 			path: '/subject',
 			component: subject,
-			meta: ['外场保障', '条目数据管理'],
+			meta: ['基础数据管理', '条目数据管理'],
 		},{
 			path: '/addSubject',
 			component: addSubject,
@@ -178,7 +178,7 @@ const routes = [
 		},{
 			path: '/ammo',
 			component: ammo,
-			meta: ['外场保障', '弹药数据'],
+			meta: ['基础数据管理', '弹药数据'],
 		},{
 			path: '/addAmmo',
 			component: addAmmo,
@@ -186,7 +186,7 @@ const routes = [
 		},{
 			path: '/plan',
 			component: plan,
-			meta: ['外场保障', '飞行计划'],
+			meta: ['基础数据管理', '飞行计划'],
 		},{
 			path: '/addPlan',
 			component: addPlan,
