@@ -13,10 +13,10 @@
                     <el-form-item label="适配机型" prop="filed3">
                         <el-select v-model="formData.filed3">
                                 <el-option
-                                v-for="(item,index) in air"
+                                v-for="(item,index) in airType"
                                 :key="index"
-                                :label="item.code"
-                                :value="item.code"></el-option>
+                                :label="item"
+                                :value="item"></el-option>
                         </el-select>
 					</el-form-item>
                     <el-form-item label="制造厂" prop="filed4">
@@ -50,7 +50,7 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addDevice,getAirplane } from '@/api/getData'
+    import { addDevice,getAirplane,getConfig } from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -84,7 +84,7 @@
 						{ type: 'number', message: '电话号码必须是数字' }
 					],
                 },
-                air: {}
+                airType: []
     		}
     	},
     	components: {
@@ -134,8 +134,8 @@
 				});
             },
             async init() {
-                const airplane = await getAirplane();
-                this.air = airplane.data
+                const config = await getConfig();
+                this.airType = config.data[0].airTypeModel.split(",");
             }
 		}
     }

@@ -113,10 +113,10 @@
                     <el-form-item label="适配机型" label-width="100px">
                         <el-select v-model="selectTable.filed3">
                                 <el-option
-                                v-for="(item,index) in air"
+                                v-for="(item,index) in airType"
                                 :key="index"
-                                :label="item.code"
-                                :value="item.code"></el-option>
+                                :label="item"
+                                :value="item"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="装机日期" label-width="100px">
@@ -148,7 +148,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getDevice,getDeviceCount,getDeviceById,updateDevice,deleteDevice,addDevice,getAirplane } from '@/api/getData'
+    import { getDevice,getDeviceCount,getDeviceById,updateDevice,deleteDevice,addDevice,getConfig } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
     export default {
         data(){
@@ -161,7 +161,7 @@
                 currentPage: 1,
                 selectTable: {},
                 dialogFormVisible: false,
-                air: []
+                airType: []
             }
         },
     	components: {
@@ -181,8 +181,8 @@
                         throw new Error('获取数据失败');
                     }
                     this.getDevice();
-                    const airplane = await getAirplane();
-                    this.air = airplane.data
+                    const config = await getConfig();
+                    this.airType = config.data[0].airTypeModel.split(",");
                 }catch(err){
                     console.log('获取数据失败', err);
                 }
