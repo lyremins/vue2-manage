@@ -17,7 +17,11 @@
 					</el-submenu>
 					<el-submenu index="3">
 						<template slot="title"><i class="el-icon-plus"></i>综合态势</template>
-						<el-menu-item index="situation">飞机态势查看</el-menu-item>
+						<el-menu-item index="airplaneSituation">飞机态势查看</el-menu-item>
+						<el-menu-item index="carSituation">车辆态势查看</el-menu-item>
+						<el-menu-item index="peopleSituation">人员态势查看</el-menu-item>
+						<el-menu-item index="deviceSituation">有寿器件态势查看</el-menu-item>
+						<el-menu-item index="ammoSituation">弹药态势查看</el-menu-item>
 					</el-submenu>
                     <el-submenu index="4">
 						<template slot="title"><i class="el-icon-plus"></i>计划任务</template>

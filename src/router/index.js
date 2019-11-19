@@ -47,6 +47,11 @@ const airplaneAmmo = r => require.ensure([], () => r(require('@/page/airplaneAmm
 const showAirplaneDevice = r => require.ensure([], () => r(require('@/page/showAirplaneDevice')), 'showAirplaneDevice');
 const showAirplaneAmmo = r => require.ensure([], () => r(require('@/page/showAirplaneAmmo')), 'showAirplaneAmmo');
 const showAirplaneCar = r => require.ensure([], () => r(require('@/page/showAirplaneCar')), 'showAirplaneCar');
+const airplaneSituation = r => require.ensure([], () => r(require('@/page/airplaneSituation')), 'airplaneSituation');
+const carSituation = r => require.ensure([], () => r(require('@/page/carSituation')), 'carSituation');
+const peopleSituation = r => require.ensure([], () => r(require('@/page/peopleSituation')), 'peopleSituation');
+const deviceSituation = r => require.ensure([], () => r(require('@/page/deviceSituation')), 'deviceSituation');
+const ammoSituation = r => require.ensure([], () => r(require('@/page/ammoSituation')), 'ammoSituation');
 
 const routes = [
 	{
@@ -229,6 +234,26 @@ const routes = [
 			path: '/showAirplaneCar',
 			component: showAirplaneCar,
 			meta: ['基础数据管理', '飞机-保障车辆关联'],
+		},{
+			path: '/airplaneSituation',
+			component: airplaneSituation,
+			meta: ['综合态势', '飞机态势'],
+		},{
+			path: '/carSituation',
+			component: carSituation,
+			meta: ['综合态势', '车辆态势'],
+		},{
+			path: '/peopleSituation',
+			component: peopleSituation,
+			meta: ['综合态势', '人员态势'],
+		},{
+			path: '/deviceSituation',
+			component: deviceSituation,
+			meta: ['综合态势', '有寿器件态势'],
+		},{
+			path: '/ammoSituation',
+			component: ammoSituation,
+			meta: ['综合态势', '弹药态势'],
 		}]
 	}
 ]

@@ -633,3 +633,9 @@ export const deleteAirplaneAmmo = plan_id => fetch('/wcbz/deleteAirplaneAmmo/' +
 
 export const deleteAirplaneCar = plan_id => fetch('/wcbz/deleteAirplaneCar/' + plan_id, {}, 'DELETE');
 
+export const getAirplaneSituation = () => fetch('/wcbz/getAirplaneSituation');
+export const getCarSituation = () => fetch('/wcbz/getCarSituation');
+export const getPersonSituation = () => fetch('/wcbz/getPersonSituation');
+export const getAirplaneToDevice = () => fetch('/wcbz/getAirplaneToDevice');
+export const getAmmoToDevice = () => fetch('/wcbz/getAmmoToDevice');
+
