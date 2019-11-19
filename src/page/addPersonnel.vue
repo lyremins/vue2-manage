@@ -19,7 +19,7 @@
                                 :value="item"></el-option>
                         </el-select>
 					</el-form-item>
-					<el-form-item label="工种" prop="type">
+					<el-form-item label="类别" prop="type">
                             <el-select v-model="formData.type">
                                 <el-option
                                 v-for="(item,index) in gz"

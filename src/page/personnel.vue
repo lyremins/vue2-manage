@@ -22,7 +22,7 @@
                       <el-form-item label="联系方式">
                         <span>{{ props.row.phone }}</span>
                       </el-form-item>
-                      <el-form-item label=" 类型">
+                      <el-form-item label=" 类别">
                         <span>{{ props.row.type }}</span>
                       </el-form-item>
                         <el-form-item label="籍贯">
@@ -64,7 +64,7 @@
               </el-table-column>
                <el-table-column
                 prop="type"
-                label=" 类型"
+                label=" 类别"
                 width="100">
               </el-table-column>
 		      <el-table-column
@@ -173,7 +173,7 @@
                     <el-form-item label="分队" label-width="100px">
                         <el-input v-model="selectTable.detachment"></el-input>
                     </el-form-item>
-                    <el-form-item label="类型" label-width="100px">
+                    <el-form-item label="类别" label-width="100px">
                         <el-select v-model="selectTable.type">
                                 <el-option
                                 v-for="(item,index) in gz"
