@@ -41,6 +41,12 @@ const addPlan= r => require.ensure([], () => r(require('@/page/addPlan')), 'addP
 const plan = r => require.ensure([], () => r(require('@/page/plan')), 'plan');
 const config = r => require.ensure([], () => r(require('@/page/config')), 'config');
 const chat = r => require.ensure([], () => r(require('@/page/chat')), 'chat');
+const airplaneDevice = r => require.ensure([], () => r(require('@/page/airplaneDevice')), 'airplaneDevice');
+const airplaneCar = r => require.ensure([], () => r(require('@/page/airplaneCar')), 'airplaneCar');
+const airplaneAmmo = r => require.ensure([], () => r(require('@/page/airplaneAmmo')), 'airplaneAmmo');
+const showAirplaneDevice = r => require.ensure([], () => r(require('@/page/showAirplaneDevice')), 'showAirplaneDevice');
+const showAirplaneAmmo = r => require.ensure([], () => r(require('@/page/showAirplaneAmmo')), 'showAirplaneAmmo');
+const showAirplaneCar = r => require.ensure([], () => r(require('@/page/showAirplaneCar')), 'showAirplaneCar');
 
 const routes = [
 	{
@@ -66,23 +72,23 @@ const routes = [
 		},{
 			path: '/userList',
 			component: userList,
-			meta: ['数据管理', '用户列表'],
+			meta: ['基础数据管理', '用户列表'],
 		},{
 			path: '/shopList',
 			component: shopList,
-			meta: ['数据管理', '商家列表'],
+			meta: ['基础数据管理', '商家列表'],
 		},{
 			path: '/foodList',
 			component: foodList,
-			meta: ['数据管理', '食品列表'],
+			meta: ['基础数据管理', '食品列表'],
 		},{
 			path: '/orderList',
 			component: orderList,
-			meta: ['数据管理', '订单列表'],
+			meta: ['基础数据管理', '订单列表'],
 		},{
 			path: '/adminList',
 			component: adminList,
-			meta: ['数据管理', '管理员列表'],
+			meta: ['基础数据管理', '管理员列表'],
 		},{
 			path: '/visitor',
 			component: visitor,
@@ -118,7 +124,7 @@ const routes = [
 		},{
 			path: '/personnel',
 			component: personnel,
-			meta: ['基础数据管理', '机务人员管理'],
+			meta: ['基础基础数据管理', '机务人员管理'],
 		},{
 			path: '/addAirplane',
 			component: addAirplane,
@@ -126,11 +132,11 @@ const routes = [
 		},{
 			path: '/airplane',
 			component: airplane,
-			meta: ['基础数据管理', '飞机管理'],
+			meta: ['基础基础数据管理', '飞机管理'],
 		},{
 			path: '/equip',
 			component: equip,
-			meta: ['基础数据管理', '装备数据管理'],
+			meta: ['基础基础数据管理', '装备基础数据管理'],
 		},{
 			path: '/addEquip',
 			component: addEquip,
@@ -138,7 +144,7 @@ const routes = [
 		},{
 			path: '/ensure',
 			component: ensure,
-			meta: ['基础数据管理', '保障数据管理'],
+			meta: ['基础基础数据管理', '保障基础数据管理'],
 		},{
 			path: '/addEnsure',
 			component: addEnsure,
@@ -146,7 +152,7 @@ const routes = [
 		},{
 			path: '/device',
 			component: device,
-			meta: ['基础数据管理', '有寿器件管理'],
+			meta: ['基础基础数据管理', '有寿器件管理'],
 		},{
 			path: '/addDevice',
 			component: addDevice,
@@ -154,7 +160,7 @@ const routes = [
 		},{
 			path: '/vehicle',
 			component: vehicle,
-			meta: ['基础数据管理', '车辆管理'],
+			meta: ['基础基础数据管理', '车辆管理'],
 		},{
 			path: '/addVehicle',
 			component: addVehicle,
@@ -162,7 +168,7 @@ const routes = [
 		},{
 			path: '/subject',
 			component: subject,
-			meta: ['基础数据管理', '条目数据管理'],
+			meta: ['基础基础数据管理', '条目基础数据管理'],
 		},{
 			path: '/addSubject',
 			component: addSubject,
@@ -170,7 +176,7 @@ const routes = [
 		},{
 			path: '/situation',
 			component: situation,
-			meta: ['数据管理', '态势数据'],
+			meta: ['基础数据管理', '态势数据'],
 		},{
 			path: '/analys',
 			component: home,
@@ -178,27 +184,51 @@ const routes = [
 		},{
 			path: '/ammo',
 			component: ammo,
-			meta: ['基础数据管理', '弹药管理'],
+			meta: ['基础基础数据管理', '弹药管理'],
 		},{
 			path: '/addAmmo',
 			component: addAmmo,
-			meta: ['数据管理', '添加弹药数据'],
+			meta: ['基础数据管理', '添加弹药数据'],
 		},{
 			path: '/plan',
 			component: plan,
-			meta: ['基础数据管理', '飞行计划'],
+			meta: ['基础基础数据管理', '飞行计划'],
 		},{
 			path: '/addPlan',
 			component: addPlan,
-			meta: ['数据管理', '添加飞行计划'],
+			meta: ['基础数据管理', '添加飞行计划'],
 		},{
 			path: '/config',
 			component: config,
-			meta: ['数据管理', '状态管理'],
+			meta: ['基础数据管理', '状态管理'],
 		},{
 			path: '/chat',
 			component: chat,
-			meta: ['数据管理', '聊天管理'],
+			meta: ['基础数据管理', '聊天管理'],
+		},{
+			path: '/airplaneDevice',
+			component: airplaneDevice,
+			meta: ['基础数据管理', '飞机-有寿器件关联'],
+		},{
+			path: '/airplaneAmmo',
+			component: airplaneAmmo,
+			meta: ['基础数据管理', '飞机-弹药关联'],
+		},{
+			path: '/airplaneCar',
+			component: airplaneCar,
+			meta: ['基础数据管理', '飞机-保障车辆关联'],
+		},{
+			path: '/showAirplaneDevice',
+			component: showAirplaneDevice,
+			meta: ['基础数据管理', '飞机-有寿器件关联查看'],
+		},{
+			path: '/showAirplaneAmmo',
+			component: showAirplaneAmmo,
+			meta: ['基础数据管理', '飞机-弹药关联查看'],
+		},{
+			path: '/showAirplaneCar',
+			component: showAirplaneCar,
+			meta: ['基础数据管理', '飞机-保障车辆关联'],
 		}]
 	}
 ]

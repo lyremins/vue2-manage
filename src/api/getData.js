@@ -585,3 +585,51 @@ export const getAirplaneToPlan = () => fetch('/wcbz/getAirplaneToPlan');
 
 export const deletePlan = plan_id => fetch('/wcbz/deletePlan/' + plan_id, {}, 'DELETE');
 
+/**
+ * 添加飞机-弹药数据信息
+ */
+
+export const addAirplaneAmmo = (data) => fetch('/wcbz/addAirplaneAmmo',data,'POST');
+
+/**
+ * 获取飞机-有售器件数据信息
+ */
+
+export const getAirplaneDevice = () => fetch('/wcbz/getAirplaneDevice');
+
+/**
+ * 添加飞机-有售器件数据信息
+ */
+
+export const addAirplaneDevice = (data) => fetch('/wcbz/addAirplaneDevice',data,'POST');
+
+/**
+ * 获取飞机-车辆数据信息
+ */
+
+export const getAirplaneCar = () => fetch('/wcbz/getAirplaneCar');
+
+/**
+ * 添加飞机-车辆数据信息
+ */
+
+export const addAirplaneCar = (data) => fetch('/wcbz/addAirplaneCar',data,'POST');
+
+/**
+ * 删除飞机-有寿器件
+ */
+
+export const deleteAirplaneDevice = plan_id => fetch('/wcbz/deleteAirplaneDevice/' + plan_id, {}, 'DELETE');
+
+/**
+ * 删除飞机-弹药
+ */
+
+export const deleteAirplaneAmmo = plan_id => fetch('/wcbz/deleteAirplaneAmmo/' + plan_id, {}, 'DELETE');
+
+/**
+ * 删除飞机-车辆
+ */
+
+export const deleteAirplaneCar = plan_id => fetch('/wcbz/deleteAirplaneCar/' + plan_id, {}, 'DELETE');
+
