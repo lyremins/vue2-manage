@@ -24,105 +24,53 @@
             initData(){
                 const colors = ['#5793f3', '#675bba', '#d14a61'];
                 const option = {
-                    color: colors,
-                    title: {
-                        text: '走势图',
-                        subtext: ''
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data:['新注册用户', '新增飞机', '新增管理员']
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            dataZoom: {
-                                yAxisIndex: 'none'
-                            },
-                    dataView : {readOnly: true},
-                restore : {show: true},
-                saveAsImage : {show: true},
-                            magicType: {type: ['bar', 'line']},
-                            restore: {},
-                        }
-                    },
-                    xAxis:  {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: this.xData,
-                        width: 300
-                    },
-                    yAxis: [
-                        {
-                          type: 'value',
-                          name: '',
-                          min: 0,
-                          max: 100,
-                          position: 'center',
-                          axisLine: {
-                              lineStyle: {
-                                  color: '#999'
-                              }
-                          },
-                          axisLabel: {
-                              formatter: '{value}'
-                          }
+                     color: ['#3398DB'],
+                        tooltip : {
+                            trigger: 'axis',
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
                         },
-                        {
-                          type: 'value',
-                          name: '',
-                          min: 0,
-                          max: 100,
-                          position: 'center',
-                          axisLine: {
-                              lineStyle: {
-                                  color: '#999'
-                              }
-                          },
-                          axisLabel: {
-                              formatter: '{value}'
-                          }
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
                         },
-                    ],
-                    series: [
-                        {
-                            name:'数量',
-                            type:'line',
-                            data:this.yData,
-                            yAxisIndex: 1,
-                            // markPoint: {
-                            //     data: [
-                            //         10,15,11,18
-                            //     ]
-                            // },
-                        },
-                        // {
-                        //     name:'新增飞机',
-                        //     type:'line',
-                        //     data:this.sevenDate[1],
-                        //     yAxisIndex: 1,
-                        //     markPoint: {
-                        //         data: [
-                        //             {type: 'max', name: '最大值'},
-                        //             {type: 'min', name: '最小值'}
-                        //         ]
-                        //     },
-                        // },
-                        // {
-                        //     name:'新增管理员',
-                        //     type:'line',
-                        //     data:this.sevenDate[2],
-                        //     yAxisIndex: 1,
-                        //     markPoint: {
-                        //         data: [
-                        //             {type: 'max', name: '最大值'},
-                        //             {type: 'min', name: '最小值'}
-                        //         ]
-                        //     },
-                        // }
-                    ]
+                        xAxis : [
+                            {
+                                type : 'category',
+                                data : this.xData,
+                                axisTick: {
+                                    alignWithLabel: true
+                                }
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value'
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'数值',
+                                type:'bar',
+                                barWidth: '60%',
+                                data:this.yData,
+                                itemStyle: {
+							normal: {
+								label: {
+									show: true, //开启显示
+									position: 'top', //在上方显示
+									textStyle: { //数值样式
+										color: 'black',
+										fontSize: 16
+									}
+								}
+							}
+						},
+                            }
+                        ]
               };
             this.myChart.setOption(option);
             this.myChart.on('click', (param) => {

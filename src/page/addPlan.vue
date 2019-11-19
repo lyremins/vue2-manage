@@ -77,6 +77,9 @@
                         </div>
                         </el-form-item>
                     </div>
+                    <el-form-item label="总人数">
+                        <el-input v-model="formData.totalNumber" type="number"></el-input>
+                    </el-form-item>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submit()">立即创建</el-button>
 					</el-form-item>

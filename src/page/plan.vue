@@ -9,6 +9,27 @@
             <el-table
 		      :data="tableData"
 		      style="width: 100%">
+            <el-table-column type="expand">
+                  <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                      <el-form-item label="计划名称">
+                        <span>{{ props.row.name }}</span>
+                      </el-form-item>
+                        <el-form-item label="计划日期">
+                        <span>{{ props.row.dateTime }}</span>
+                      </el-form-item>
+                        <el-form-item label="计划详情">
+                        <div class="ensureList" v-for="(v,index) in props.row.airData">
+                        <span>飞机名称：{{v.airName}}</span>
+                        <span>飞行科目：{{v.airSubject}}</span>
+                        <span>起落次数：{{v.upDownNumber}}</span>
+                        <span>飞行任务时间：{{v.flightTime}}</span>
+                        </div>
+                      </el-form-item>
+                    </el-form>
+                    </el-form>
+                  </template>
+                </el-table-column>
 		      <el-table-column
 		        prop="name"
 		        label="计划名称"
@@ -17,12 +38,12 @@
 		      <el-table-column
 		        prop="dateTime"
 		        label="计划日期"
-		        width="80">
+		        width="250">
 		      </el-table-column>
               <el-table-column
                 prop="approachTime"
                 label="进场时间"
-                width="180">
+                width="250">
               </el-table-column>
             <el-table-column label="操作" width="300">
                   <template slot-scope="scope">
@@ -136,7 +157,8 @@
 						        airSubject: item.airSubject,
                                 sceneSubject: item.sceneSubject,
                                 upDownNumber: item.upDownNumber,
-                                flightTime: item.flightTime
+                                flightTime: item.flightTime,
+                                airData: item.airData
                     		}
                     		this.tableData.push(tableItem)
                         })
