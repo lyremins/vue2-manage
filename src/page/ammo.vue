@@ -133,7 +133,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getAmmo,getAmmoCount,getAmmoById,updateDevice,deleteAmmo } from '@/api/getData'
+    import { getAmmo,getAmmoCount,getAmmoById,updateAmmo,deleteAmmo } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
     export default {
         data(){
@@ -225,7 +225,7 @@
                 this.dialogFormVisible = false;
                 try{
                 	const postData = {...this.selectTable};
-                    const res = await updateDevice(postData)
+                    const res = await updateAmmo(postData)
                     if (res.status == 1) {
                         this.$message({
                             type: 'success',
