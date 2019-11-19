@@ -246,6 +246,9 @@
 					<el-form-item label="执行重大任务" label-width="100px">
 						<el-input v-model="selectTable.greatTask"></el-input>
 					</el-form-item>
+                    <el-form-item label="是否在岗" label-width="100px">
+						<el-input v-model="selectTable.duty"></el-input>
+					</el-form-item>
                 </el-form>
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -337,6 +340,7 @@
                                 enlist: item.enlist,
                                 school: item.school,
                                 greatTask: item.greatTask,
+                                duty: item.duty
                     		}
                     		this.tableData.push(tableItem)
                         })
@@ -372,7 +376,8 @@
                     bindAir: personnel.bindAir,
                     enlist: personnel.enlist,
                     school: personnel.school,
-                    greatTask: personnel.greatTask,}};
+                    greatTask: personnel.greatTask,
+                    duty:personnel.duty}};
 
                 this.tableData.splice(row.index, 1, {...this.selectTable});
             },

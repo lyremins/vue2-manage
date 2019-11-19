@@ -110,10 +110,14 @@
                     <el-form-item label="型号" label-width="100px">
                         <el-input v-model="selectTable.filed2"></el-input>
                     </el-form-item>
+                    <el-form-item label="适配机型" label-width="100px">
+                        <el-input v-model="selectTable.filed3"></el-input>
+                    </el-form-item>
                     <el-form-item label="装机日期" label-width="100px">
                         <el-date-picker
-                            v-model="selectTable.filed3"
+                            v-model="selectTable.filed7"
                             type="date"
+                            value-format="yyyy-MM-dd"
                             placeholder="选择日期">
                             </el-date-picker>
                     </el-form-item>
@@ -198,7 +202,10 @@
                                 filed6: item.filed6,
                                 filed7: item.filed7,
                                 filed8: item.filed8,
-                                filed9: item.filed9
+                                filed9: item.filed9,
+                                filed10: item.filed10,
+                                filed11: item.filed11,
+                                filed12: item.filed12,
                     		}
                     		this.tableData.push(tableItem)
                         })
@@ -225,8 +232,11 @@
                     filed5: device.filed5,
                     filed6: device.filed6,
                     filed7: device.filed7,
-                    filed9: device.filed8,
-                    filed10: device.filed9 }}
+                    filed8: device.filed8,
+                    filed9: device.filed9,
+                    filed10: device.filed10,
+                    filed11: device.filed11,
+                    filed12: device.filed12 }}
 
                 this.tableData.splice(row.index, 1, {...this.selectTable});
             },
