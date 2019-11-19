@@ -165,7 +165,7 @@
                     <el-form-item label="型号" label-width="100px">
                             <el-select v-model="selectTable.model">
                                 <el-option
-                                v-for="(item,index) in airType"
+                                v-for="(item,index) in carType"
                                 :key="index"
                                 :label="item"
                                 :value="item"></el-option>
@@ -184,7 +184,15 @@
                             </el-select>
 					</el-form-item>
 					<el-form-item label="单位" label-width="100px">
-						<el-input v-model="selectTable.organiz"></el-input>
+						<!-- <el-input v-model="selectTable.organiz"></el-input> -->
+                        <el-select v-model="selectTable.organiz" placeholder="请选择单位"  style="width: 360px" ref="selectReport">
+                            <el-option :value="selectTable.organiz" :label="selectTable.organiz" style="width: 560px;height:200px;overflow: auto;background-color:#fff">
+                                <el-tree
+                                    :data="organiz"
+                                    @node-click="handleNodeClick"
+                                ></el-tree>
+                            </el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="服务机型" label-width="100px">
                             <el-select v-model="selectTable.service">
@@ -220,7 +228,7 @@
 					<el-form-item label="车辆任务状态" label-width="100px">
                          <el-select v-model="selectTable.taskState">
                                 <el-option
-                                v-for="(item,index) in airType"
+                                v-for="(item,index) in carTaskType"
                                 :key="index"
                                 :label="item"
                                 :value="item"></el-option>
@@ -238,7 +246,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getVehicle,getVehicleCount,getVehicleById,updateVehicle,deleteVehicle,addVehicle,getConfig } from '@/api/getData'
+    import { getVehicle,getVehicleCount,getVehicleById,updateVehicle,deleteVehicle,addVehicle,getConfig, getOrganiz } from '@/api/getData'
     import UploadExcelComponent from '../components/index.vue'
    export default {
         data(){
@@ -254,7 +262,8 @@
                 airType: {},
                 carType: {},
                 carTaskType: {},
-                carStateType: {}
+                carStateType: {},
+                organiz: {}
             }
         },
     	components: {
@@ -279,6 +288,8 @@
                     this.carStateType = config.data[0].carStateModel.split(",");
                     this.airType = config.data[0].airTypeModel.split(",");
                     this.carTaskType = config.data[0].carTaskModel.split(",");
+                    this.organiz = await getOrganiz();
+                    this.organiz = this.organiz.data[0].organizArray;
                 }catch(err){
                     console.log('获取数据失败', err);
                 }
@@ -425,6 +436,16 @@
             addDevice() {
                 this.$router.push('/addVehicle');
             },
+            handleNodeClick(node){
+                console.log(node,'node')
+                if(node.children.length){
+                    console.log('11111');
+                }else{
+                    console.log('22233');
+                    this.selectTable.organiz = node.label
+                    this.$refs.selectReport.blur()
+                }
+            }
         },
     }
 </script>

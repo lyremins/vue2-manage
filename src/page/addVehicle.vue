@@ -29,7 +29,15 @@
                             </el-select>
 					</el-form-item>
 					<el-form-item label="单位" prop="organiz">
-						<el-input v-model="formData.organiz"></el-input>
+						<!-- <el-input v-model="formData.organiz"></el-input> -->
+                        <el-select v-model="formData.organiz" placeholder="请选择单位"  style="width: 360px" ref="selectReport">
+                            <el-option :value="formData.organiz" :label="formData.organiz" style="width: 560px;height:200px;overflow: auto;background-color:#fff">
+                                <el-tree
+                                    :data="organiz"
+                                    @node-click="handleNodeClick"
+                                ></el-tree>
+                            </el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="服务机型" prop="service">
                             <el-select v-model="formData.service">
@@ -82,7 +90,7 @@
 
 <script>
     import headTop from '@/components/headTop'
-    import { addVehicle,getConfig } from '@/api/getData'
+    import { addVehicle,getConfig,getOrganiz } from '@/api/getData'
     export default {
     	data(){
     		return {
@@ -108,7 +116,8 @@
                 airType: {},
                 carType: {},
                 carTaskType: {},
-                carStateType: {}
+                carStateType: {},
+                organiz: []
     		}
     	},
     	components: {
@@ -170,6 +179,18 @@
                 this.airType = config.data[0].airTypeModel.split(",");
                 this.carTaskType = config.data[0].carTaskModel.split(",");
                 this.carStateType = config.data[0].carStateModel.split(",");
+                this.organiz = await getOrganiz();
+                this.organiz = this.organiz.data[0].organizArray;
+            },
+            handleNodeClick(node){
+                console.log(node,'node')
+                if(node.children.length){
+                    console.log('11111');
+                }else{
+                    console.log('22233');
+                    this.formData.organiz = node.label
+                    this.$refs.selectReport.blur()
+                }
             }
 		}
     }
