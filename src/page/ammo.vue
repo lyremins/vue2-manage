@@ -94,7 +94,7 @@
                   :total="count">
                 </el-pagination>
             </div>
-            <el-dialog title="修改保障信息" :visible.sync="dialogFormVisible">
+            <el-dialog title="修改弹药信息" :visible.sync="dialogFormVisible">
                 <el-form :model="selectTable">
                     <el-form-item label="型号" label-width="100px">
                         <el-input v-model="selectTable.filed1" auto-complete="off"></el-input>
