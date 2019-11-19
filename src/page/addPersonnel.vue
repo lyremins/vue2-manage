@@ -11,10 +11,13 @@
 						<el-input v-model.number="formData.phone" maxLength="11"></el-input>
 					</el-form-item>
 					<el-form-item label="性别" prop="sex">
-						<el-input v-model="formData.sex"></el-input>
-					</el-form-item>
-					<el-form-item label="分队" prop="detachment">
-						<el-input v-model="formData.detachment"></el-input>
+                            <el-select v-model="formData.sex">
+                                <el-option
+                                v-for="(item,index) in sex"
+                                :key="index"
+                                :label="item"
+                                :value="item"></el-option>
+                        </el-select>
 					</el-form-item>
 					<el-form-item label="工种" prop="type">
                             <el-select v-model="formData.type">
@@ -27,9 +30,6 @@
 					</el-form-item>
                     <el-form-item label="备注" prop="remark">
 						<el-input v-model="formData.remark"></el-input>
-					</el-form-item>
-					<el-form-item label="组织架构" prop="organiz">
-						<el-input v-model="formData.organiz"></el-input>
 					</el-form-item>
 					<el-form-item label="籍贯" prop="native">
 						<el-input v-model="formData.native"></el-input>
@@ -44,9 +44,6 @@
                             ></el-tree>
                         </el-option>
                     </el-select>
-					</el-form-item>
-					<el-form-item label="排" prop="row">
-						<el-input v-model="formData.row"></el-input>
 					</el-form-item>
 					<el-form-item label="职务" prop="post">
                             <el-select v-model="formData.post">
@@ -159,7 +156,8 @@
                 zw: {},
                 zy: {},
                 zg: ['是','否'],
-                organiz: []
+                organiz: [],
+                sex: ['男','女']
     		}
     	},
     	components: {
