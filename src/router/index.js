@@ -178,7 +178,7 @@ const routes = [
 		},{
 			path: '/ammo',
 			component: ammo,
-			meta: ['基础数据管理', '弹药数据'],
+			meta: ['基础数据管理', '弹药管理'],
 		},{
 			path: '/addAmmo',
 			component: addAmmo,
