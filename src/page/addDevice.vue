@@ -36,9 +36,6 @@
                             placeholder="选择日期">
                             </el-date-picker>
 					</el-form-item>
-                    <el-form-item label="寿命" prop="filed8">
-						<el-input v-model="formData.filed8"></el-input>
-					</el-form-item>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>
 					</el-form-item>

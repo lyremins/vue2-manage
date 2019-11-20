@@ -24,10 +24,10 @@
                             </el-date-picker>
 					</el-form-item>
                     <el-form-item label="总挂飞小时" prop="filed6">
-						<el-input v-model="formData.filed5"></el-input>
+						<el-input v-model="formData.filed6"></el-input>
 					</el-form-item>
                     <el-form-item label="已挂飞小时" prop="filed7">
-						<el-input v-model="formData.filed5"></el-input>
+						<el-input v-model="formData.filed7"></el-input>
 					</el-form-item>
 					<el-form-item class="button_submit">
 						<el-button type="primary" @click="submitForm('formData')">立即创建</el-button>

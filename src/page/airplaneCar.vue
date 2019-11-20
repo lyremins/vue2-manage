@@ -41,12 +41,8 @@
             </el-table-column>
             <el-table-column
                 prop="car_code"
-                label="车辆类型"
+                label="关联车辆类型"
                 width="200">
-            </el-table-column>
-            <el-table-column
-                prop="lc"
-                label="行驶历程">
             </el-table-column>
             <el-table-column label="操作" width="300">
                   <template slot-scope="scope">

@@ -109,7 +109,7 @@
             display: inline-block;
             text-align: center;
             position: relative;
-            margin: 10PX;
+            margin: 20PX;
         }
         .car {
             text-align: center;

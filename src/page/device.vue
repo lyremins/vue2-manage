@@ -34,8 +34,8 @@
                         <el-form-item label="装机日期">
                         <span>{{ props.row.filed7 }}</span>
                       </el-form-item>
-                        <el-form-item label="寿命">
-                        <span>{{ props.row.filed8 }}</span>
+                        <el-form-item label="">
+                        <span></span>
                       </el-form-item>
                     </el-form>
                   </template>
@@ -73,11 +73,6 @@
                           <el-table-column
                 prop="filed7"
                 label="装机日期"
-                width="120">
-              </el-table-column>
-                          <el-table-column
-                prop="filed8"
-                label="寿命"
                 width="120">
               </el-table-column>
             <el-table-column label="操作" width="200">

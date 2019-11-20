@@ -36,9 +36,10 @@
 					</el-form-item>
 					<el-form-item label="单位" prop="company">
 						<!-- <el-input v-model="formData.company"></el-input> -->
-                        <el-select v-model="formData.company" placeholder="请选择单位"  style="width: 360px" ref="selectReport">
+                        <el-select @blur="dd1()" @focus="dd()" v-model="formData.company" placeholder="请选择单位"  style="width: 360px" ref="selectReport">
                         <el-option :value="formData.company" :label="formData.company" style="width: 560px;height:200px;overflow: auto;background-color:#fff">
                             <el-tree
+                                v-if="openOrNot"
                                 :data="organiz"
                                 @node-click="handleNodeClick"
                             ></el-tree>
@@ -157,7 +158,9 @@
                 zy: {},
                 zg: ['是','否'],
                 organiz: [],
-                sex: ['男','女']
+                sex: ['男','女'],
+                str: '',
+                openOrNot: false
     		}
     	},
     	components: {
@@ -229,15 +232,24 @@
                 // this.organiz = this.organiz[0].organizArray
             },
             handleNodeClick(node){
-                console.log(node,'node')
+                console.log(node,'node');
+                console.log(this.$refs.selectReport);
                 if(node.children.length){
-                    console.log('11111');
+                    this.str = this.str + node.label+"-";
+                    console.log(this.str );
                 }else{
                     console.log('22233');
-                    this.formData.company = node.label
+                    console.log(this.str);
+                    this.formData.company = this.str + node.label;
                     console.log(this.formData.company);
                     this.$refs.selectReport.blur()
                 }
+            },
+            dd() {
+                this.openOrNot = true;
+            },
+            dd1() {
+                this.openOrNot = false;
             }
 		}
     }

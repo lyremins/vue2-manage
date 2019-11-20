@@ -13,7 +13,7 @@
                                         'try': v.state === '试飞' ||
                                         v.state === '待退役'}">
                     {{v.state}}</span>
-                    <p class="task">飞机名称：{{v.model}}</p>
+                    <p class="task">车辆名称：{{v.name}}</p>
                     <p class="task">进场状态：{{v.enter}}</p>
                     <p class="task">任务状态：{{v.taskState}}</p>
                     <p class="task">最后操作时间：{{v.create_time}}</p>
