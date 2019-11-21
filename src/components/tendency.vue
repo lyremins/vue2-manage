@@ -31,6 +31,19 @@
                                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                             }
                         },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                dataZoom: {
+                                    yAxisIndex: 'none'
+                                },
+                                dataView : {readOnly: true},
+                                restore : {show: true},
+                                saveAsImage : {show: true},
+                                magicType: {type: ['bar', 'line']},
+                                restore: {},
+                            }
+                        },
                         grid: {
                             left: '3%',
                             right: '4%',
