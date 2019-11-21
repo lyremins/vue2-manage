@@ -23,7 +23,11 @@
                                 <span>保障类型：{{v.content}}</span>
                                 <h4 v-show="v.plan">飞行计划：</h4>
                                 <span v-show="v.plan" v-for="vv in v.plan">
-                                    {{vv.name}}
+                                    计划名称：{{vv.name}}
+                                    <div v-if="vv.name">
+                                        计划人员：{{vv.air}}
+                                        <!-- {{getToPerson(vv.plan_id)}} -->
+                                    </div>
                                 </span>
                                 <h4 v-show="v.car">保障车辆：</h4>
                                 <span v-show="v.car" v-for="vv in v.car">
@@ -103,7 +107,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import { getEnsure,getEnsureCount,getEnsureById,updateEnsure,deleteEnsure } from '@/api/getData'
+    import { getEnsure,getEnsureCount,getEnsureById,updateEnsure,deleteEnsure,getPersonSituationToPlan } from '@/api/getData'
     export default {
         data(){
             return {
@@ -151,6 +155,19 @@
                     if (res.status == 1) {
                     	this.tableData = [];
                     	res.data.forEach(item => {
+                            item.filed3.forEach(element => {
+                                if (element.content === '飞行计划保障' && element.plan.length) {
+                                    element.plan.forEach(async e1 => {
+                                        const planArray = await getPersonSituationToPlan({
+                                            plan_id:e1.plan_id
+                                        });
+                                        const newA = planArray.data.map(v => v.bind);
+                                        const newB = [].concat.apply([], newA);
+                                        const newC = newB.map(v => v.user_name);
+                                        e1.air = newC.join(",");
+                                    });
+                                }
+                            });
                     		const tableItem = {
                                 ensure_id: item.ensure_id,
                                 filed1: item.filed1,
@@ -159,8 +176,9 @@
 						        filed4: item.filed4,
                                 filed5: item.filed5,
                                 filed6: item.filed6
-                    		}
-                    		this.tableData.push(tableItem)
+                            }
+                            console.log(tableItem);
+                            this.tableData.push(tableItem)
                         })
                     }else{
                     	throw new Error(res.message)
@@ -230,7 +248,20 @@
             },
             addEnsure() {
                 this.$router.push('/addEnsure');
-            }
+            },
+            // async getToPerson(plan_id) {
+            //     console.log(plan_id);
+            //     const planArray = await getPersonSituationToPlan({
+            //         plan_id:plan_id
+            //     });
+            //     console.log(planArray);
+            //     const newA = planArray.data.map(v => v.bind);
+            //     const newB = [].concat.apply([], newA);
+            //     const newC = newB.map(v => v.user_name);
+
+            //     console.log(newC.join(","));
+            //     return newC.join(",");
+            // }
         },
     }
 </script>

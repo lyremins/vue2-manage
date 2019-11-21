@@ -24,6 +24,10 @@
                         <span>飞行科目：{{v.airSubject}}</span>
                         <span>起落次数：{{v.upDownNumber}}</span>
                         <span>飞行任务时间：{{v.flightTime}}</span>
+                        <div v-show="vv.isCheck" v-for="vv in v.xd">
+                            <span>飞机弹药编号：{{vv.air_code}}_{{vv.ammo_code}}</span>
+                            <span>携弹数量：{{vv.number}}</span>
+                        </div>
                         </div>
                       </el-form-item>
                     </el-form>

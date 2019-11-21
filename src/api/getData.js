@@ -638,4 +638,5 @@ export const getCarSituation = () => fetch('/wcbz/getCarSituation');
 export const getPersonSituation = () => fetch('/wcbz/getPersonSituation');
 export const getAirplaneToDevice = () => fetch('/wcbz/getAirplaneToDevice');
 export const getAmmoToDevice = () => fetch('/wcbz/getAmmoToDevice');
+export const getPersonSituationToPlan = (plan_id) => fetch('/wcbz/getPersonSituationToPlan',plan_id);
 
