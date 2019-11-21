@@ -15,6 +15,7 @@
 						<el-menu-item index="airplaneDevice">飞机有寿器件管理</el-menu-item>
                         <el-menu-item index="airplaneAmmo">飞机弹药管理</el-menu-item>
                         <el-menu-item index="airplaneCar">飞机保障车辆管理</el-menu-item>
+                        <el-menu-item index="organiz">组织架构管理</el-menu-item>
 					</el-submenu>
 					<el-submenu index="3">
 						<template slot="title"><i class="el-icon-plus"></i>综合态势</template>

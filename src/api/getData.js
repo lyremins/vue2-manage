@@ -640,3 +640,21 @@ export const getAirplaneToDevice = () => fetch('/wcbz/getAirplaneToDevice');
 export const getAmmoToDevice = () => fetch('/wcbz/getAmmoToDevice');
 export const getPersonSituationToPlan = (plan_id) => fetch('/wcbz/getPersonSituationToPlan',plan_id);
 
+/**
+ * 添加组织架构
+ */
+
+export const addOrganiz = data => fetch('/wcbz/addOrganiz',data,'POST');
+
+/**
+ * 更新配置信息
+ */
+
+export const updateOrganiz = data => fetch('/wcbz/updateOrganiz', data, 'POST');
+
+/**
+ * 更新用户组织架构
+ */
+
+export const updatePersonOrganiz = data => fetch('/wcbz/updatePersonOrganiz', data, 'POST');
+

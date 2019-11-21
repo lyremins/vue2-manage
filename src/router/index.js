@@ -53,6 +53,7 @@ const peopleSituation = r => require.ensure([], () => r(require('@/page/peopleSi
 const deviceSituation = r => require.ensure([], () => r(require('@/page/deviceSituation')), 'deviceSituation');
 const ammoSituation = r => require.ensure([], () => r(require('@/page/ammoSituation')), 'ammoSituation');
 const backup = r => require.ensure([], () => r(require('@/page/backup')), 'backup');
+const organiz = r => require.ensure([], () => r(require('@/page/organiz')), 'organiz');
 
 const routes = [
 	{
@@ -235,6 +236,10 @@ const routes = [
 			path: '/showAirplaneCar',
 			component: showAirplaneCar,
 			meta: ['基础数据管理', '飞机-保障车辆关联'],
+		},{
+			path: '/organiz',
+			component: organiz,
+			meta: ['基础数据管理', '组织架构'],
 		},{
 			path: '/airplaneSituation',
 			component: airplaneSituation,
