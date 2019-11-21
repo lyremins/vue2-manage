@@ -52,6 +52,7 @@ const carSituation = r => require.ensure([], () => r(require('@/page/carSituatio
 const peopleSituation = r => require.ensure([], () => r(require('@/page/peopleSituation')), 'peopleSituation');
 const deviceSituation = r => require.ensure([], () => r(require('@/page/deviceSituation')), 'deviceSituation');
 const ammoSituation = r => require.ensure([], () => r(require('@/page/ammoSituation')), 'ammoSituation');
+const backup = r => require.ensure([], () => r(require('@/page/backup')), 'backup');
 
 const routes = [
 	{
@@ -129,7 +130,7 @@ const routes = [
 		},{
 			path: '/personnel',
 			component: personnel,
-			meta: ['基础基础数据管理', '机务人员管理'],
+			meta: ['基础数据管理', '机务人员管理'],
 		},{
 			path: '/addAirplane',
 			component: addAirplane,
@@ -137,11 +138,11 @@ const routes = [
 		},{
 			path: '/airplane',
 			component: airplane,
-			meta: ['基础基础数据管理', '飞机管理'],
+			meta: ['基础数据管理', '飞机管理'],
 		},{
 			path: '/equip',
 			component: equip,
-			meta: ['基础基础数据管理', '装备基础数据管理'],
+			meta: ['基础数据管理', '装备基础数据管理'],
 		},{
 			path: '/addEquip',
 			component: addEquip,
@@ -149,15 +150,15 @@ const routes = [
 		},{
 			path: '/ensure',
 			component: ensure,
-			meta: ['基础基础数据管理', '保障基础数据管理'],
+			meta: ['计划任务/保障任务', '保障任务管理'],
 		},{
 			path: '/addEnsure',
 			component: addEnsure,
-			meta: ['添加数据', '添加保障数据'],
+			meta: ['计划任务/保障任务', '添加保障数据'],
 		},{
 			path: '/device',
 			component: device,
-			meta: ['基础基础数据管理', '有寿器件管理'],
+			meta: ['基础数据管理', '有寿器件管理'],
 		},{
 			path: '/addDevice',
 			component: addDevice,
@@ -165,7 +166,7 @@ const routes = [
 		},{
 			path: '/vehicle',
 			component: vehicle,
-			meta: ['基础基础数据管理', '车辆管理'],
+			meta: ['基础数据管理', '车辆管理'],
 		},{
 			path: '/addVehicle',
 			component: addVehicle,
@@ -173,7 +174,7 @@ const routes = [
 		},{
 			path: '/subject',
 			component: subject,
-			meta: ['基础基础数据管理', '条目基础数据管理'],
+			meta: ['基础数据管理', '条目基础数据管理'],
 		},{
 			path: '/addSubject',
 			component: addSubject,
@@ -189,7 +190,7 @@ const routes = [
 		},{
 			path: '/ammo',
 			component: ammo,
-			meta: ['基础基础数据管理', '弹药管理'],
+			meta: ['基础数据管理', '弹药管理'],
 		},{
 			path: '/addAmmo',
 			component: addAmmo,
@@ -197,11 +198,11 @@ const routes = [
 		},{
 			path: '/plan',
 			component: plan,
-			meta: ['基础基础数据管理', '飞行计划'],
+			meta: ['计划任务/保障任务', '飞行计划管理'],
 		},{
 			path: '/addPlan',
 			component: addPlan,
-			meta: ['基础数据管理', '添加飞行计划'],
+			meta: ['计划任务/保障任务', '添加飞行计划'],
 		},{
 			path: '/config',
 			component: config,
@@ -209,7 +210,7 @@ const routes = [
 		},{
 			path: '/chat',
 			component: chat,
-			meta: ['基础数据管理', '聊天管理'],
+			meta: ['聊天管理', '聊天管理'],
 		},{
 			path: '/airplaneDevice',
 			component: airplaneDevice,
@@ -254,6 +255,10 @@ const routes = [
 			path: '/ammoSituation',
 			component: ammoSituation,
 			meta: ['综合态势', '弹药态势'],
+		},{
+			path: '/backup',
+			component: backup,
+			meta: ['设置', '数据备份'],
 		}]
 	}
 ]
